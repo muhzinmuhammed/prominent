@@ -1,6 +1,6 @@
 import express from 'express'
 const tutorRouter=express.Router()
-import { instructorSignup } from '../../controller/tutorController/tutorController'
+import { instructorSignup,loginInstructor } from '../../controller/tutorController/tutorController'
 
 
 /*instructor register*/
@@ -10,6 +10,8 @@ tutorRouter.post('/register',instructorSignup)
 
 
 /*instructor login*/
+
+tutorRouter.post('/login',loginInstructor)
 
 
 /*instructor login*/

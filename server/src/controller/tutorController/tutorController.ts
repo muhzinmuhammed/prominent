@@ -44,6 +44,34 @@ const instructorSignup = asyncHandler(async (req: Request, res: Response) => {
 
 /*instructor register*/
 
+const loginInstructor = async (req: Request, res: Response) => {
+    const { instrctoremail, password } = req.body;
+
+    try {
+        const user = await instrcutorSchema.findOne({ instrctoremail }); // Use StudentModel instead of userModel
+        
+        if (!user) {
+            return res.status(401).json({ message: "User not logged in" }); // Use return here to exit the function after sending the response
+        }
+
+        if (user && (await user.matchPassword(password))) {
+            const token = generateToken(user._id);
+
+            return res.json({
+                _id: user._id,
+                name: user.instrctorname,
+                phone: user.phone,
+                email: user.instrctoremail,
+                token,
+            });
+        } else {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
 export{
-    instructorSignup
+    instructorSignup,loginInstructor
 }

@@ -7,6 +7,7 @@ import tutorRouter from "./routes/tutorRouter/tutorRouter"
 
 
 import 'dotenv/config'
+import adminRouter from "./routes/adminRouter/adminRouter"
 
 
 const app=express()
@@ -22,4 +23,8 @@ app.use('/student',studentRouter)
 /*instructor  route*/
 app.use('/instructor',tutorRouter)
 /*instructor  route*/
+/*admin  route*/
+app.use('/admin',adminRouter)
+/*admin  route*/
+
 app.listen(port)

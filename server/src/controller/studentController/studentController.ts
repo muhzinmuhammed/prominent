@@ -6,7 +6,8 @@ import generateToken from "../../../utlitis/genarateToken";
 
 
 /*student register*/
-const studentSignup = asyncHandler(async (req: Request, res: Response) => {
+const studentSignup = asyncHandler(async (req: Request, res: Response)  => {
+    
     try {
         const { studentname, studentemail, password,phone } = req.body;
         const userExists = await userModel.findOne({ studentemail });
