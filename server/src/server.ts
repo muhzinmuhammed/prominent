@@ -1,0 +1,25 @@
+import express from "express"
+/* to connect database*/
+import '../connection/connection'
+import studentRouter from "./routes/studentRouter/studentRouter"
+import tutorRouter from "./routes/tutorRouter/tutorRouter"
+
+
+
+import 'dotenv/config'
+
+
+const app=express()
+
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+
+const port=process.env.PORT
+
+/*student route*/
+app.use('/student',studentRouter)
+/*student route*/
+/*instructor  route*/
+app.use('/instructor',tutorRouter)
+/*instructor  route*/
+app.listen(port)
