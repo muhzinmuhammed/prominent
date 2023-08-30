@@ -1,0 +1,14 @@
+.logo{
+    margin-left: 30px;
+    color: rgb(23, 172, 172);
+}
+.button{
+    background-color: rgb(23, 172, 172);
+    color: white;
+    border: none;
+
+}
+.navbar-item{
+    color: rgb(0, 0, 0);
+    font-size: large
+}
