@@ -1,20 +1,27 @@
 import { Request, Response } from "express";
-import asyncHandler from "express-async-handler";
+
 import userModel from "../../models/userModel";
 import generateToken from "../../../utlitis/genarateToken";
-
+        
 
 
 /*student register*/
-const studentSignup = asyncHandler(async (req: Request, res: Response)  => {
-    
+const studentSignup = async (req: Request, res: Response) => {
+   
     try {
-        const { studentname, studentemail, password,phone } = req.body;
+        const { studentname, studentemail, password, phone } = req.body;
+        console.log('====================================');
+        console.log(studentname, studentemail, password, phone );
+        console.log('====================================');
+        if (!studentname || !studentemail || !password || !phone) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
         const userExists = await userModel.findOne({ studentemail });
         const userPhone = await userModel.findOne({ phone });
 
-        if (userExists||userPhone) {
-            res.status(400).json({ message: 'User already exists' });
+        if (userExists || userPhone) {
+            return res.status(400).json({ message: 'User already exists' });
         }
 
         const user = await userModel.create({
@@ -25,23 +32,22 @@ const studentSignup = asyncHandler(async (req: Request, res: Response)  => {
         });
 
         if (user) {
-            const token = generateToken(user._id); // Assuming generateToken function returns a string
-
-            res.status(200).json({
+            const token = generateToken(user._id);
+            return res.status(201).json({
                 _id: user._id,
                 name: user.studentname,
                 email: user.studentemail,
+                phone,
                 token,
             });
         } else {
-            res.status(400).json({ message: "Invalid user data" })
+            return res.status(400).json({ message: 'Invalid user data' });
         }
     } catch (error) {
-        res.status(500); // Internal server error
-        throw error;
+        console.error(error);
+        return res.status(500).json({ message: 'An error occurred' });
     }
-});
-
+};
 /*student register*/
 
 /*student login*/

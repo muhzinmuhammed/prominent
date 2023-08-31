@@ -3,7 +3,7 @@ import express from "express"
 import '../connection/connection'
 import studentRouter from "./routes/studentRouter/studentRouter"
 import tutorRouter from "./routes/tutorRouter/tutorRouter"
-
+import cors from 'cors'
 
 
 import 'dotenv/config'
@@ -14,7 +14,7 @@ const app=express()
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-
+app.use(cors()); 
 const port=process.env.PORT
 
 /*student route*/
