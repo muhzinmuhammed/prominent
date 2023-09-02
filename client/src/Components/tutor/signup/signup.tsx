@@ -5,14 +5,14 @@ import { toast,ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import {  useDispatch,useSelector } from 'react-redux'
-import { selectUser, signup } from '../../../features/userSlice/userSlice';
-function Signup() {
-  const user = useSelector(selectUser);
-  const [studentname, setName] = useState(""); // Initialize state with an empty string
-  const [studentemail, setEmail] = useState("");
+import { selectTutor, signup } from '../../../features/tutorSlice/tutorSlice';
+function TutorSignup() {
+  const user = useSelector(selectTutor);
+  const [instrctorname, setName] = useState(""); // Initialize state with an empty string
+  const [instrctoremail, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(" ");
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const isStrongPassword = (password: string): boolean => {
@@ -23,8 +23,8 @@ function Signup() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const trimmedName = studentname.trim();
-    const trimmedEmail = studentemail.trim();
+    const trimmedName = instrctorname.trim();
+    const trimmedEmail = instrctoremail.trim();
     const trimmedPhone = phone.trim();
     const trimmedPassword = password.trim();
 
@@ -51,9 +51,9 @@ function Signup() {
     }
 
     try {
-      const response = await  axios.post('http://localhost:5000/student/register',  {
-        studentname: trimmedName,
-        studentemail: trimmedEmail,
+      const response = await  axios.post('http://localhost:5000/instructor/register',  {
+        instrctorname: trimmedName,
+        instrctoremail: trimmedEmail,
         phone: trimmedPhone,
         password: trimmedPassword,
       });
@@ -72,7 +72,7 @@ dispatch(signup(response.data));
   };
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/tutor_home');
     }
   }, [navigate, user]);
 
@@ -90,7 +90,7 @@ dispatch(signup(response.data));
                 <Form.Control
                   type="text"
                   placeholder="Please Enter Your Full Name"
-                  value={studentname}
+                  value={instrctorname}
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
@@ -99,7 +99,7 @@ dispatch(signup(response.data));
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
-                  value={studentemail}
+                  value={instrctoremail}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Form.Group>
@@ -140,7 +140,7 @@ dispatch(signup(response.data));
             </Form>
             <div className="mt-3">
               <p className="mb-0">
-                Already have an account? <Link to={"/login"}>Login</Link>
+                Already have an account? <Link to={"/tutor_login"}>Login</Link>
               </p>
             </div>
           </Card>
@@ -150,4 +150,4 @@ dispatch(signup(response.data));
   );
 }
 
-export default Signup;
+export default TutorSignup;

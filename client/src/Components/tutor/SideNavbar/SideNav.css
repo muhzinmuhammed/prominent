@@ -1,0 +1,92 @@
+
+/*navbar*/
+
+.nav{
+    height: 100px;
+    background-color: rgb(251, 249, 249);;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+    color: black;
+}
+
+.nav h2{
+    cursor: pointer;
+}
+.nav ul{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.nav ul li{
+    cursor: pointer;
+}
+
+/*navbar*/
+
+/*side navbar*/
+.sidebar-conatiner {
+    background-color: rgb(251, 249, 249);
+    color: rgb(36, 34, 34);
+    width: 250px;
+    height: 130px;
+    
+    overflow-x: hidden;
+}
+.nav-option{
+    display: flex;
+    align-items: center;
+    padding: 0px 0px 0px 30px;
+    gap:10px;
+    width: 210px;
+
+
+}
+
+.sidebar-conatiner .nav-option:hover {
+    background-color:  rgb(23, 172, 172);
+    color: white;
+}
+.sidebar-container::-webkit-scrollbar{
+    display: none;
+
+}.logo{
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+/*side navbar*/
+
+/*media query*/
+@media screen and (min-width: 768px) {
+
+    .navCollapse{
+        width: 100px;
+
+    }
+    .navCollapse .nav-option h3{
+        display: none;
+
+    }
+    .navCollapse .nav-option{
+        padding: 28px;
+    }
+    .smallDeviceIcon{
+        display: none;
+
+    }
+}
+@media screen and (max-width:767px) {
+    .largeDeviceIcon{
+        display: none;
+    }.smallNav{
+        display: none;
+    }.sidebar-conatiner{
+        display: block;
+    }
+    .logo h2 {
+        display: none;
+    }
+}
+/*media query*/

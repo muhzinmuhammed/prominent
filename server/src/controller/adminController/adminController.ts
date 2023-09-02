@@ -39,6 +39,8 @@ const loginAdmin = async (req: Request, res: Response) => {
 /*get all student*/
 
 const getAllStudent = async (req: Request, res: Response) => {
+    console.log('lll');
+    
     try {
         const studentDetails=await userModel.find().exec()
     if (studentDetails) {

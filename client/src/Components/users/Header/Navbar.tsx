@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../../features/userSlice';
+import { selectUser } from '../../../features/userSlice/userSlice';
 import './Navbar.css';
 
 function NavbarHeader() {
@@ -46,6 +46,9 @@ function NavbarHeader() {
                 </Link>
                 <Link to="/signup">
                   <Button className="button me-3">SignUp</Button>
+                </Link>
+                <Link to="/tutor_login">
+                  <Button className="button me-3">Instructor Login</Button>
                 </Link>
               </>
             )}

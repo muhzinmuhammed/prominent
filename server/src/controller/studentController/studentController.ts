@@ -10,9 +10,7 @@ const studentSignup = async (req: Request, res: Response) => {
    
     try {
         const { studentname, studentemail, password, phone } = req.body;
-        console.log('====================================');
-        console.log(studentname, studentemail, password, phone );
-        console.log('====================================');
+      
         if (!studentname || !studentemail || !password || !phone) {
             return res.status(400).json({ message: 'All fields are required' });
         }

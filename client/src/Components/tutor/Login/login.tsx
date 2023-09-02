@@ -1,23 +1,23 @@
 
 import { Form, Card, Container, Button } from 'react-bootstrap';
-import './LOgin.css'
+import './login.css'
 import { Link,useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import {toast,ToastContainer} from 'react-toastify'
 import {  useDispatch,useSelector } from 'react-redux'
-import { login, selectUser } from '../../../features/userSlice/userSlice';
+import { login,selectTutor } from '../../../features/tutorSlice/tutorSlice';
 import axios from 'axios'
 
-function Login() {
-  const user = useSelector(selectUser);
-  const [studentemail, setEmail] = useState("");
+function TutorLogin() {
+  const user = useSelector(selectTutor);
+  const [instrctoremail, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
   const dispatch = useDispatch()
   const navigate=useNavigate()
 
   const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
-    const trimmedEmail = studentemail.trim();
+    const trimmedEmail = instrctoremail.trim();
     const trimmedPassword = password.trim();
     if (
       
@@ -29,9 +29,9 @@ function Login() {
       return;
     }
     try {
-      const response = await  axios.post('http://localhost:5000/student/login',  {
+      const response = await  axios.post('http://localhost:5000/tutor/login',  {
        
-        studentemail: trimmedEmail,
+      instrctoremail: trimmedEmail,
        
         password: trimmedPassword,
       });
@@ -50,7 +50,7 @@ dispatch(login(response.data));
   }
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/tutor_home');
     }
   }, [navigate, user]);
   return (
@@ -65,7 +65,7 @@ dispatch(login(response.data));
           <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email"  value={studentemail}
+              <Form.Control type="email" placeholder="Enter email"  value={instrctoremail}
                   onChange={(e) => setEmail(e.target.value)} />
               
             </Form.Group>
@@ -84,7 +84,7 @@ dispatch(login(response.data));
           </Form>
           <div className="mt-3">
     <p className="mb-0">
-              Don't have an account?      <Link to='/signup'> Sign up</Link> 
+              Don't have an account?      <Link to='/tutor_signup'> Sign up</Link> 
             </p>
             <p>
               
@@ -97,4 +97,4 @@ dispatch(login(response.data));
   );
 }
 
-export default Login;
+export default TutorLogin;

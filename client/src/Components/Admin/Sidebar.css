@@ -1,0 +1,157 @@
+:root {
+    --header-height: 3rem;
+    --nav-width: 68px;
+  
+   
+   
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  main {
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    color: #e89dc6;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-family: 'Nunito Sans', sans-serif;
+    transition: 0.5s;
+  }
+  
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: var(--header-height);
+    width: 100%;
+    color: #e89dc6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    padding: 0 1rem;
+    transition: 0.5s;
+  }
+  
+  .header-toggle {
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #e89dc6
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -30%;
+    height: 100vh;
+    width: var(--nav-width);
+    color: #e89dc6;
+   
+    padding-top: 1rem;
+    transition: 0.5s;
+  }
+  
+  .nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 100%;
+  }
+  
+  .nav-logo,
+  .nav-link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    column-gap: 2rem;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+  }
+  
+  .nav-logo {
+    margin-bottom: 2rem;
+  }
+  
+  .nav-logo-icon {
+    font-size: 1.25rem;
+  
+    cursor: pointer;
+  }
+  
+  .nav-logo-name {
+    font-weight: 700;
+    color: #e89dc6;
+    
+  }
+  
+  .nav-link {
+    position: relative;
+    
+    transition: 0.5s;
+    margin-bottom: 1.5rem;
+  }
+  
+  .nav-link:hover {
+    
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .active {
+    
+    background-color: rgba(222, 115, 115, 0.1);
+  }
+  
+  .active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 38px;
+    width: 3px;
+   
+    transition: 0.5s;
+  }
+  
+  .show {
+    left: 0;
+  }
+  
+  .space-toggle {
+    padding-left: calc(var(--nav-width) + 1rem);
+  }
+  
+  @media screen and (min-width: 768px) {
+    main {
+      margin: calc(var(--header-height) + 1rem) 0 0 0;
+      padding: 0 1rem 0 calc(var(--nav-width) + 2rem);
+    }
+  
+    .header {
+      height: calc(var(--header-height) + 1rem);
+      padding-left: calc(var(--nav-width) + 2rem);
+    }
+  
+    .sidebar {
+      left: 0;
+      padding: 1rem 0 0 0;
+    }
+  
+    .show {
+      width: calc(var(--header-height) + 156px);
+    }
+  
+    .space-toggle {
+      padding-left: calc(var(--nav-width) + 188px);
+    }
+  }
