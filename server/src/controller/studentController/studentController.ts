@@ -53,10 +53,16 @@ const loginStudent = async (req: Request, res: Response) => {
     const { studentemail, password } = req.body;
 
     try {
-        const user = await userModel.findOne({ studentemail }); // Use StudentModel instead of userModel
+        const user = await userModel.findOne({ studentemail });
+       
+         // Use StudentModel instead of userModel
         
         if (!user) {
             return res.status(401).json({ message: "User not logged in" }); // Use return here to exit the function after sending the response
+        }
+        if (user?.isBlocked==true) {
+            return res.status(401).json({ message: "User is Blocked" });
+            
         }
 
         if (user && (await user.matchPassword(password))) {
@@ -67,6 +73,7 @@ const loginStudent = async (req: Request, res: Response) => {
                 name: user.studentname,
                 phone: user.phone,
                 email: user.studentemail,
+                isBlocked:user.isBlocked,
                 token,
             });
         } else {

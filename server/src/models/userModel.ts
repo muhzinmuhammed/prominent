@@ -11,6 +11,7 @@ interface IStudent extends Document {
     courses: mongoose.Schema.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
+    isBlocked:boolean,
     matchPassword(enteredPassword: string): Promise<boolean>;
 }
 
@@ -38,6 +39,11 @@ const userSchema = new Schema<IStudent>({
     courses: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'courseModel',
+    },isBlocked:{
+        type:Boolean,
+        required:true,
+        default:false
+
     },
     createdAt: {
         type: Date,

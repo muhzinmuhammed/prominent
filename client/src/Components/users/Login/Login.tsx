@@ -34,7 +34,13 @@ function Login() {
         studentemail: trimmedEmail,
        
         password: trimmedPassword,
+        
       });
+
+
+
+      
+      
       
       
 
@@ -45,7 +51,7 @@ dispatch(login(response.data));
       toast.success("User created successfully.");
     } catch (error) {
       console.error(error);
-      toast.error("An error occurred.");
+      toast.error("user is blocked or Please correct passord");
     }
   }
   useEffect(() => {
