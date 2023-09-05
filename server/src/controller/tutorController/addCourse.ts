@@ -3,12 +3,15 @@ import asyncHandler from "express-async-handler";
 import addCourse  from '../../models/addCourse'
 
 
-/* add category */
+/* add course */
 
 const addCourses = asyncHandler(async (req: Request, res: Response) => {
+    console.log("lll");
+    
   
     try {
         const { coursename, courseduration,coursedescrption,category,instructor } = req.body;
+       console.log(coursename,"ll");
        
 
         
@@ -43,7 +46,7 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
     }
 });
 
-/* add category */
+/* add course */
 
 
 /* get all courses*/

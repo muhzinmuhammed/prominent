@@ -1,59 +1,49 @@
-import {useState} from "react";
-import "./SideNav.css";
-import {
-  BsSpeedometer2,
-  
-  
-  BsJustifyLeft,
- 
-} from "react-icons/bs";
-import { AiOutlinePlus } from 'react-icons/ai';
+import { useState } from "react";
+
 import { Link } from "react-router-dom";
 
 const SideNav = () => {
-    const [navCollapse,setNavCollapse]=useState(false)
-    const [smallNavCollapse,setSmallNavCollapse]=useState(false)
+  const [show, setShow] = useState(false);
+
   return (
-    
-    <div>
-      <nav className="nav">
-        <div className="logo">
-        <h2>Prominent</h2>
-        <div className="largeDeviceIcon">
-        <BsJustifyLeft onClick={e=> setNavCollapse(!navCollapse)} style={{ fontSize: '30px',cursor: 'pointer' }}/>
+    <main className={show ? "space-toggle" : ""}>
+      <header className={`header ${show ? "space-toggle" : ""}`}>
+        <div className="header-toggle" onClick={() => setShow(!show)}>
+          <i className={`fas fa-bars ${show ? "fa-solid fa-xmark" : ""}`}></i>
         </div>
-        <div className="smallDeviceIcon">
-        <BsJustifyLeft onClick={e=> setSmallNavCollapse(!smallNavCollapse)} style={{ fontSize: '30px',cursor: 'pointer' }}/>
-        </div>
-        </div>
-       
-        <ul>
-          <li>Home</li>
-          <li>New Blog</li>
-        </ul>
-      </nav>
-      <div className="sidebar_content">
-      <div className={`${smallNavCollapse ? "smallNav":""} sidebar-conatiner ${navCollapse ? "navCollapse":""}`}>
-        <div className="nav-option option1">
-          <BsSpeedometer2 style={{ fontSize: '30px',cursor: 'pointer' }}/>
-          <h3>DashBoard</h3>
-        </div>
-      </div>
-      <div className={`${smallNavCollapse ? "smallNav":""} sidebar-conatiner ${navCollapse ? "navCollapse":""}`}>
-        <div className="nav-option option1"style={{display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'black' }}>
-        <Link to="/add_course" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'black' }}>
-    <AiOutlinePlus style={{ fontSize: '30px', cursor: 'pointer' }} />
-    <h3 style={{ marginLeft: '10px', marginBottom: '0', textDecoration: 'none' }}>Add Course</h3>
-</Link>
-        </div>
-      </div>
-      
-    
-      
-      
-      
-      </div>
-    </div>
+      </header>
+
+      <aside className={`sidebar ${show ? "show" : ""}`}>
+        <nav className="nav">
+          <div>
+           
+
+            <div className="nav-list">
+              <Link
+                to="/students"
+                className="nav-link"
+                style={{ textDecoration: "none" }}
+              >
+                <i className="fas fa-user"></i>
+                <span className="nav-link-name">Student</span>
+              </Link>
+
+             
+              <Link to="/add_course" className="nav-link">
+              <i className="fa-solid fa-plus"></i>
+                <span className="nav-link-name">Add Course</span>
+              </Link>
+             
+            </div>
+          </div>
+
+          <Link to="/logout" className="nav-link">
+            <i className="fas fa-sign-out nav-link-icon"></i>
+            <span className="nav-link-name">Logout</span>
+          </Link>
+        </nav>
+      </aside>
+    </main>
   );
 };
 

@@ -45,5 +45,27 @@ const addCategory = asyncHandler(async (req: Request, res: Response) => {
 
 /* add category */
 
+/* category*/
 
-export {addCategory}
+const getAllCategory = async (req: Request, res: Response) => {
+    try {
+      const courseDetails = await categoryModel.find().exec();
+      if (courseDetails) {
+        res.status(200).json({
+          courseDetails,
+        });
+      } else {
+        return res.status(400).json({
+          message: "no users in this table",
+        });
+      }
+    } catch (error) {
+      console.log("====================================");
+      console.log(error);
+      console.log("====================================");
+    }
+  };
+/* category*/
+
+
+export {addCategory,getAllCategory}

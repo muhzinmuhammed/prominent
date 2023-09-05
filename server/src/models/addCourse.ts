@@ -45,10 +45,7 @@ const courseSchema = new Schema<ICOURSE>({
     photo: [{
         type: String,
     }],
-    instructor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'instructorcollection',
-    },
+    
    
     createdAt: {
         type: Date,

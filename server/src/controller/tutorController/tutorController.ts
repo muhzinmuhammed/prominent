@@ -7,6 +7,8 @@ import generateToken from "../../../utlitis/genarateToken";
 
 /*instructor register*/
 const instructorSignup = asyncHandler(async (req: Request, res: Response) => {
+    console.log("kkk");
+    
     try {
         const { instrctorname, instrctoremail, password,phone } = req.body;
         const userExists = await instrcutorSchema.findOne({ instrctoremail });

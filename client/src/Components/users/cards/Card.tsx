@@ -1,45 +1,60 @@
 
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+
+import {Card,Container,Button,Col,Row} from 'react-bootstrap';
 import './cards.css'
 
 function Cards() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh' }}>
-      <h1 style={{marginTop:'100px'}} >Trending course</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-between', width: '80%', marginTop: '90px' }}>
+    <section>
+      <h1 className='text-center mt-5 card-head'>Trending Course</h1>
+    <Container className='mt-5'>
+      <Row>
+        <Col xs={12} md={4}>
         <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="https://miro.medium.com/v2/resize:fit:678/1*l2tlJsFNg2tH6QizegKkqA.png" />
-          <Card.Body>
-            <Card.Title>Card Title 1</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>
-        <Card style={{ width: '18rem', border:'black' }}>
-          <Card.Img variant="top" src="https://miro.medium.com/v2/resize:fit:678/1*l2tlJsFNg2tH6QizegKkqA.png" />
-          <Card.Body>
-            <Card.Title>Card Title 2</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>
+      <Card.Img variant="top" src="https://e1.pxfuel.com/desktop-wallpaper/506/510/desktop-wallpaper-mern-stack-full-stack-developer.jpg" />
+      <Card.Body>
+        <Card.Title className='card-title text-center'>Mern</Card.Title>
+        <Card.Text>
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </Card.Text>
+        <Button className='card-button'>Go somewhere</Button>
+      </Card.Body>
+    </Card>
+          
+        </Col>
+        <Col xs={12} md={4}>
         <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="https://miro.medium.com/v2/resize:fit:678/1*l2tlJsFNg2tH6QizegKkqA.png" />
-          <Card.Body>
-            <Card.Title>Card Title 3</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>
-      </div>
-    </div>
+      <Card.Img variant="top" src="https://e1.pxfuel.com/desktop-wallpaper/506/510/desktop-wallpaper-mern-stack-full-stack-developer.jpg" />
+      <Card.Body>
+        <Card.Title className='card-title text-center '>Card Title</Card.Title>
+        <Card.Text>
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </Card.Text>
+        <Button className='card-button text-center'>Go somewhere</Button>
+      </Card.Body>
+    </Card>
+          
+        </Col>
+        <Col xs={12} md={3}>
+        <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top" src="https://e1.pxfuel.com/desktop-wallpaper/506/510/desktop-wallpaper-mern-stack-full-stack-developer.jpg" />
+      <Card.Body>
+        <Card.Title className='card-title text-center'>Card Title</Card.Title>
+        <Card.Text>
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </Card.Text>
+        <Button className='card-button'>Go somewhere</Button>
+      </Card.Body>
+    </Card>
+          
+        </Col>
+      </Row>
+    </Container>
+    </section>
+    
   );
 }
 

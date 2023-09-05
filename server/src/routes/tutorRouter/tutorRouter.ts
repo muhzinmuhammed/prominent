@@ -1,9 +1,10 @@
 import express from 'express'
 const tutorRouter=express.Router()
 import { instructorSignup,loginInstructor } from '../../controller/tutorController/tutorController'
-import { addCategory } from '../../controller/tutorController/addCategory'
+import { addCategory,getAllCategory } from '../../controller/tutorController/addCategory'
 import { addCourses,getCourses } from '../../controller/tutorController/addCourse'
-import { addLesson,getLesson } from '../../controller/tutorController/addLesson'
+import { addLesson,getLesson, getTutor } from '../../controller/tutorController/addLesson'
+
 
 /*instructor register*/
 tutorRouter.post('/register',instructorSignup)
@@ -21,6 +22,11 @@ tutorRouter.post('/login',loginInstructor)
 
 /*add category*/
 tutorRouter.post('/addCategory',addCategory)
+
+/*add category*/
+
+/*add category*/
+tutorRouter.get('/getCategory',getAllCategory)
 
 /*add category*/
 
@@ -42,6 +48,10 @@ tutorRouter.get('/allcourses',getCourses)
 
 /* get all lessons*/
 tutorRouter.get('/getLessons',getLesson)
+/* get all lessons*/
+
+/* get all lessons*/
+tutorRouter.get('/allInstructor',getTutor)
 /* get all lessons*/
 
 

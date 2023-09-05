@@ -1,14 +1,92 @@
-.logo{
-    margin-left: 30px;
-    color: rgb(23, 172, 172);
-}
-.button{
-    background-color: rgb(23, 172, 172);
-    color: white;
-    border: none;
 
+
+/* Add this CSS to your Navbar.css or a separate CSS file */
+
+/* Default styles */
+.logo {
+
+  color: #1eb2a6 !important;
+font-size: 30px;
+  margin-left: 20px;
 }
-.navbar-item{
-    color: rgb(0, 0, 0);
-    font-size: large
+.nav-item1{
+    color: #1eb2a6 !important;
+    font-size: 20px;    
+}
+
+.button1,
+.button2 {
+  background-color: #1eb2a6;
+  color: #fff;
+  border: none;
+  width: 100px;
+  margin-right: 10px;
+}
+.nav-class{
+  color: #1eb2a6;
+}
+.button1:hover,
+.button2:hover {
+  background-color: #fff;
+  color: #1eb2a6;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.4); /* Adjust shadow values as needed */
+}
+
+.toggle {
+  color: #fff;
+}
+
+.header {
+  background-color: #fff;
+  color: #1eb2a6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.search {
+  border-radius: 10px;
+  width: 600px;
+  margin-right: 110px;
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 5px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1150px;
+  top: 34%;
+  color: #1eb2a6;
+  font-size: 20px;
+}
+
+/* Media query for screens with a width of 600px or less */
+@media screen and (max-width: 767px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .button1,
+  .button2 {
+    background-color: #fff;
+    color: #1eb2a6;
+    margin-right: 5px;
+  }
+
+  /* Hide the search input on small screens */
+  .search {
+    width: 200px;
+  }
+
+  .search-icon {
+    display: none;
+  }
 }

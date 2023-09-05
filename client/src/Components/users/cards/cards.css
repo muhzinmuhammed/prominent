@@ -1,19 +1,25 @@
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 80%;
-    margin-top: 30px;
-  }
+.card-head{
+  color: #1eb2a6;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.card-title{
+  color: #1eb2a6 !important;
+}
+.card-title :hover{
+  color: #fff !important;
+  background-color: #1eb2a6;
+}
+.card-button{
+  background-color: #1eb2a6 !important;
+  border: none;
+  margin-left: 20px;
+}
+
+
+.card-button:hover{
+  background-color: #fff !important;
+  color: #1eb2a6 !important;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.4);
   
-  .custom-card {
-    flex-basis: calc(33.33% - 20px); /* 3 cards in a row with spacing */
-    margin-bottom: 20px;
-  }
-  
-  @media (max-width: 768px) {
-    .custom-card {
-      flex-basis: 100%; /* Single card on smaller screens */
-    }
-  }
-  
+
+}

@@ -6,9 +6,12 @@ import Signup from './Components/users/Signup/Signup';
 import TutorLogin from './Components/tutor/Login/login';
 import TutorSignup from './Components/tutor/signup/signup';
 import Sidebar from './Components/tutor/SideNavbar/SideNav';
-import SidebarAdmin from './pages/Admin/SideBar';
+import UserInAdmin from './pages/Admin/UserInadmin';
 
 import AddCourse from './pages/tutor/AddCourse';
+import AdminLogin from './Components/Admin/AdminLogin';
+import InstructorInAdmin from './pages/Admin/InstructorInAdmin';
+import AdminAddCourse from './pages/Admin/AddCourse';
 
 function App() {
   return (
@@ -21,7 +24,10 @@ function App() {
         <Route path="/tutor_signup" element={<TutorSignup />} />
         <Route path="/tutor_home" element={<Sidebar />} />
         <Route path="/add_course" element={<AddCourse />} />
-        <Route path="/admin" element={<SidebarAdmin />} />
+        <Route path="/students" element={<UserInAdmin />} />
+        <Route path="/admin_login" element={<AdminLogin />} />
+        <Route path="/tutors" element={<InstructorInAdmin />} />
+        <Route path="/admin_add_course" element={<AdminAddCourse />} />
 
       </Routes>
     </Router>

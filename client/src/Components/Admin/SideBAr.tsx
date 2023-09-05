@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const UsersInAdmin = () => {
   const [show, setShow] = useState(false);
 
   return (
@@ -16,25 +16,29 @@ const Sidebar = () => {
       <aside className={`sidebar ${show ? "show" : ""}`}>
         <nav className="nav">
           <div>
-            <Link to="/" className="nav-logo"></Link>
+           
 
             <div className="nav-list">
               <Link
-                to="/gallery"
+                to="/students"
                 className="nav-link"
                 style={{ textDecoration: "none" }}
               >
-                <i className="fas fa-image nav-link-icon"></i>
-                <span className="nav-link-name">Gallery</span>
+                <i className="fas fa-user"></i>
+                <span className="nav-link-name">Student</span>
               </Link>
 
-              <Link to="/hotel" className="nav-link">
-                <i className="fas fa-hotel nav-link-icon"></i>
-                <span className="nav-link-name">Hotel</span>
+              <Link
+                to="/tutors"
+                className="nav-link"
+                style={{ textDecoration: "none" }}
+              >
+               <i className="fa-solid fa-chalkboard-user"></i>
+                <span className="nav-link-name">Instructor</span>
               </Link>
-              <Link to="/gallery" className="nav-link">
-                <i className="fas fa-image nav-link-icon"></i>
-                <span className="nav-link-name">Gallery</span>
+              <Link to="/admin_add_course" className="nav-link">
+              <i className="fa-solid fa-plus"></i>
+                <span className="nav-link-name">Add Course</span>
               </Link>
               <Link to="/gallery" className="nav-link">
                 <i className="fas fa-dollar-sign nav-link-icon"></i>
@@ -53,4 +57,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default UsersInAdmin;

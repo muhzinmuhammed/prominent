@@ -1,14 +1,19 @@
 import { Request, Response } from "express";
 import userModel from "../../models/userModel";
+import categoryModel from '../../models/categoryModel'
 
 import instructorModel from "../../models/instructor";
 
 /*admin login*/
 const loginAdmin = async (req: Request, res: Response) => {
   try {
+    
+    
     const adminEmail = "admin@gmail.com";
     const adminpassword = 123456;
     const { adminname, password } = req.body;
+   
+    
 
     if (adminEmail == adminname && adminpassword == password) {
       return res.status(200).json({
@@ -68,13 +73,33 @@ const getAllInstructor = async (req: Request, res: Response) => {
   }
 };
 //* get all instructors* */
+//* get all instructors* */
+const getAllCategory = async (req: Request, res: Response) => {
+  try {
+    const courseDetails = await categoryModel.find().exec();
+    if (courseDetails) {
+      res.status(200).json({
+        courseDetails,
+      });
+    } else {
+      return res.status(400).json({
+        message: "no users in this table",
+      });
+    }
+  } catch (error) {
+    console.log("====================================");
+    console.log(error);
+    console.log("====================================");
+  }
+};
+//* get all instructors* */
 
 /*block student*/
 
 const blockStudent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-console.log("jaiii");
+
 
     const userToBlock = await userModel.findById(id);
 
@@ -123,4 +148,5 @@ export {
   getAllInstructor,
   blockStudent,
   unBlockStudent,
+  getAllCategory
 };

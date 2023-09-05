@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Table, InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
-import Sidebar from "../../Components/Admin/SideBAr";
+import Sidebar from "../../Components/Admin/SideBar";
 import ReactPaginate from "react-paginate";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

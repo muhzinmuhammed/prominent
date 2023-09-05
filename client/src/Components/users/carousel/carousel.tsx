@@ -1,33 +1,37 @@
 
-import Carousel from 'react-bootstrap/Carousel';
-import carouselImage from '../../../assets/images/carousel.jpg';
+  import {Carousel,Card,Button} from 'react-bootstrap';
+  import carouselImage1 from '../../../assets/images/carousel.jpg';
+  
+  import carouselImage3 from '../../../assets/images/mum.jpg';
+  import './carousal.css'
 
-function Home() {
-  return (
-    <Carousel className='mt-5' interval={1000}> {/* Set interval to 3000 milliseconds (3 seconds) */}
-      <Carousel.Item>
-        <img className='image-carousel' src={carouselImage} alt="First slide" style={{ width: '100%' }} />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className='image-carousel' src={carouselImage} alt="Second slide" style={{ width: '100%' }} />
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className='image-carousel' src={carouselImage} alt="Third slide" style={{ width: '100%' }} />
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-  );
-}
+  function Home() {
+    return (
+      <Carousel className='mt-5' interval={5000}> 
+        <Carousel.Item>
+          <img className='image-carousel' src={carouselImage1} alt="First slide" style={{ width: '100%',height:'500px' }} />
+          <Carousel.Caption >
+          
+      
+          
+  <Button className="btn button ">View Courses</Button>
+ 
 
-export default Home;
+
+            
+          
+          </Carousel.Caption>
+        </Carousel.Item>
+       
+        <Carousel.Item>
+          <img className='image-carousel' src={carouselImage3} alt="Third slide" style={{ width: '100%',height:'500px' }} />
+          <Carousel.Caption>
+          <Button className="btn button ">View Courses</Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+       
+      </Carousel>
+    );
+  }
+
+  export default Home;
