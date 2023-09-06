@@ -4,10 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import { AiOutlineSearch } from 'react-icons/ai';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../features/userSlice/userSlice';
+
 
 function NavbarHeader() {
   const [searchValue, setSearchValue] = useState('');
-
+  const user = useSelector(selectUser);
   // Function to handle changes in the search input
   const handleSearchInputChange = (event:string) => {
     setSearchValue(event.target.value);
@@ -22,7 +26,7 @@ function NavbarHeader() {
     <Navbar fixed='top' expand="lg" className="header">
       <Container >
         <Navbar.Brand className='logo' href="#">
-          Prominent
+          Prominent 
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -53,8 +57,13 @@ function NavbarHeader() {
             style={{ display: toggleSearchIconVisibility() }}
           />
         </Form>
-        <Button className='button1 me-3'>Login</Button>
-        <Button className='button2 me-3'>Sign Up</Button>
+        {user?<h6 className='me-5'>{user.name}</h6>:<><Link to='/login'> <Button className='button1 '>Login</Button></Link>
+        <Link to='/signup'>   <Button className='button2 '>Sign Up</Button> </Link>
+        </>
+        
+        }
+      
+     
       </div>
     </Navbar>
   );

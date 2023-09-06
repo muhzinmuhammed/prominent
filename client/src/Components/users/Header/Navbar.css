@@ -44,8 +44,8 @@ font-size: 30px;
 
 .search {
   border-radius: 10px;
-  width: 600px;
-  margin-right: 110px;
+  width: 400px;
+  margin-right: 300px;
 }
 
 .search-bar {
@@ -62,7 +62,7 @@ font-size: 30px;
 
 .search-icon {
   position: absolute;
-  left: 1150px;
+  left: 930px;
   top: 34%;
   color: #1eb2a6;
   font-size: 20px;
@@ -78,7 +78,7 @@ font-size: 30px;
   .button2 {
     background-color: #fff;
     color: #1eb2a6;
-    margin-right: 5px;
+    margin-right: 1000px;
   }
 
   /* Hide the search input on small screens */

@@ -1,16 +1,41 @@
 import { Request, Response } from "express";
-
+import nodemailer from 'nodemailer'
 import userModel from "../../models/userModel";
 import generateToken from "../../../utlitis/genarateToken";
+import StudentModel from "../../models/userModel";
+import 'dotenv/config';
+
+
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const serviceId = process.env.TWILIO_SERVICESID; // Note the corrected variable name
+
+
+
+import client from 'twilio'; // Note the corrected import statement
+
+const twilioClient = client(accountSid, authToken);
+
         
 
 
 /*student register*/
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'muhzinsidhiq333@gmail.com',
+      pass: 'iiue xtwn lkkf jfps'
+    }
+  });
+  const globalData = {
+    otp: null as null | number, // Use type null | number for otp
+    user: null as null | { studentname: string, studentemail: string, phone: string, password: string }, // Define a type for user
+  };
 const studentSignup = async (req: Request, res: Response) => {
-   
     try {
         const { studentname, studentemail, password, phone } = req.body;
-      
+
         if (!studentname || !studentemail || !password || !phone) {
             return res.status(400).json({ message: 'All fields are required' });
         }
@@ -22,22 +47,41 @@ const studentSignup = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        const user = await userModel.create({
+        const user = {
             studentname,
             studentemail,
             phone,
             password,
-        });
+        };
+        
+        globalData.user=user
 
         if (user) {
-            const token = generateToken(user._id);
-            return res.status(201).json({
-                _id: user._id,
-                name: user.studentname,
-                email: user.studentemail,
-                phone,
-                token,
+            const otp: number = parseInt((Math.random() * 1000000).toString(), 10);
+
+// Store the OTP in localStorage with a key
+globalData.otp=otp
+    
+
+            const mailOptions = {
+                from: 'muhzinsidhiq333@gmail.com',
+                to: user.studentemail,
+                subject: 'Sending Email using Node.js',
+              html:  "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" ,
+                text: 'That was easy!'
+
+              };
+
+            transporter.sendMail(mailOptions, function (error: any, info: any) {
+                if (error) {
+                    console.error(error);
+                } else {
+                    res.status(200).json({user})
+                    console.log('Verification sent to your email');
+                }
             });
+
+           
         } else {
             return res.status(400).json({ message: 'Invalid user data' });
         }
@@ -48,7 +92,33 @@ const studentSignup = async (req: Request, res: Response) => {
 };
 /*student register*/
 
+const student_singup_verify_otp =async (req: Request, res: Response) =>{
+    try {
+        const {otp}=req.body
+        
+        if (otp==globalData.otp) {
+          const addUser=  await userModel.create(globalData.user)
+            const token = generateToken(addUser._id);
+            return res.status(200).json({
+                _id: addUser?._id,
+                name: addUser?.studentname,
+                email: addUser?.studentemail,
+                phone:addUser?.phone,
+                token,
+});
+            
+        }else{
+            res.status(500).json({message:"Wrong otp"})
+        }
+        
+    } catch (error) {
+        res.status(400).json({message:'something went wrong'})
+    }
+
+}
+
 /*student login*/
+
 const loginStudent = async (req: Request, res: Response) => {
     const { studentemail, password } = req.body;
 
@@ -86,7 +156,90 @@ const loginStudent = async (req: Request, res: Response) => {
   
 /*student login*/
 
+/* otp login */
+
+
+// const student_login_with_otp = async (req: Request, res: Response) => {
+//     const studentemail = req.body.studentemail;
+   
+    
+  
+//     try {
+//       const existingUser = await StudentModel.findOne({ studentemail});
+  
+//       if (!existingUser) {
+//         // If the user does not exist, send a response indicating user not found
+//         return res.status(404).json({ message: 'User not found' });
+//       }
+  
+//       // Initialize Twilio client using environment variables
+      
+  
+//       if ( !serviceId) {
+//         return res.status(500).json({ message: 'Twilio configuration is missing' });
+//       }
+  
+    
+  
+//       const otpResponse = await twilioClient.verify.v2.services(serviceId)
+//         .verifications.create({
+//           to: studentemail, // Assuming phone number format is correct
+//           channel: 'sms',
+//         });
+  
+//       res.status(200).json({ message: 'OTP sent successfully' });
+//     } catch (error) {
+//       console.error(error); // Log the error for debugging
+//       res.status(500).json({ message: 'Something went wrong' });
+//     }
+//   };
+  
+//   exports.user_login_with_verifydotp = async (req, res) => {
+    
+//     const verificationCode = req.body.otp;
+  
+//     const phoneNumber = req.session.phone;
+//     const user = await users_models.findOne({ phone :phoneNumber });
+  
+  
+  
+//     if (!phoneNumber) {
+//       res.status(400).send({ message: "Phone number is required" });
+//       return;
+//     }
+  
+//     try {
+//       // Verify the SMS code entered by the user
+//       const verification_check = await client.verify.v2
+//         .services(serviceId)
+//         .verificationChecks.create({
+//           to: "+91" + phoneNumber,
+//           code: verificationCode,
+//         });
+  
+//       if (verification_check.status === "approved") {
+//         // If the verification is successful, do something
+//         const products = await product_model.find().where({product_status:true});
+//         req.session.isAuth=true
+//           req.session.username=user.name
+//           req.session.user_id=user.id
+//           res.redirect("/home");
+//       } else {
+//         // If the verification fails, return an error message
+//         res.render("login_with_otp", { message: "Invalid verification code" });
+//       }
+//     } catch (err) {
+//       res
+//         .status(500)
+//         .send({
+//           message: err.message || "Some error occurred while verifying the code",
+//         });
+//     }
+//   };
+/* otp login */
+
 export {
     studentSignup,
-    loginStudent
+    loginStudent,
+    student_singup_verify_otp
 };
