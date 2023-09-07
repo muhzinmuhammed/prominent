@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/Student/HomePage';
 import Login from './Components/users/Login/Login';
 import Signup from './Components/users/Signup/Signup';
 import TutorLogin from './Components/tutor/Login/login';
@@ -13,6 +13,8 @@ import AdminLogin from './Components/Admin/AdminLogin';
 import InstructorInAdmin from './pages/Admin/InstructorInAdmin';
 import AdminAddCourse from './pages/Admin/AddCourse';
 import UserOtp from './Components/users/Signup/otp';
+import CategoryPage from './pages/Admin/Category';
+import AddCategory from './pages/Admin/AddCategory';
 
 function App() {
   return (
@@ -27,10 +29,12 @@ function App() {
 
         <Route path="/tutor_home" element={<Sidebar />} />
         <Route path="/add_course" element={<AddCourse />} />
-        <Route path="/students" element={<UserInAdmin />} />
+        <Route path="/admin_in_students" element={<UserInAdmin />} />
         <Route path="/admin_login" element={<AdminLogin />} />
-        <Route path="/tutors" element={<InstructorInAdmin />} />
+        <Route path="/admin_in_instructor" element={<InstructorInAdmin />} />
         <Route path="/admin_add_course" element={<AdminAddCourse />} />
+        <Route path="/admin_in_category" element={< CategoryPage />} />
+        <Route path="/admin_add_category" element={< AddCategory />} />
 
       </Routes>
     </Router>

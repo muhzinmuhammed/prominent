@@ -9,6 +9,7 @@ import {
   getAllCategory,
 } from "../../controller/adminController/adminController";
 import { adminAddCourses } from "../../controller/adminController/adminAddCourse";
+import { addCategory } from "../../controller/adminController/adminAddCategory";
 
 
 
@@ -26,6 +27,12 @@ adminRouter.get("/getallstudent", getAllStudent);
 /*admin get all instrcutor*/
 adminRouter.get("/getallinstrcutor", getAllInstructor);
 /*admin get all instrcutor*/
+
+/*admin add category*/
+adminRouter.post("/addCategory",addCategory)
+/*admin add category*/
+
+
 /*admin get all instrcutor*/
 adminRouter.get("/getallcategory", getAllCategory);
 /*admin get all instrcutor*/

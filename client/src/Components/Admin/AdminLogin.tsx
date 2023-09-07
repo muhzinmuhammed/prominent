@@ -51,7 +51,7 @@ dispatch(login(response.data));
   }
   useEffect(() => {
     if (user) {
-      navigate('/students');
+      navigate('/dashboard');
     }
   }, [navigate, user]);
   return (

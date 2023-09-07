@@ -76,10 +76,10 @@ const getAllInstructor = async (req: Request, res: Response) => {
 //* get all instructors* */
 const getAllCategory = async (req: Request, res: Response) => {
   try {
-    const courseDetails = await categoryModel.find().exec();
-    if (courseDetails) {
+    const categoryDetails = await categoryModel.find().exec();
+    if (categoryDetails) {
       res.status(200).json({
-        courseDetails,
+        categoryDetails,
       });
     } else {
       return res.status(400).json({

@@ -14,15 +14,15 @@ interface ICATEGORY extends Document {
    
 }
 
-const instrcutorSchema = new Schema<ICATEGORY>({
+const categorySchema = new Schema<ICATEGORY>({
     title: {
         type: String,
         required: true,
     },
     description: {
         type: String,
-        required: true,
-        unique: true, // Add unique constraint
+        required: true
+         
     },
     
     
@@ -43,5 +43,5 @@ const instrcutorSchema = new Schema<ICATEGORY>({
 }, { timestamps: true });
 
 // Define the model using the model function and export it
-const CourseModel: Model<ICATEGORY> = model<ICATEGORY>('categorycollection', instrcutorSchema);
-export default CourseModel;
+const CategoryModel: Model<ICATEGORY> = model<ICATEGORY>('categorycollection', categorySchema);
+export default CategoryModel;
