@@ -16,6 +16,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
+    "cloudinary": "^1.40.0",
     "mdb-react-ui-kit": "^6.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
