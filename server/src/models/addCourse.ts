@@ -9,6 +9,7 @@ interface ICOURSE extends Document {
     isApproved:boolean;
     category:mongoose.Schema.Types.ObjectId;
     coursefee:number
+    
 
    
     photo: string[];
@@ -50,7 +51,12 @@ const courseSchema = new Schema<ICOURSE>({
     photo: [{
         type: String,
     }],
-    
+    instructor:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"instructorcollection",
+        required:true
+
+    },
    
     createdAt: {
         type: Date,

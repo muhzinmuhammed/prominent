@@ -12,6 +12,7 @@ interface IStudent extends Document {
     createdAt: Date;
     updatedAt: Date;
     isBlocked:boolean,
+    jti:string
     matchPassword(enteredPassword: string): Promise<boolean>;
 }
 
@@ -44,6 +45,9 @@ const userSchema = new Schema<IStudent>({
         required:true,
         default:false
 
+    },
+    jti:{
+        type:String
     },
     createdAt: {
         type: Date,

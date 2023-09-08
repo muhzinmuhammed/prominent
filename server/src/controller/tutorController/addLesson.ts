@@ -10,8 +10,9 @@ import instructorModel from '../../models/instructor'
 const addLesson = asyncHandler(async (req: Request, res: Response) => {
   
     try {
-        const { coursename,title, duration,coursedescrption,category,instructor } = req.body;
+        const { coursename,title, duration,coursedescrption,category,instructor,video } = req.body;
        
+console.log(coursename);
 
         
 
@@ -21,7 +22,8 @@ const addLesson = asyncHandler(async (req: Request, res: Response) => {
             duration,
             coursedescrption,
             category,
-            instructor
+            instructor,
+            video
            
         });
         if (Course) {
@@ -31,7 +33,8 @@ const addLesson = asyncHandler(async (req: Request, res: Response) => {
                 duration,
                 coursedescrption,
                 category,
-                instructor
+                instructor,
+                video
 
             })
             
@@ -56,7 +59,7 @@ const getLesson=asyncHandler(async (req: Request, res: Response) => {
     try {
 
         const courses=await LessonModel.find().populate('instructor').populate('coursename').populate('category')
-        console.log(courses,"kkk");
+        
         
         if (courses) {
 

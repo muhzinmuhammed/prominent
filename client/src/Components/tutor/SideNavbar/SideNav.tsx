@@ -11,23 +11,22 @@ const SideBar = () => {
       </div>
       <hr className='text-dark' />
       <div className="list-group list-group-flush">
-        <a className='list-group-item py-2 me-3'>
+        <a className='list-group-item py-2 me-3' href='/tutor_dashboard'>
           <i className='bi bi-speedometer2 fs-5 me-2' ></i>
           <span className="fs-5">DashBoard</span>
         </a>
        
-        <a className='list-group-item py-2 me-3' href='/home'>
-          <i className='bi bi-house fs-4 me-2'></i>
-          <span className="fs-5">Home</span>
-        </a>
+        
         <a className='list-group-item py-2 me-3' href='/admin_in_students'>
         <i className="bi bi-people fs-4 me-2"></i>
           <span className="fs-5">Student</span>
         </a>
-        <a className='list-group-item py-2 me-3' href='/admin_in_instructor'>
-        <i className="bi bi-person-badge fs-4 me-2"></i>
-          <span className="fs-5">Instructor</span>
+       
+        <a className='list-group-item py-2 me-3' href='/add_lesson'>
+        <i className="bi bi-people fs-4 me-2"></i>
+          <span className="fs-5">Add Lesson</span>
         </a>
+       
         <a className='list-group-item py-2 me-3' href='/admin_in_category'>
         <i className="bi bi-person-badge fs-4 me-2"></i>
           <span className="fs-5">View Course</span>

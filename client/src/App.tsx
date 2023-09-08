@@ -15,6 +15,7 @@ import InstructorInAdmin from './pages/Admin/InstructorInAdmin';
 import UserOtp from './Components/users/Signup/otp';
 import CategoryPage from './pages/Admin/Category';
 import AddCategory from './pages/Admin/AddCategory';
+import AddLessonInTutorPage from './pages/tutor/AddLesson';
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
 
         
         <Route path="/add_course" element={<AddCourse />} />
+        <Route path="/add_lesson" element={<AddLessonInTutorPage />} />
+
         <Route path="/admin_in_students" element={<UserInAdmin />} />
         <Route path="/admin_login" element={<AdminLogin />} />
         <Route path="/admin_in_instructor" element={<InstructorInAdmin />} />

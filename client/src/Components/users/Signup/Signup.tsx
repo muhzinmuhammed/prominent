@@ -9,6 +9,7 @@ import { selectUser, signup } from '../../../features/userSlice/userSlice';
 import NavbarHeader from "../Header/Navbar";
 import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
 
+
 function Signup() {
   const user = useSelector(selectUser);
   const [studentname, setName] = useState(""); // Initialize state with an empty string
@@ -132,7 +133,7 @@ function Signup() {
               <Button type="submit" className="w-25">
                 Sign Up
               </Button>
-              <GoogleLogin
+              <GoogleLogin 
   onSuccess={credentialResponse => {
     console.log(credentialResponse);
   }}
