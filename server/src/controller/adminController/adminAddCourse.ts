@@ -9,7 +9,7 @@ import { v2 as cloudinaryV2 } from 'cloudinary';
 import 'dotenv/config';
 
 
-;
+
 
 /* add course */
 

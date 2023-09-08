@@ -84,7 +84,7 @@ const getTutor=asyncHandler(async (req: Request, res: Response) => {
     try {
 
         const tutor=await instructorModel.find().exec()
-        console.log(tutor,"kkk");
+       
         
         if (tutor) {
 

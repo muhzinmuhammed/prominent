@@ -10,8 +10,9 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
     
   
     try {
-        const { coursename, courseduration,coursedescrption,category,instructor } = req.body;
-       console.log(coursename,"ll");
+        const { coursename, courseduration,coursedescrption,category,instructor,photo,coursefee } = req.body;
+      
+      
        
 
         
@@ -21,7 +22,9 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
             courseduration,
             coursedescrption,
             category,
-            instructor
+            instructor,
+            photo,
+            coursefee
            
         });
         if (Course) {
@@ -30,7 +33,9 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
                 courseduration,
                 coursedescrption,
                 category,
-                instructor
+                instructor,
+                photo,
+                coursefee
 
             })
             
