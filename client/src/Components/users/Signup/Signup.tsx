@@ -140,7 +140,7 @@ function Signup() {
   onError={() => {
     console.log('Login Failed');
   }}
-/>;
+/>
             </Form>
             <div className="mt-3">
               <p className="mb-0">

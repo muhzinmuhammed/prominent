@@ -1,0 +1,33 @@
+.course-card{
+    margin-top: 170px;
+}
+.tutor-header{
+    
+    color:rgb(42,59,79);
+    background-color: #fff8f8;
+    height: 200px;
+}
+.card-border{
+    opacity:0.8 ;
+}
+.card-border:hover{
+   
+    opacity: 1;
+    border: 5px solid transparent;
+
+
+}
+.tutor-header-first{
+    margin-top: 70px;
+    text-align: center;
+    position: relative;
+    top: 50px;
+}
+.tutor-header-second{
+    position: relative;
+    top: 45px;
+
+}
+.image_rounded{
+    border-radius: 50%;
+}

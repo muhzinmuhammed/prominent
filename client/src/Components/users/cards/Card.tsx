@@ -8,8 +8,8 @@ function Cards() {
     <section>
       <h1 className='text-center mt-5 card-head'>Trending Course</h1>
     <Container className='mt-5'>
-      <Row>
-        <Col xs={12} md={4}>
+      <Row className='ms-5'>
+        <Col xs={12} md={4} >
         <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src="https://e1.pxfuel.com/desktop-wallpaper/506/510/desktop-wallpaper-mern-stack-full-stack-developer.jpg" />
       <Card.Body>
@@ -18,7 +18,7 @@ function Cards() {
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </Card.Text>
-        <Button className='card-button'>Go somewhere</Button>
+        <Button className='card-button ms-5'>Go somewhere</Button>
       </Card.Body>
     </Card>
           
@@ -32,7 +32,7 @@ function Cards() {
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </Card.Text>
-        <Button className='card-button text-center'>Go somewhere</Button>
+        <Button className='card-button text-center ms-5'>Go somewhere</Button>
       </Card.Body>
     </Card>
           
@@ -46,7 +46,7 @@ function Cards() {
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </Card.Text>
-        <Button className='card-button'>Go somewhere</Button>
+        <Button className='card-button ms-5'>Go somewhere</Button>
       </Card.Body>
     </Card>
           

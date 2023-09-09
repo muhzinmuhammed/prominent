@@ -16,6 +16,9 @@ import UserOtp from './Components/users/Signup/otp';
 import CategoryPage from './pages/Admin/Category';
 import AddCategory from './pages/Admin/AddCategory';
 import AddLessonInTutorPage from './pages/tutor/AddLesson';
+import CoursePageStudent from './pages/Student/CoursePage';
+import TutorPage from './pages/Student/TutorPage';
+import TutorDetailsPage from './pages/Student/TutorDetails';
 
 
 function App() {
@@ -25,6 +28,11 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/courses" element={<CoursePageStudent />} />
+        <Route path="/tutors" element={<TutorPage />} />
+        <Route path="/tutor_details" element={<TutorDetailsPage  />} />
+
+
         <Route path="/tutor_login" element={<TutorLogin />} />
         <Route path="/tutor_signup" element={<TutorSignup />} />
         <Route path="/user_otp" element={<UserOtp />} />

@@ -35,9 +35,9 @@ function NavbarHeader() {
             style={{ maxHeight: '400px' }}
             navbarScroll
           >
-            <Nav.Link className='ms-5 nav-class ' href="#action1">Home</Nav.Link>
-            <Nav.Link className='ms-5 nav-class' href="#action2">Courses</Nav.Link>
-            <Nav.Link className='ms-5 nav-class' href="#action2">Tutors</Nav.Link>
+            <Nav.Link className='ms-5 nav-class ' href="/">Home</Nav.Link>
+            <Nav.Link className='ms-5 nav-class' href="/courses">Courses</Nav.Link>
+            <Nav.Link className='ms-5 nav-class' href="/tutors">Tutors</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

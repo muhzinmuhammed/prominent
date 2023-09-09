@@ -1,0 +1,19 @@
+.course-card{
+    margin-top: 170px;
+}
+.course-header{
+    margin-top: 90px;
+    color:rgb(42,59,79);
+    background-color: #fff8f8;
+}
+.card-border{
+    opacity:0.8 ;
+}
+.card-border:hover{
+   
+    opacity: 1;
+    border: 5px solid transparent;
+
+
+}
+
