@@ -7,6 +7,7 @@ import {toast,ToastContainer} from 'react-toastify'
 import {  useDispatch,useSelector } from 'react-redux'
 import { login,selectTutor } from '../../../features/tutorSlice/tutorSlice';
 import axios from 'axios'
+import axiosInstance from '../../../AxiosEndPoint/axiosEnd';
 
 function TutorLogin() {
   const user = useSelector(selectTutor);
@@ -29,7 +30,7 @@ function TutorLogin() {
       return;
     }
     try {
-      const response = await  axios.post('http://localhost:5000/tutor/login',  {
+      const response = await  axiosInstance.post('/tutor/login',  {
        
       instrctoremail: trimmedEmail,
        

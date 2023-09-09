@@ -48,8 +48,12 @@ const addCategory = asyncHandler(async (req: Request, res: Response) => {
 /* category*/
 
 const getAllCategory = async (req: Request, res: Response) => {
+  console.log("jjj");
+  
     try {
       const courseDetails = await categoryModel.find().exec();
+      console.log(courseDetails,"kkk");
+      
       if (courseDetails) {
         res.status(200).json({
           courseDetails,

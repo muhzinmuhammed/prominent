@@ -20,12 +20,20 @@ const UserOtp = () => {
     const response = await axios.post('http://localhost:5000/student/signup_verify', {
       otp,
     });
-    console.log(response.data);
+   
+
+
     
 
     // Check the response status and handle success or error accordingly
     if (response.status === 200) {
       toast.success('Signup successful');
+      const userdata=response.data
+      localStorage.setItem('userData', JSON.stringify(userdata));
+
+      
+      dispatch(signup(userdata))
+
       dispatch(signup(response.data)); 
       navigate('/');
     } else {

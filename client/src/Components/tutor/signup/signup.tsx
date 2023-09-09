@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import {  useDispatch,useSelector } from 'react-redux'
 import { selectTutor, signup } from '../../../features/tutorSlice/tutorSlice';
+import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 function TutorSignup() {
   const user = useSelector(selectTutor);
   const [instrctorname, setName] = useState(""); // Initialize state with an empty string
@@ -51,7 +52,7 @@ function TutorSignup() {
     }
 
     try {
-      const response = await  axios.post('http://localhost:5000/instructor/register',  {
+      const response = await  axiosInstance.post('/instructor/register',  {
         instrctorname: trimmedName,
         instrctoremail: trimmedEmail,
         phone: trimmedPhone,

@@ -3,7 +3,7 @@ import Nav from "../../Components/tutor/SideNavbar/Nav";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import axiosInstance from "../../AxiosEndPoint/axiosEnd";
 const AddLessonInTutor = ({ Toggle }) => {
   const [category, setCategory] = useState('');
   const [instructor, setInstructor] = useState('');
@@ -33,7 +33,7 @@ const AddLessonInTutor = ({ Toggle }) => {
       });
 
     // Fetch courses from the server
-    axios.get('http://localhost:5000/instructor/allcourses')
+    axiosInstance.get('/instructor/allcourses')
       .then((response) => {
         setCourseorOptions(response.data.courses);
       })
@@ -42,7 +42,7 @@ const AddLessonInTutor = ({ Toggle }) => {
       });
 
     // Fetch instructors from the server
-    axios.get('http://localhost:5000/instructor/allInstructor')
+    axiosInstance.get('/instructor/allInstructor')
       .then((response) => {
         setInstructorOptions(response.data.tutor);
       })
@@ -82,8 +82,8 @@ const AddLessonInTutor = ({ Toggle }) => {
     }
 
     // Send the lesson data to your server
-    axios
-      .post('http://localhost:5000/instructor/addLesson', {
+    axiosInstance
+      .post('/instructor/addLesson', {
         title,
         coursename,
         duration:courseduration,

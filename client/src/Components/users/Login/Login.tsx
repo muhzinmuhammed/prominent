@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Form, Card, Container, Button, Col, Row } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, selectUser } from '../../../features/userSlice/userSlice';
+import {  selectUser, signup } from '../../../features/userSlice/userSlice';
 import axios from 'axios';
 import image from '../../../assets/images/b.jpg';
 import NavbarHeader from '../Header/Navbar';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import './LOgin.css'
 
 function Login() {
@@ -29,8 +29,12 @@ function Login() {
         studentemail: trimmedEmail,
         password: trimmedPassword,
       });
+      const userdata=response.data
+      localStorage.setItem('userData', JSON.stringify(userdata));
 
-      dispatch(login(response.data));
+      
+      dispatch(signup(userdata))
+      dispatch(signup(response.data));
       toast.success('User created successfully.');
     } catch (error) {
       console.error(error);

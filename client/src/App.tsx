@@ -19,6 +19,7 @@ import AddLessonInTutorPage from './pages/tutor/AddLesson';
 import CoursePageStudent from './pages/Student/CoursePage';
 import TutorPage from './pages/Student/TutorPage';
 import TutorDetailsPage from './pages/Student/TutorDetails';
+import CourseDetailPage from './pages/Student/CourseDetailPage';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/courses" element={<CoursePageStudent />} />
         <Route path="/tutors" element={<TutorPage />} />
         <Route path="/tutor_details" element={<TutorDetailsPage  />} />
+        <Route path="/course_details" element={<CourseDetailPage  />} />
 
 
         <Route path="/tutor_login" element={<TutorLogin />} />

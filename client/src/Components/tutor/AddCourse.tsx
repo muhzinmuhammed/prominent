@@ -3,7 +3,7 @@ import Nav from "../../Components/tutor/SideNavbar/Nav";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import axiosInstance from "../../AxiosEndPoint/axiosEnd"; 
 const AddCourse = ({ Toggle }) => {
   const [category, setCategory] = useState('');
   const [instructor, setInstructor] = useState('');
@@ -14,7 +14,8 @@ const AddCourse = ({ Toggle }) => {
   const [price, setPrice] = useState(0);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [instructorOptions, setInstructorOptions] = useState([]);
-  const [cloudinaryURL, setCloudinaryURL] = useState(''); // Store the Cloudinary URL
+  const [cloudinaryURL, setCloudinaryURL] = useState('');
+// Store the Cloudinary URL
 
   function handleChange(e) {
     setPhoto(e.target.files[0]);
@@ -22,8 +23,10 @@ const AddCourse = ({ Toggle }) => {
 
   useEffect(() => {
     // Fetch categories from the server
-    axios.get('http://localhost:5000/instructor/getCategory')
+    axiosInstance.get(`/instructor/getCategory`)
       .then((response) => {
+       
+        
         setCategoryOptions(response.data.courseDetails);
       })
       .catch((error) => {
@@ -31,7 +34,7 @@ const AddCourse = ({ Toggle }) => {
       });
 
     // Fetch instructors from the server
-    axios.get('http://localhost:5000/instructor/allInstructor')
+    axiosInstance.get('/instructor/allInstructor')
       .then((response) => {
         setInstructorOptions(response.data.tutor);
       })
@@ -78,8 +81,8 @@ const AddCourse = ({ Toggle }) => {
     
 
     // Send the course data to your server
-    axios
-      .post('http://localhost:5000/instructor/addCourse', {
+    axiosInstance
+      .post('/instructor/addCourse', {
        
         
        
