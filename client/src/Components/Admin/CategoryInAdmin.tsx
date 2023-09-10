@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Header/Nav";
-import axios from "axios";
-import ReactPaginate from "react-paginate";
+
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "../../AxiosEndPoint/axiosEnd";
 
 const CategoryTable = ({ Toggle }) => {
   const [category, setCategory] = useState([]);
@@ -12,8 +13,8 @@ const CategoryTable = ({ Toggle }) => {
 
   useEffect(() => {
     // Fetch data from your API using Axios
-    axios
-      .get("http://localhost:5000/admin/getallcategory")
+    axiosInstance
+      .get("/admin/getallcategory")
       .then((response) => {
         console.log(response.data);
         setCategory(response.data.categoryDetails);
@@ -58,18 +59,7 @@ const CategoryTable = ({ Toggle }) => {
           ))}
         </tbody>
       </table>
-      {/* <ReactPaginate
-        previousLabel={"Previous"}
-        nextLabel={"Next"}
-        breakLabel={"..."}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageChange}
-        containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
-        activeClassName={"active"}
-      /> */}
+     
     </div>
   );
 };

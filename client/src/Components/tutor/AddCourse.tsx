@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../../AxiosEndPoint/axiosEnd"; 
+import { useNavigate } from "react-router-dom";
 const AddCourse = ({ Toggle }) => {
   const [category, setCategory] = useState('');
   const [instructor, setInstructor] = useState('');
@@ -15,6 +16,7 @@ const AddCourse = ({ Toggle }) => {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [instructorOptions, setInstructorOptions] = useState([]);
   const [cloudinaryURL, setCloudinaryURL] = useState('');
+  const navigate=useNavigate()
 // Store the Cloudinary URL
 
   function handleChange(e) {
@@ -53,7 +55,7 @@ const AddCourse = ({ Toggle }) => {
         "https://api.cloudinary.com/v1_1/dfnwvbiyy/image/upload",
         formData
       );
-      console.log(response);
+      
       
       setCloudinaryURL(response.data.public_id);
       
@@ -97,7 +99,9 @@ const AddCourse = ({ Toggle }) => {
       })
       .then((response) => {
         console.log(response.data);
+        navigate('/add_course')
         toast.success('Course added successfully');
+        
       })
       .catch((error) => {
         console.error(error);

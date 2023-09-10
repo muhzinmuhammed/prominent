@@ -1,60 +1,74 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import addCourse from '../../models/addCourse';
-import {cloudinaryV} from '../../../utlitis/cloudinary'
+import addCourse from "../../models/addCourse";
 
-import { v2 as cloudinaryV2 } from 'cloudinary';
-import 'dotenv/config';
+import "dotenv/config";
+import CourseModel from "../../models/addCourse";
 
+/* get course */
 
-
-
-/* add course */
-
-
-const adminAddCourses = asyncHandler(async (req: Request, res: any) => {
+const getCourses = asyncHandler(async (req: Request, res: Response) => {
   try {
-    // Now req.file should be defined because multer has handled the file upload.
-    const { coursename, courseduration, coursedescrption, category, instructor,photo } = req.body;
-    
-    
-    
-    
-    // Upload the photo to Cloudinary
-   
+    const courses = await addCourse
+      .find()
+      .populate("instructor")
+      .populate("category");
 
-    const Course = await addCourse.create({
-      coursename,
-      courseduration,
-      coursedescrption,
-      category,
-      instructor,
-      
-    });
-
-    if (Course) {
+    if (courses) {
       res.status(200).json({
-        coursename,
-        courseduration,
-        coursedescrption,
-        category,
-        
-        instructor,
+        courses,
       });
-    } else {
-      return res.status(400).json({ error: "Error creating the course" });
     }
   } catch (error) {
-    return res.status(500).json({ error: "Internal server error" });
+    res.status(500); // Internal server error
+    throw error;
   }
 });
 
-/* add course */
+/* get course */
+/*approved course*/
 
 
+const approvedCourseByAdmin = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
 
+        const courseApproved = await CourseModel.findByIdAndUpdate(id, { isApproved: true });
 
+        if (!courseApproved) {
+            return res.status(404).json({ message: "Course not found" });
+        }
 
-export { adminAddCourses };
+        return res.status(200).json({ message: "Course approved" });
+    } catch (error) {
+        console.error("Error approving course:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+/*approved course*/
+
+/*unapproved course*/
+const unApprovedCourseByAdmin = async (req: Request, res: Response) => {
+    try {
+        
+        
+        const { id } = req.params;
+
+        const course = await CourseModel.findByIdAndUpdate(id, { isApproved: false });
+
+        if (!course) {
+            return res.status(404).json({ message: "Course not found" });
+        }
+
+        return res.status(200).json({ message: "Course unapproved successfully" });
+    } catch (error) {
+        console.error("Error unapproving course:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+  
+  
+/*unapproved course*/
+
+export { getCourses,approvedCourseByAdmin,unApprovedCourseByAdmin };

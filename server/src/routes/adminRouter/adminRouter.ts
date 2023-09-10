@@ -8,7 +8,7 @@ import {
   unBlockStudent,
   getAllCategory,
 } from "../../controller/adminController/adminController";
-import { adminAddCourses } from "../../controller/adminController/adminAddCourse";
+import { approvedCourseByAdmin, getCourses, unApprovedCourseByAdmin } from "../../controller/adminController/adminAddCourse";
 import { addCategory } from "../../controller/adminController/adminAddCategory";
 
 
@@ -46,8 +46,17 @@ adminRouter.put("/unblockStudents/:id", unBlockStudent);
 /*unblock student*/
 
 /*admin add course */
-adminRouter.post('/admin_add_course',adminAddCourses)
+adminRouter.get('/getAllCourses',getCourses)
 
 /*admin add course */
+
+/*approved course*/
+adminRouter.put('/approvedCourse/:id',approvedCourseByAdmin)
+/*approved course*/
+
+/*approved course*/
+adminRouter.put('/unapprovedCourse/:id',unApprovedCourseByAdmin)
+/*unapproved course*/
+
 
 export default adminRouter;

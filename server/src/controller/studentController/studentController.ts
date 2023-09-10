@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer'
 import userModel from "../../models/userModel";
 import generateToken from "../../../utlitis/genarateToken";
 import StudentModel from "../../models/userModel";
+import InstructorModel from '../../models/instructor'
 import 'dotenv/config';
 
 
@@ -156,90 +157,24 @@ const loginStudent = async (req: Request, res: Response) => {
   
 /*student login*/
 
-/* otp login */
 
 
-// const student_login_with_otp = async (req: Request, res: Response) => {
-//     const studentemail = req.body.studentemail;
-   
-    
-  
-//     try {
-//       const existingUser = await StudentModel.findOne({ studentemail});
-  
-//       if (!existingUser) {
-//         // If the user does not exist, send a response indicating user not found
-//         return res.status(404).json({ message: 'User not found' });
-//       }
-  
-//       // Initialize Twilio client using environment variables
-      
-  
-//       if ( !serviceId) {
-//         return res.status(500).json({ message: 'Twilio configuration is missing' });
-//       }
-  
-    
-  
-//       const otpResponse = await twilioClient.verify.v2.services(serviceId)
-//         .verifications.create({
-//           to: studentemail, // Assuming phone number format is correct
-//           channel: 'sms',
-//         });
-  
-//       res.status(200).json({ message: 'OTP sent successfully' });
-//     } catch (error) {
-//       console.error(error); // Log the error for debugging
-//       res.status(500).json({ message: 'Something went wrong' });
-//     }
-//   };
-  
-//   exports.user_login_with_verifydotp = async (req, res) => {
-    
-//     const verificationCode = req.body.otp;
-  
-//     const phoneNumber = req.session.phone;
-//     const user = await users_models.findOne({ phone :phoneNumber });
-  
-  
-  
-//     if (!phoneNumber) {
-//       res.status(400).send({ message: "Phone number is required" });
-//       return;
-//     }
-  
-//     try {
-//       // Verify the SMS code entered by the user
-//       const verification_check = await client.verify.v2
-//         .services(serviceId)
-//         .verificationChecks.create({
-//           to: "+91" + phoneNumber,
-//           code: verificationCode,
-//         });
-  
-//       if (verification_check.status === "approved") {
-//         // If the verification is successful, do something
-//         const products = await product_model.find().where({product_status:true});
-//         req.session.isAuth=true
-//           req.session.username=user.name
-//           req.session.user_id=user.id
-//           res.redirect("/home");
-//       } else {
-//         // If the verification fails, return an error message
-//         res.render("login_with_otp", { message: "Invalid verification code" });
-//       }
-//     } catch (err) {
-//       res
-//         .status(500)
-//         .send({
-//           message: err.message || "Some error occurred while verifying the code",
-//         });
-//     }
-//   };
-/* otp login */
+
+
+
+/* get all instrctor*/ 
+const instructor=async(req:Request,res:Response) =>{
+    const allInstrcutor=await  InstructorModel.find().exec()
+    res.status(200).json({
+        allInstrcutor
+    })
+}
+/* get all instrctor*/
 
 export {
     studentSignup,
     loginStudent,
-    student_singup_verify_otp
+    student_singup_verify_otp,
+    instructor
+
 };

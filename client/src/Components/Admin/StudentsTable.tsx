@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Header/Nav";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "../../AxiosEndPoint/axiosEnd";
 const Home = ({ Toggle }) => {
   const [studentDetails, setStudentDetails] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(0); // Current page number
+  const [searchQuery] = useState("");
+  const [currentPage] = useState(0); // Current page number
   const itemsPerPage = 10; // Number of items to display per page
   useEffect(() => {
     // Fetch data from your API using Axios
 
-    axios
-      .get("http://localhost:5000/admin/getallstudent")
+    axiosInstance
+      .get("/admin/getallstudent")
       .then((response) => {
         setStudentDetails(response.data.studentDetails);
       })
@@ -41,11 +42,11 @@ const Home = ({ Toggle }) => {
   const toggleUserStatus = async (user) => {
     try {
       if (user.isBlocked === false) {
-        await axios.put(`http://localhost:5000/admin/blockStudents/${user._id}`);
+        await axiosInstance.put(`/admin/blockStudents/${user._id}`);
         user.isBlocked = true;
         toast.success("User Blocked Successfully");
       } else {
-        await axios.put(`http://localhost:5000/admin/unblockStudents/${user._id}`);
+        await axiosInstance.put(`/admin/unblockStudents/${user._id}`);
         user.isBlocked = false;
         toast.success("User Unblocked Successfully");
       }
@@ -57,10 +58,7 @@ const Home = ({ Toggle }) => {
       toast.error(error);
     }
   };
-  // Handle page change
-  const handlePageChange = ({ selected }) => {
-    setCurrentPage(selected);
-  };
+  
 
   return (
     <div className="px-3">

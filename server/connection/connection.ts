@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
-import dotenv from 'dotenv/config'
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 if (process.env.ENV=='dev') {
     dotenv

@@ -20,6 +20,7 @@ import CoursePageStudent from './pages/Student/CoursePage';
 import TutorPage from './pages/Student/TutorPage';
 import TutorDetailsPage from './pages/Student/TutorDetails';
 import CourseDetailPage from './pages/Student/CourseDetailPage';
+import CoursePageAdmin from './pages/Admin/CourseTable';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
         
         <Route path="/admin_in_category" element={< CategoryPage />} />
         <Route path="/admin_add_category" element={< AddCategory />} />
+        <Route path="/get_all_course_admin" element={< CoursePageAdmin />} />
 
       </Routes>
     </Router>
