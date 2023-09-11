@@ -2,21 +2,16 @@ import { Request, Response } from "express";
 import nodemailer from 'nodemailer'
 import userModel from "../../models/userModel";
 import generateToken from "../../../utlitis/genarateToken";
-import StudentModel from "../../models/userModel";
+
 import InstructorModel from '../../models/instructor'
 import 'dotenv/config';
 
 
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const serviceId = process.env.TWILIO_SERVICESID; // Note the corrected variable name
 
 
 
-import client from 'twilio'; // Note the corrected import statement
 
-const twilioClient = client(accountSid, authToken);
 
         
 

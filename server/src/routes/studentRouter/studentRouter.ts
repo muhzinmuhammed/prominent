@@ -2,7 +2,8 @@ import express from 'express'
 const studentRouter=express.Router()
 
 import { studentSignup,loginStudent, student_singup_verify_otp, instructor } from '../../controller/studentController/studentController'
-import { protect } from '../../middleware/authMiddleware'
+import { getAllCourses } from '../../controller/studentController/getAllCourse'
+import { getAllLesson } from '../../controller/studentController/getAllLessons'
 /*student register*/
 studentRouter.post('/register',studentSignup)
 /*student register*/
@@ -21,6 +22,12 @@ studentRouter.post('/signup_verify',student_singup_verify_otp)
 /* get all tutors*/
 studentRouter.get('/allTutors',instructor)
 /* get all tutors*/
+/* get all course*/
+studentRouter.get('/allCourses',getAllCourses)
+/* get all course*/
+studentRouter.get("/allLessons/:id",getAllLesson)
+
+/* get all*/
 
 
 

@@ -1,8 +1,17 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./Coursedetails.css";
+import { useParams } from "react-router-dom";
 import { Badge, Accordion } from "react-bootstrap";
 import image from "../../../assets/images/mum.jpg";
+import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 const CourseDetails = () => {
+  const { id } = useParams();
+  useEffect(()=>{
+    axiosInstance.get()
+  })
+
+  
+  
   return (
     <div className="conatiner ">
       <section className="course-details  ">
@@ -15,7 +24,7 @@ const CourseDetails = () => {
               color: "rgb(127,134,139)",
             }}
           >
-            <p className="text-center"> Courses /64be25f60d5553130b481833</p>
+            <p className="text-center"> Courses /{id}</p>
           </div>
           <div className="container course-image mt-5 me-5">
             <img src={image} className="img-fluid" alt="..." />
