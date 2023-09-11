@@ -60,6 +60,7 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
 const getCourses=asyncHandler(async (req: Request, res: Response) => {
   
     try {
+        
 
         const courses=await addCourse.find().populate('instructor').populate('category')
         

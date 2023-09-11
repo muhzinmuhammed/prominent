@@ -5,10 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../../AxiosEndPoint/axiosEnd";
 
 const GetAllCourse = ({ Toggle }) => {
-  const [courseStatus,setCourseStatus]=useState([])
-  const baseUrl =
-    "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
+  const [courseStatus, setCourseStatus] = useState([]);
+  const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
   const [courses, setCourses] = useState([]);
+
   useEffect(() => {
     // Fetch data from your API using Axios
     axiosInstance
@@ -21,34 +21,44 @@ const GetAllCourse = ({ Toggle }) => {
         toast.error(error.message);
       });
   }, []);
+
   const toggleCourseStatus = async (course) => {
     try {
-      if (!course.isApproved) {
-        await axiosInstance.put(`/admin/approvedCourse/${course._id}`);
-        course.isApproved = true;
-        toast.success("Course approved successfully");
-      } else {
-        await axiosInstance.put(`/admin/unapprovedCourse/${course._id}`);
-        course.isApproved = false;
-        toast.success("Course unapproved successfully");
-      }
-      // Update the user's status in local storage
-      localStorage.setItem(
-        `user_${course._id}_status`,
-        course.isBlocked ? "Not Approved" : "Approved"
+      // Display a confirmation dialog
+      const confirmation = window.confirm(
+        `Are you sure you want to ${
+          course.isApproved ? "unapprove" : "approve"
+        } the course "${course.coursename}"?`
       );
-      setCourses([...courses]); // Trigger a re-render
+
+      if (confirmation) {
+        if (!course.isApproved) {
+          await axiosInstance.put(`/admin/approvedCourse/${course._id}`);
+          course.isApproved = true;
+          toast.success(`Course "${course.coursename}" approved successfully`);
+        } else {
+          await axiosInstance.put(`/admin/unapprovedCourse/${course._id}`);
+          course.isApproved = false;
+          toast.success(`Course "${course.coursename}" unapproved successfully`);
+        }
+        // Update the user's status in local storage
+        localStorage.setItem(
+          `user_${course._id}_status`,
+          course.isBlocked ? "Not Approved" : "Approved"
+        );
+        setCourses([...courses]); // Trigger a re-render
+      }
     } catch (error) {
       // Handle errors and display an error message to the user
       toast.error(error.message);
     }
   };
-  
+
   return (
     <div className="px-3">
       <Nav Toggle={Toggle} />
       <ToastContainer />
-      <h1>Category Table</h1>
+      <h1>Course Table</h1>
       <table className="table rounded mt-2">
         <thead>
           <tr>
@@ -59,7 +69,6 @@ const GetAllCourse = ({ Toggle }) => {
             <th>Fees</th>
             <th>Image</th>
             <th>Status</th>
-            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -78,16 +87,16 @@ const GetAllCourse = ({ Toggle }) => {
                 />
               </td>
               <td>
-              <button
-                onClick={() => toggleCourseStatus(course)}
-                className={
-                  course.isApproved === false
-                    ? "btn btn-danger"
-                    : "btn btn-success"
-                }
-              >
-                {course.isApproved === false ? "Not Approved " : "Approved"}
-              </button>
+                <button
+                  onClick={() => toggleCourseStatus(course)}
+                  className={
+                    course.isApproved === false
+                      ? "btn btn-danger"
+                      : "btn btn-success"
+                  }
+                >
+                  {course.isApproved === false ? "Not Approved" : "Approved"}
+                </button>
               </td>
             </tr>
           ))}

@@ -51,7 +51,7 @@ dispatch(login(response.data));
   }
   useEffect(() => {
     if (user) {
-      navigate('/dashboard');
+      navigate('/admin_in_instructor');
     }
   }, [navigate, user]);
   return (

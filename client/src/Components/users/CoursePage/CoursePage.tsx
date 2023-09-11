@@ -39,7 +39,7 @@ const CoursePage = () => {
               <div key={course._id} className="col-lg-4 mt-5">
                 <div className="card-border card" style={{ width: "18rem" }}>
                   <Link
-                    to={`/course_details/${course}`}
+                    to={`/course_details/${course._id}`}
                     className="text-decoration-none"
                   >
                     <img

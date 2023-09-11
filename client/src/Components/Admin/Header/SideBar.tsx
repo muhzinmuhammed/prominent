@@ -1,8 +1,19 @@
 import React from 'react'
-import 'bootstrap//dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './Sidebar.css'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../../features/tutorSlice/tutorSlice';
+import { useNavigate } from 'react-router-dom'
 const SideBar = () => {
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+const signout=()=>{
+  dispatch(logout())
+  navigate('/admin_login')
+  
+  
+}
   return (
     <div className='bg-white sidebar p-2'>
       <div className='m-2'>
@@ -32,11 +43,15 @@ const SideBar = () => {
         <i className="bi bi-person-badge fs-4 me-2"></i>
           <span className="fs-5">Catgory</span>
         </a>
+        <a className='list-group-item py-2 me-3' href='/get_all_course_admin'>
+        <i className="bi bi-book fs-4 me-2"></i>
+          <span className="fs-5">Courses</span>
+        </a>
         <a className='list-group-item py-2 me-3' href='/admin_add_category'>
         <i className="bi bi-person-badge fs-4 me-2"></i>
           <span className="fs-5">Add Category</span>
         </a>
-        <a className='list-group-item py-2 me-3'>
+        <a className='list-group-item py-2 me-3'onClick={signout}>
         <i className="bi bi-power fs-4 me-2"></i>
           <span className="fs-5">Logout</span>
         </a>

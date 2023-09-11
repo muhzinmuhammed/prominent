@@ -17,18 +17,15 @@ const SideBar = () => {
         </a>
        
         
-        <a className='list-group-item py-2 me-3' href='/admin_in_students'>
-        <i className="bi bi-people fs-4 me-2"></i>
-          <span className="fs-5">Student</span>
-        </a>
+       
        
         <a className='list-group-item py-2 me-3' href='/add_lesson'>
         <i className="bi bi-people fs-4 me-2"></i>
           <span className="fs-5">Add Lesson</span>
         </a>
        
-        <a className='list-group-item py-2 me-3' href='/admin_in_category'>
-        <i className="bi bi-person-badge fs-4 me-2"></i>
+        <a className='list-group-item py-2 me-3' href='/course_view_tutor'>
+        <i className="bi bi-eye fs-4 me-2"></i>
           <span className="fs-5">View Course</span>
         </a>
         <a className='list-group-item py-2 me-3' href='/add_course'>

@@ -61,7 +61,7 @@ const AddLessonInTutor = ({ Toggle }) => {
         "https://api.cloudinary.com/v1_1/dfnwvbiyy/video/upload",
         formData
       );
-      console.log(response);
+      console.log(response.data,"kk");
       setCloudinaryURL(response.data.public_id);
     } catch (error) {
       console.error("Error uploading video:", error);

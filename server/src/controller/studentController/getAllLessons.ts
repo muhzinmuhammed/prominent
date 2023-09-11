@@ -6,19 +6,31 @@ import CourseModel from "../../models/addCourse";
 const getAllLesson = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    console.log(id);
-    
-    const lessons = await CourseModel.findById(id)
-    
-    
-     
+
+    // Find the course by its ID
+    const course = await CourseModel.findById(id);
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    // Find all lessons with the same course_id
+    const lessons = await LessonModel.find({ coursename: course._id })
+      .populate("coursename")
+      .populate("category")
+      .populate("instructor");
+      console.log(lessons,"ll");
       
-      
-      
-      
-    res.status(200).json({ lessons });
+
+    if (lessons) {
+        res.status(200).json({ lessons });
+        
+    }
+
+   
   } catch (error) {
-    res.status(500).json({ message: "internal server error" });
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 

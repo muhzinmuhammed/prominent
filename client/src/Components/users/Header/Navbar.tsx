@@ -6,7 +6,11 @@ import { AiOutlineSearch } from "react-icons/ai";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { logout, selectUser, signup } from "../../../features/userSlice/userSlice";
+import {
+  logout,
+  selectUser,
+  signup,
+} from "../../../features/userSlice/userSlice";
 import { useDispatch } from "react-redux";
 
 function NavbarHeader() {
@@ -16,10 +20,8 @@ function NavbarHeader() {
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
-    
+
     const parsedUserData = JSON.parse(storedUserData);
-   
-    
 
     dispatch(signup(parsedUserData));
   }, [dispatch]);
@@ -28,11 +30,10 @@ function NavbarHeader() {
     setSearchValue(event.target.value);
   };
 
-  const hanldeSignout =()=>{
-    localStorage.clear("userData")
-    dispatch(logout()); 
-
-  }
+  const hanldeSignout = () => {
+    localStorage.clear("userData");
+    dispatch(logout());
+  };
   // Function to toggle the visibility of the search icon
   const toggleSearchIconVisibility = () => {
     return searchValue ? "none" : "block";
@@ -81,8 +82,10 @@ function NavbarHeader() {
         </Form>
         {user ? (
           <>
-          <h6 className="me-5">{user.name}</h6>
-          <Button onClick={hanldeSignout} className="buton1">Logout</Button>
+            <h6 className="me-5">{user.name}</h6>
+            <Button onClick={hanldeSignout} className="buton1">
+              Logout
+            </Button>
           </>
         ) : (
           <>

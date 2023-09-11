@@ -21,6 +21,7 @@ import TutorPage from './pages/Student/TutorPage';
 import TutorDetailsPage from './pages/Student/TutorDetails';
 import CourseDetailPage from './pages/Student/CourseDetailPage';
 import CoursePageAdmin from './pages/Admin/CourseTable';
+import CourseTable from './pages/tutor/courseTable';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
 
         <Route path="/tutor_login" element={<TutorLogin />} />
         <Route path="/tutor_signup" element={<TutorSignup />} />
+        <Route path="/course_view_tutor" element={<CourseTable />} />
         <Route path="/user_otp" element={<UserOtp />} />
 
         

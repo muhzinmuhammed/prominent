@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import Nav from './Header/Nav'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import {toast,ToastContainer} from 'react-toastify'
 
 const AddCategory: React.FC<AddCategoryProps> = ({ Toggle }) => {
-
+const navigate=useNavigate()
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -17,11 +18,14 @@ const AddCategory: React.FC<AddCategoryProps> = ({ Toggle }) => {
         })
         .then((response) => {
             console.log(response.data);
-            toast.success('Category add success full successfully'); // You can use toast for notifications
+            toast.success('Category add success full successfully'); 
+            // You can use toast for notifications
+            navigate('/admin_in_category')
+
           })
           .catch((error) => {
             console.error(error);
-            toast.error('Error adding course'); // You can use toast for error notifications
+            toast.error('Category alredy exist'); // You can use toast for error notifications
           });
 
         }

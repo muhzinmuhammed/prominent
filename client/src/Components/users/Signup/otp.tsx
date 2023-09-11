@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Col, Row, Container, Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -13,7 +13,24 @@ const UserOtp = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const dispatch = useDispatch()
+  const [timer, setTimer] = useState(60);
+  useEffect(() => {
+    // Start the timer when the component mounts
+    const countdown = setInterval(() => {
+      // Decrement the timer by 1 second
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+
+    // Redirect to '/signup' when the timer reaches 0
+    if (timer === 0) {
+      navigate('/signup');
+    }
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(countdown);
+  }, [timer, navigate]);
   const handleSubmit = async (e) => {
+
   e.preventDefault();
 
   try {
@@ -69,6 +86,7 @@ const UserOtp = () => {
               </Button>
             </Form>
             {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+            <div className="mt-3">Redirecting to signup page in {timer} seconds...</div>
           </Col>
         </Row>
       </Container>
