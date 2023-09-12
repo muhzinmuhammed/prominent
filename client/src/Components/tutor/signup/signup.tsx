@@ -3,12 +3,19 @@ import { Form, Card, Container, Button } from "react-bootstrap";
 import { Link,useNavigate } from "react-router-dom";
 import { toast,ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import axios from "axios";
+
 import {  useDispatch,useSelector } from 'react-redux'
 import { selectTutor, signup } from '../../../features/tutorSlice/tutorSlice';
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 function TutorSignup() {
-  const user = useSelector(selectTutor);
+  const tutor = useSelector(selectTutor);
+  console.log(tutor);
+  
+  
+  
+  
+  
+  
   const [instrctorname, setName] = useState(""); // Initialize state with an empty string
   const [instrctoremail, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,7 +67,12 @@ function TutorSignup() {
       });
       
       
-
+      const userdata=response.data
+      localStorage.setItem('tutorData', JSON.stringify(userdata));
+  console.log(userdata,"iii");
+  
+      
+      dispatch(signup(userdata))
      
 dispatch(signup(response.data)); 
 
@@ -72,10 +84,10 @@ dispatch(signup(response.data));
     }
   };
   useEffect(() => {
-    if (user) {
-      navigate('/tutor_home');
+    if (tutor) {
+      navigate('/course_view_tutor');
     }
-  }, [navigate, user]);
+  }, [navigate, tutor]);
 
   return (
    

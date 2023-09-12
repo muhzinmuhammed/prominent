@@ -6,9 +6,12 @@ const addCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { title, description } = req.body;
   
-      const categoryExists = await categoryModel.findOne({ title });
+      const categoryExists = await categoryModel.findOne({ title: { $regex: new RegExp(title, 'i') } });
+
   
       if (categoryExists) {
+        console.log("kk");
+        
         return res.status(400).json({ message: 'Category already exists' });
       }
   

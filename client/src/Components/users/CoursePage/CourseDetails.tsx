@@ -10,10 +10,12 @@ const CourseDetails = () => {
   const baseVideo="https://res.cloudinary.com/dfnwvbiyy/video/upload/v1694365110/"
   const { id } = useParams();
   const [lessons,setLessons]=useState([])
+console.log(id,"ll");
 
   useEffect(()=>{
     axiosInstance.get(`/student/allLessons/${id}`)
     .then((response)=>{
+      console.log(response);
       
       
       setLessons(response.data.lessons)

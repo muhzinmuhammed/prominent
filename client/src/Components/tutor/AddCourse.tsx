@@ -5,17 +5,33 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../../AxiosEndPoint/axiosEnd"; 
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTutor } from "../../features/tutorSlice/tutorSlice";
+import { signup } from "../../features/userSlice/userSlice";
 
 const AddCourse = ({ Toggle }) => {
+  const dispatch=useDispatch()
+  const Tutor = useSelector(selectTutor);
+  
+
+  const storedUserDataString = localStorage.getItem("tutorData");
+  const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : null;
+  
+  
+  
+  
+
+  
+  
   const [category, setCategory] = useState('');
-  const [instructor, setInstructor] = useState('');
+
   const [photo, setPhoto] = useState('');
   const [coursename, setCourseName] = useState('');
   const [description, setDescription] = useState('');
   const [courseduration, setCourseduration] = useState('');
   const [price, setPrice] = useState(0);
   const [categoryOptions, setCategoryOptions] = useState([]);
-  const [instructorOptions, setInstructorOptions] = useState([]);
+ 
   const [cloudinaryURL, setCloudinaryURL] = useState('');
   const navigate=useNavigate()
 // Store the Cloudinary URL
@@ -36,15 +52,7 @@ const AddCourse = ({ Toggle }) => {
         console.error(error);
       });
 
-    // Fetch instructors from the server
-    axiosInstance.get('/instructor/allInstructor')
-      .then((response) => {
-        setInstructorOptions(response.data.tutor);
-        
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    
   }, []);
 
   const handlePhotoUpload = async () => {
@@ -57,7 +65,7 @@ const AddCourse = ({ Toggle }) => {
         "https://api.cloudinary.com/v1_1/dfnwvbiyy/image/upload",
         formData
       );
-      console.log(response,"llx");
+      
       
       
       
@@ -96,14 +104,14 @@ const AddCourse = ({ Toggle }) => {
         courseduration,
         coursedescrption:  description,
         category,
-        instructor,
+        instructor:storedUserData._id,
         photo: cloudinaryURL, // Use the Cloudinary URL
         coursefee:price,
         
       })
       .then((response) => {
         console.log(response.data);
-        navigate('/')
+        navigate('/course_view_tutor')
         toast.success('Course added successfully');
         
       })
@@ -154,22 +162,7 @@ const AddCourse = ({ Toggle }) => {
   </select>
 </div>
 
-<div className="form-group">
-  <label htmlFor="instructorSelect">Course Instructor</label>
-  <select
-    className="form-control"
-    id="instructorSelect"
-    value={instructor}
-    onChange={(e) => setInstructor(e.target.value)} // Use onChange instead of onClick
-  >
-    <option value="">Select Instructor</option>
-    {instructorOptions.map((inst) => (
-      <option key={inst._id} value={inst._id}>
-        {inst.instrctorname}
-      </option>
-    ))}
-  </select>
-</div>
+
 
 <div className="form-group">
           <label>Photo</label>

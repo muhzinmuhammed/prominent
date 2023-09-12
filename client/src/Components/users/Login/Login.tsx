@@ -8,6 +8,7 @@ import image from '../../../assets/images/b.jpg';
 import NavbarHeader from '../Header/Navbar';
 import {useNavigate } from 'react-router-dom';
 import './LOgin.css'
+import axiosInstance from '../../../AxiosEndPoint/axiosEnd';
 
 function Login() {
   const user = useSelector(selectUser);
@@ -25,7 +26,7 @@ function Login() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:5000/student/login', {
+      const response = await axiosInstance.post('/student/login', {
         studentemail: trimmedEmail,
         password: trimmedPassword,
       });
@@ -43,10 +44,11 @@ function Login() {
   };
 
   useEffect(() => {
-    if (user) {
+    if (localStorage.getItem("userData")) {
       navigate('/');
     }
   }, [navigate, user]);
+  
 
   return (
     <div>

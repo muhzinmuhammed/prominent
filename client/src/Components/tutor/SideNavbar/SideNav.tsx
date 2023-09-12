@@ -1,8 +1,20 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './SideNav.css'
+import { useDispatch } from 'react-redux'
+import { signup } from '../../../features/userSlice/userSlice'
 const SideBar = () => {
+  const dispatch=useDispatch()
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("tutorData");
+    console.log(storedUserData,"kkk");
+    
+
+    const parsedUserData = JSON.parse(storedUserData);
+
+    dispatch(signup(parsedUserData));
+  }, [dispatch]);
   return (
     <div className='bg-white sidebar p-2'>
       <div className='m-2'>

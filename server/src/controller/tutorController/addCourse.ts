@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import addCourse  from '../../models/addCourse'
-import addLesson from '../../models/lesson'
+
 
 
 /* add course */
 
 const addCourses = asyncHandler(async (req: Request, res: Response) => {
-    console.log("lll");
+ 
     
   
     try {
         const { coursename, courseduration,coursedescrption,category,instructor,photo,coursefee } = req.body;
-      console.log(instructor);
+      
       
       
        

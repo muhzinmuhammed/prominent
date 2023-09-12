@@ -6,11 +6,13 @@ import { useState,useEffect } from 'react';
 import {toast,ToastContainer} from 'react-toastify'
 import {  useDispatch,useSelector } from 'react-redux'
 import { login,selectTutor } from '../../../features/tutorSlice/tutorSlice';
-import axios from 'axios'
+
 import axiosInstance from '../../../AxiosEndPoint/axiosEnd';
 
 function TutorLogin() {
   const user = useSelector(selectTutor);
+  console.log(user,"user");
+  
   const [instrctoremail, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
   const dispatch = useDispatch()
@@ -51,7 +53,7 @@ dispatch(login(response.data));
   }
   useEffect(() => {
     if (user) {
-      navigate('/tutor_home');
+      navigate('/course_view_tutor');
     }
   }, [navigate, user]);
   return (

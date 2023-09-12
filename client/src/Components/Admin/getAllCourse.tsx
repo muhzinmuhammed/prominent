@@ -3,6 +3,7 @@ import Nav from "./Header/Nav";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../../AxiosEndPoint/axiosEnd";
+import Swal from 'sweetalert2';
 
 const GetAllCourse = ({ Toggle }) => {
   const [courseStatus, setCourseStatus] = useState([]);
@@ -24,14 +25,16 @@ const GetAllCourse = ({ Toggle }) => {
 
   const toggleCourseStatus = async (course) => {
     try {
-      // Display a confirmation dialog
-      const confirmation = window.confirm(
-        `Are you sure you want to ${
-          course.isApproved ? "unapprove" : "approve"
-        } the course "${course.coursename}"?`
-      );
-
-      if (confirmation) {
+      // Display a confirmation dialog using SweetAlert
+      const result = await Swal.fire({
+        title: `Are you sure you want to ${course.isApproved ? 'unapprove' : 'approve'} the course "${course.coursename}"?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+      });
+  
+      if (result.isConfirmed) {
         if (!course.isApproved) {
           await axiosInstance.put(`/admin/approvedCourse/${course._id}`);
           course.isApproved = true;
@@ -42,10 +45,7 @@ const GetAllCourse = ({ Toggle }) => {
           toast.success(`Course "${course.coursename}" unapproved successfully`);
         }
         // Update the user's status in local storage
-        localStorage.setItem(
-          `user_${course._id}_status`,
-          course.isBlocked ? "Not Approved" : "Approved"
-        );
+        localStorage.setItem(`user_${course._id}_status`, course.isBlocked ? 'Not Approved' : 'Approved');
         setCourses([...courses]); // Trigger a re-render
       }
     } catch (error) {
@@ -77,7 +77,7 @@ const GetAllCourse = ({ Toggle }) => {
               <td>{index + 1}</td>
               <td>{course.coursename}</td>
               <td>{course.coursedescrption}</td>
-              <td>{course.instructor.instrctorname}</td>
+              <td>{course.instructor?.instrctorname}</td>
               <td>{course.coursefee}</td>
               <td>
                 <img

@@ -63,6 +63,11 @@ const UserOtp = () => {
     toast.error('An error occurred'); // Display a generic error message
   }
 };
+useEffect(() => {
+  if (localStorage.getItem("userData")) {
+    navigate('/');
+  }
+}, [navigate]);
 
 
   return (
