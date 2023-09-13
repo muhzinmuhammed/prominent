@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./cousepage.css";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
@@ -8,12 +8,17 @@ import { toast } from "react-toastify";
 const CoursePage = () => {
   const baseUrl =
     "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
+    const navigate=useNavigate()
+ 
   const [course, setCourse] = useState([]);
+ 
+  
 
   useEffect(() => {
     axiosInstance
       .get("/student/allCourses")
       .then((response) => {
+        
         setCourse(response.data.allCourse);
       })
       .catch((error) => {

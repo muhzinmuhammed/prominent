@@ -5,7 +5,7 @@ import generateToken from "../../../utlitis/genarateToken";
 
 /*instructor register*/
 const instructorSignup = asyncHandler(async (req: Request, res: Response) => {
-  console.log("kkk");
+ 
 
   try {
     const { instrctorname, instrctoremail, password, phone } = req.body;
@@ -46,6 +46,8 @@ const instructorSignup = asyncHandler(async (req: Request, res: Response) => {
 
 const loginInstructor = async (req: Request, res: Response) => {
   const { instrctoremail, password } = req.body;
+ 
+  
 
   try {
     const user = await instrcutorSchema.findOne({ instrctoremail }); // Use StudentModel instead of userModel

@@ -12,11 +12,13 @@ import {
   signup,
 } from "../../../features/userSlice/userSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function NavbarHeader() {
   const [searchValue, setSearchValue] = useState("");
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
@@ -25,6 +27,9 @@ function NavbarHeader() {
 
     dispatch(signup(parsedUserData));
   }, [dispatch]);
+
+const navigate=useNavigate()
+ 
   // Function to handle changes in the search input
   const handleSearchInputChange = (event: string) => {
     setSearchValue(event.target.value);

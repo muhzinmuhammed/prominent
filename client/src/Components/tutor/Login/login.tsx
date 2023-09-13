@@ -32,7 +32,7 @@ function TutorLogin() {
       return;
     }
     try {
-      const response = await  tutoraxiosInstance.post('/tutor/login',  {
+      const response = await  tutoraxiosInstance.post('/instructor/login',  {
        
       instrctoremail: trimmedEmail,
        
@@ -41,8 +41,16 @@ function TutorLogin() {
       
       
 
+
      
-dispatch(login(response.data)); 
+      const tutordata=response.data
+      localStorage.setItem('tutorData', JSON.stringify(tutordata));
+      localStorage.setItem('tutorToken', JSON.stringify(tutordata.token));
+      
+      
+          
+          dispatch(login(tutordata))
+         
 
    
       toast.success("User created successfully.");
@@ -51,6 +59,7 @@ dispatch(login(response.data));
       toast.error("An error occurred.");
     }
   }
+  
   useEffect(() => {
     if (user) {
       navigate('/course_view_tutor');

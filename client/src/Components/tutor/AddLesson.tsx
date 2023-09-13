@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
 const AddLessonInTutor = ({ Toggle }) => {
   const [category, setCategory] = useState('');
-  const [instructor, setInstructor] = useState('');
+  
   const [video, setVideo] = useState(null); // Initialize with null
   const [coursename, setCourseName] = useState('');
   const [description, setDescription] = useState('');
@@ -14,10 +14,13 @@ const AddLessonInTutor = ({ Toggle }) => {
 
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [title, setTitle] = useState('');
-  const [instructorOptions, setInstructorOptions] = useState([]);
+  
   const [courseorOptions, setCourseorOptions] = useState([]);
   const [cloudinaryURL, setCloudinaryURL] = useState('');
-
+  const storedUserDataString = localStorage.getItem("tutorData");
+ 
+  
+  const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : null;
   function handleChange(e) {
     setVideo(e.target.files[0]);
   }
@@ -41,14 +44,8 @@ const AddLessonInTutor = ({ Toggle }) => {
         console.error(error);
       });
 
-    // Fetch instructors from the server
-    tutoraxiosinstance.get('/instructor/allInstructor')
-      .then((response) => {
-        setInstructorOptions(response.data.tutor);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  
+      
   }, []);
 
   const handlePhotoUpload = async () => {
@@ -89,7 +86,7 @@ const AddLessonInTutor = ({ Toggle }) => {
         duration:courseduration,
         coursedescrption: description,
         category,
-        instructor,
+        instructor:storedUserData._id,
         video: cloudinaryURL,
       })
       .then((response) => {
@@ -172,22 +169,7 @@ const AddLessonInTutor = ({ Toggle }) => {
             ))}
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="instructorSelect">Course Instructor</label>
-          <select
-            className="form-control"
-            id="instructorSelect"
-            value={instructor}
-            onChange={(e) => setInstructor(e.target.value)}
-          >
-            <option value="">Select Instructor</option>
-            {instructorOptions.map((inst) => (
-              <option key={inst._id} value={inst._id}>
-                {inst.instrctorname}
-              </option>
-            ))}
-          </select>
-        </div>
+     
         <div className="form-group">
           <label>Video</label>
           <input

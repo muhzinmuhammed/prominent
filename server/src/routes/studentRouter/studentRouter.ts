@@ -21,10 +21,10 @@ studentRouter.post('/signup_verify',student_singup_verify_otp)
 
 
 /* get all tutors*/
-studentRouter.get('/allTutors',protect,instructor)
+studentRouter.get('/allTutors',instructor)
 /* get all tutors*/
 /* get all course*/
-studentRouter.get('/allCourses',protect,getAllCourses)
+studentRouter.get('/allCourses',getAllCourses)
 /* get all course*/
 studentRouter.get("/allLessons/:id",getAllLesson)
 

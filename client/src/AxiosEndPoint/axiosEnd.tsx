@@ -7,14 +7,12 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const tokenString = localStorage.getItem('userToken');
+    const tokenString = localStorage.getItem("userToken");
     if (tokenString) {
       try {
         const token = JSON.parse(tokenString);
-        console.log(token,"kkk");
-        
-        
-        
+        console.log(token, "kkk");
+
         config.headers.authorization = `Bearer ${token}`;
       } catch (error) {
         // Handle JSON parsing error, if any
