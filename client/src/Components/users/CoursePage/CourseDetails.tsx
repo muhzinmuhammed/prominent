@@ -71,7 +71,7 @@ console.log(id,"ll");
         <div className="row">
           <div className="col-lg-4">
             <h1>Instructor</h1>
-            <p>{lesson.instructor.instrctorname}</p>
+            <p>{lesson.instructor?.instrctorname}</p>
           </div>
           <div className="col-lg-4">
             <h1>Duration</h1>

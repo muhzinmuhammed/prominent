@@ -1,13 +1,16 @@
 import axios from "axios";
 
 // Create an Axios instance with a base URL
-const axiosInstance = axios.create({
+const tutoraxiosinstance = axios.create({
   baseURL: "http://localhost:5000",
 });
 
-axiosInstance.interceptors.request.use(
+
+
+// Add a request interceptor
+tutoraxiosinstance.interceptors.request.use(
   (config) => {
-    const tokenString = localStorage.getItem('userToken');
+    const tokenString = localStorage.getItem('tutorToken');
     if (tokenString) {
       try {
         const token = JSON.parse(tokenString);
@@ -28,7 +31,8 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-axiosInstance.interceptors.response.use(
+// Add a response interceptor
+tutoraxiosinstance.interceptors.response.use(
   (response) => {
     if (response?.data?.message === "jwt expired") {
       localStorage.removeItem("tutorToken");
@@ -46,5 +50,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// Export the Axios instance for use in other parts of your application
-export default axiosInstance;
+export default tutoraxiosinstance;

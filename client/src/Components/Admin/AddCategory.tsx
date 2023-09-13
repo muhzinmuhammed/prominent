@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import Nav from './Header/Nav'
-import axios from 'axios'
+import tutoraxiosInstance from '../../AxiosEndPoint/tutorInstance'
 import { useNavigate } from 'react-router-dom'
 import {toast,ToastContainer} from 'react-toastify'
 
@@ -12,7 +12,7 @@ const navigate=useNavigate()
         
         
         e.preventDefault();
-        axios.post('http://localhost:5000/admin/addCategory',{
+        tutoraxiosInstance.post('/admin/addCategory',{
             title,
             description
         })

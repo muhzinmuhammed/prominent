@@ -4,6 +4,7 @@ import { instructorSignup,loginInstructor } from '../../controller/tutorControll
 import { addCategory,getAllCategory } from '../../controller/tutorController/addCategory'
 import { addCourses,getCourses } from '../../controller/tutorController/addCourse'
 import { addLesson,getLesson, getTutor } from '../../controller/tutorController/addLesson'
+import { tutorProtect } from '../../middleware/tutorMiddleware'
 
 
 /*instructor register*/
@@ -21,37 +22,37 @@ tutorRouter.post('/login',loginInstructor)
 
 
 /*add category*/
-tutorRouter.post('/addCategory',addCategory)
+tutorRouter.post('/addCategory',tutorProtect,addCategory)
 
 /*add category*/
 
 /*add category*/
-tutorRouter.get('/getCategory',getAllCategory)
+tutorRouter.get('/getCategory',tutorProtect,getAllCategory)
 
 /*add category*/
 
 /*add courses*/
-tutorRouter.post('/addCourse',addCourses)
+tutorRouter.post('/addCourse',tutorProtect,addCourses)
 
 
 /*add courses*/
 
 /*get all courses*/
-tutorRouter.get('/allcourses',getCourses)
+tutorRouter.get('/allcourses',tutorProtect,getCourses)
 /*get all courses*/
 
   /*add lessons*/
-  tutorRouter.post('/addLesson',addLesson)
+  tutorRouter.post('/addLesson',tutorProtect,addLesson)
 
 /*add courses*/
 
 
 /* get all lessons*/
-tutorRouter.get('/getLessons',getLesson)
+tutorRouter.get('/getLessons',tutorProtect,getLesson)
 /* get all lessons*/
 
 /* get all lessons*/
-tutorRouter.get('/allInstructor',getTutor)
+tutorRouter.get('/allInstructor',tutorProtect,getTutor)
 /* get all lessons*/
 
 

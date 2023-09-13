@@ -1,39 +1,42 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
-import User, { UserDocument } from "../models/userModel"; // Make sure to import your User model with the appropriate type
+import User  from "../models/userModel";
 import * as dotenv from "dotenv";
+import { Document } from "mongoose";
 dotenv.config();
+
 interface CustomUser {
-  // Define the properties you have in your custom user type here
   _id: string;
   username: string;
-  // Add other properties as needed
+  user: any | null;
+}
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Express {
+    interface Request {
+      user?: CustomUser;
+    }
+  }
 }
 
 const protect = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    let token: string | undefined;
-
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-    }
+    const token = req.headers.authorization?.split(" ")[1]; // Use optional chaining to handle potential undefined headers
+    const JWT_SECRET = process.env.JWT_SECRET as string; // Assuming JWT_SECRET is a string in your .env file
 
     if (token) {
       try {
-        const decoded: any = jwt.verify(token, process.env.JWT_SECRET); // You might want to replace 'any' with the actual type of your decoded JWT
-        const userId: string = decoded.userId; // Assuming userId is a string in your User model
+        const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+        const userId: string = decoded.userId;
 
-        const user: UserDocument | null = await User.findById(userId).select(
+        const user: Document | null = await User.findById(userId).select(
           "-password"
         );
 
         if (user) {
-          // Assuming your UserDocument has properties matching your custom user type
-          req.user = user as CustomUser;
+          req.user = user as unknown as CustomUser;
           next();
         } else {
           res.status(404);

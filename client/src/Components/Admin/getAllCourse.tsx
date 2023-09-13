@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Header/Nav";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axiosInstance from "../../AxiosEndPoint/axiosEnd";
+import tutoraxiosInstance from "../../AxiosEndPoint/tutorInstance";
 import Swal from 'sweetalert2';
 
 const GetAllCourse = ({ Toggle }) => {
@@ -12,7 +12,7 @@ const GetAllCourse = ({ Toggle }) => {
 
   useEffect(() => {
     // Fetch data from your API using Axios
-    axiosInstance
+    tutoraxiosInstance
       .get("/admin/getAllCourses")
       .then((response) => {
         console.log(response.data);
@@ -36,11 +36,11 @@ const GetAllCourse = ({ Toggle }) => {
   
       if (result.isConfirmed) {
         if (!course.isApproved) {
-          await axiosInstance.put(`/admin/approvedCourse/${course._id}`);
+          await tutoraxiosInstance.put(`/admin/approvedCourse/${course._id}`);
           course.isApproved = true;
           toast.success(`Course "${course.coursename}" approved successfully`);
         } else {
-          await axiosInstance.put(`/admin/unapprovedCourse/${course._id}`);
+          await tutoraxiosInstance.put(`/admin/unapprovedCourse/${course._id}`);
           course.isApproved = false;
           toast.success(`Course "${course.coursename}" unapproved successfully`);
         }

@@ -3,7 +3,7 @@ import Nav from "../../Components/tutor/SideNavbar/Nav";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axiosInstance from "../../AxiosEndPoint/axiosEnd";
+import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
 const AddLessonInTutor = ({ Toggle }) => {
   const [category, setCategory] = useState('');
   const [instructor, setInstructor] = useState('');
@@ -24,7 +24,7 @@ const AddLessonInTutor = ({ Toggle }) => {
 
   useEffect(() => {
     // Fetch categories from the server
-    axios.get('http://localhost:5000/instructor/getCategory')
+    tutoraxiosinstance.get('/instructor/getCategory')
       .then((response) => {
         setCategoryOptions(response.data.courseDetails);
       })
@@ -33,7 +33,7 @@ const AddLessonInTutor = ({ Toggle }) => {
       });
 
     // Fetch courses from the server
-    axiosInstance.get('/instructor/allcourses')
+    tutoraxiosinstance.get('/instructor/allcourses')
       .then((response) => {
         setCourseorOptions(response.data.courses);
       })
@@ -42,7 +42,7 @@ const AddLessonInTutor = ({ Toggle }) => {
       });
 
     // Fetch instructors from the server
-    axiosInstance.get('/instructor/allInstructor')
+    tutoraxiosinstance.get('/instructor/allInstructor')
       .then((response) => {
         setInstructorOptions(response.data.tutor);
       })
@@ -82,7 +82,7 @@ const AddLessonInTutor = ({ Toggle }) => {
     }
 
     // Send the lesson data to your server
-    axiosInstance
+    tutoraxiosinstance
       .post('/instructor/addLesson', {
         title,
         coursename,

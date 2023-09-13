@@ -6,6 +6,8 @@
   import './carousal.css'
 
   function Home() {
+    
+  
     return (
       <Carousel className='mt-5' interval={5000}> 
         <Carousel.Item>

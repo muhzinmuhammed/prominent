@@ -6,10 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {  useDispatch,useSelector } from 'react-redux'
 import { selectTutor, signup } from '../../../features/tutorSlice/tutorSlice';
-import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
+import tutoraxiosInstance from "../../../AxiosEndPoint/tutorInstance";
 function TutorSignup() {
   const tutor = useSelector(selectTutor);
-  console.log(tutor);
+
   
   
   
@@ -59,7 +59,7 @@ function TutorSignup() {
     }
 
     try {
-      const response = await  axiosInstance.post('/instructor/register',  {
+      const response = await  tutoraxiosInstance.post('/instructor/register',  {
         instrctorname: trimmedName,
         instrctoremail: trimmedEmail,
         phone: trimmedPhone,
@@ -67,14 +67,15 @@ function TutorSignup() {
       });
       
       
-      const userdata=response.data
-      localStorage.setItem('tutorData', JSON.stringify(userdata));
-  console.log(userdata,"iii");
+      const tutordata=response.data
+  localStorage.setItem('tutorData', JSON.stringify(tutordata));
+  localStorage.setItem('tutorToken', JSON.stringify(tutordata.token));
+  
   
       
-      dispatch(signup(userdata))
+      dispatch(signup(tutordata))
      
-dispatch(signup(response.data)); 
+
 
    
       toast.success("User created successfully.");

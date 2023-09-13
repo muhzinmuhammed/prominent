@@ -8,7 +8,7 @@ const SideBar = () => {
   const dispatch=useDispatch()
   useEffect(() => {
     const storedUserData = localStorage.getItem("tutorData");
-    console.log(storedUserData,"kkk");
+    
     
 
     const parsedUserData = JSON.parse(storedUserData);

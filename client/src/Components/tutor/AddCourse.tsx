@@ -3,11 +3,11 @@ import Nav from "../../Components/tutor/SideNavbar/Nav";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axiosInstance from "../../AxiosEndPoint/axiosEnd"; 
+import tutoraxiosInstance from "../../AxiosEndPoint/tutorInstance"; 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTutor } from "../../features/tutorSlice/tutorSlice";
-import { signup } from "../../features/userSlice/userSlice";
+
 
 const AddCourse = ({ Toggle }) => {
   const dispatch=useDispatch()
@@ -15,7 +15,15 @@ const AddCourse = ({ Toggle }) => {
   
 
   const storedUserDataString = localStorage.getItem("tutorData");
+ 
+  
   const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : null;
+  
+  
+
+ 
+  
+  
   
   
   
@@ -42,7 +50,7 @@ const AddCourse = ({ Toggle }) => {
 
   useEffect(() => {
     // Fetch categories from the server
-    axiosInstance.get(`/instructor/getCategory`)
+    tutoraxiosInstance.get(`/instructor/getCategory`)
       .then((response) => {
        
         
@@ -95,7 +103,7 @@ const AddCourse = ({ Toggle }) => {
     
 
     // Send the course data to your server
-    axiosInstance
+    tutoraxiosInstance
       .post('/instructor/addCourse', {
        
         

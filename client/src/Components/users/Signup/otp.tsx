@@ -1,18 +1,17 @@
-import React, { useState,useEffect } from 'react';
-import { Col, Row, Container, Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import {toast,ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import { Col, Row, Container, Form, Button, Alert } from "react-bootstrap";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { selectUser,signup } from '../../../features/userSlice/userSlice';
+import { selectUser, signup } from "../../../features/userSlice/userSlice";
 const UserOtp = () => {
-  
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-  const [error, setError] = useState('');
-  const dispatch = useDispatch()
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
   const [timer, setTimer] = useState(60);
   useEffect(() => {
     // Start the timer when the component mounts
@@ -23,57 +22,60 @@ const UserOtp = () => {
 
     // Redirect to '/signup' when the timer reaches 0
     if (timer === 0) {
-      navigate('/signup');
+      navigate("/signup");
     }
 
     // Clean up the interval when the component unmounts
     return () => clearInterval(countdown);
   }, [timer, navigate]);
   const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/student/signup_verify",
+        {
+          otp,
+        }
+      );
 
-  try {
-    const response = await axios.post('http://localhost:5000/student/signup_verify', {
-      otp,
-    });
-   
+      // Check the response status and handle success or error accordingly
+      if (response.status === 200) {
+        toast.success("Signup successful");
+        const userdata = response.data;
 
-
-    
-
-    // Check the response status and handle success or error accordingly
-    if (response.status === 200) {
-      toast.success('Signup successful');
-      const userdata=response.data
-      localStorage.setItem('userData', JSON.stringify(userdata));
-
+       
+        localStorage.setItem("userData", JSON.stringify(userdata));
+        localStorage.setItem("userToken", JSON.stringify(userdata.token));
       
-      dispatch(signup(userdata))
+        
 
-      dispatch(signup(response.data)); 
-      navigate('/');
-    } else {
-      // If the response contains a data property with an error message, use it; otherwise, provide a generic error message
-      const errorMessage = response.data && response.data.message ? response.data.message : 'An error occurred';
-      toast.error(errorMessage);
+        dispatch(signup(userdata));
+
+        navigate("/");
+      } else {
+        // If the response contains a data property with an error message, use it; otherwise, provide a generic error message
+        const errorMessage =
+          response.data && response.data.message
+            ? response.data.message
+            : "An error occurred";
+        toast.error(errorMessage);
+      }
+    } catch (error) {
+      console.error("An error occurred while verifying OTP:", error);
+      toast.error("An error occurred"); // Display a generic error message
     }
-  } catch (error) {
-    console.error('An error occurred while verifying OTP:', error);
-    toast.error('An error occurred'); // Display a generic error message
-  }
-};
-useEffect(() => {
-  if (localStorage.getItem("userData")) {
-    navigate('/');
-  }
-}, [navigate]);
-
+  };
+  useEffect(() => {
+    if (localStorage.getItem("userData")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <div className="bg-light vh-100 d-flex justify-content-center align-items-center">
       <Container>
-        <ToastContainer/>
+        <ToastContainer />
         <Row className="d-flex justify-content-center mt-5">
           <Col xs={4}>
             <Form onSubmit={handleSubmit}>
@@ -90,8 +92,14 @@ useEffect(() => {
                 Submit
               </Button>
             </Form>
-            {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
-            <div className="mt-3">Redirecting to signup page in {timer} seconds...</div>
+            {error && (
+              <Alert variant="danger" className="mt-3">
+                {error}
+              </Alert>
+            )}
+            <div className="mt-3">
+              Redirecting to signup page in {timer} seconds...
+            </div>
           </Col>
         </Row>
       </Container>

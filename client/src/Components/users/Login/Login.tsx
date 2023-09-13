@@ -32,10 +32,10 @@ function Login() {
       });
       const userdata=response.data
       localStorage.setItem('userData', JSON.stringify(userdata));
-
+      localStorage.setItem("userToken", JSON.stringify(userdata.token));
       
       dispatch(signup(userdata))
-      dispatch(signup(response.data));
+      
       toast.success('User created successfully.');
     } catch (error) {
       console.error(error);
