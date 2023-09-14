@@ -3,6 +3,7 @@ import userModel from "../../models/userModel";
 import categoryModel from '../../models/categoryModel'
 
 import instructorModel from "../../models/instructor";
+import generateToken from "../../../utlitis/genarateToken";
 
 /*admin login*/
 const loginAdmin = async (req: Request, res: Response) => {
@@ -11,13 +12,20 @@ const loginAdmin = async (req: Request, res: Response) => {
     
     const adminEmail = "admin@gmail.com";
     const adminpassword = 123456;
+    const id='ObjectId(6502229c761cead53ce1099u)'
     const { adminname, password } = req.body;
    
     
 
     if (adminEmail == adminname && adminpassword == password) {
+      const token = generateToken(id)
+    
+      
       return res.status(200).json({
-        message: "suuceessfull login",
+       id,
+       adminEmail,
+       token
+
       });
     } else {
       return res.status(400).json({

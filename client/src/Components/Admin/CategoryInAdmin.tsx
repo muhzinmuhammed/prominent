@@ -4,7 +4,7 @@ import Nav from "./Header/Nav";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axiosInstance from "../../AxiosEndPoint/axiosEnd";
+import adminInstance from "../../AxiosEndPoint/adminInstance";
 
 const CategoryTable = ({ Toggle }) => {
   const [category, setCategory] = useState([]);
@@ -13,7 +13,7 @@ const CategoryTable = ({ Toggle }) => {
 
   useEffect(() => {
     // Fetch data from your API using Axios
-    axiosInstance
+    adminInstance
       .get("/admin/getallcategory")
       .then((response) => {
         console.log(response.data);

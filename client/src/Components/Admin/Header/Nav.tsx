@@ -1,7 +1,16 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import 'bootstrap/js/dist/dropdown'
+import { useNavigate } from 'react-router-dom'
 
 const Nav = ({Toggle}) => {
+    const navigate=useNavigate()
+    useEffect(()=>{
+        const tutor= localStorage.getItem('adminToken',)
+        if (!tutor) {
+          navigate('/admin_login')
+          
+        }
+      },[navigate])
   return (
     <nav className="navbar navbar-expand-sm  navbar-dark bg-transparent px-3">
         <i className="navbar-brand bi bi-justify-left fs-4" onClick={Toggle} ></i>

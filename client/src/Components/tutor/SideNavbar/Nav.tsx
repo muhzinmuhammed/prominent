@@ -1,8 +1,11 @@
 import React,{useEffect} from 'react'
 import 'bootstrap/js/dist/dropdown'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../../features/tutorSlice/tutorSlice'
 
 const Nav = ({Toggle}) => {
+    const dispatch=useDispatch()
     const navigate=useNavigate()
     useEffect(()=>{
         const tutor= localStorage.getItem('tutorToken',)
@@ -11,6 +14,7 @@ const Nav = ({Toggle}) => {
           
         }
       },[navigate])
+      
   return (
     <nav className="navbar navbar-expand-sm  navbar-dark bg-dark px-3">
         <i className="navbar-brand bi bi-justify-left fs-4" onClick={Toggle} ></i>
@@ -24,7 +28,7 @@ const Nav = ({Toggle}) => {
                     <div className="dropdown-menu" aria-labelledby="dropdownId">
                         <a className="dropdown-item" href="/student">Profile</a>
                         <a className="dropdown-item" href="#">Setting</a>
-                        <a className="dropdown-item" href="#">Logout</a>
+                        <a className="dropdown-item" >Logout</a>
                     </div>
                 </li>
             </ul>

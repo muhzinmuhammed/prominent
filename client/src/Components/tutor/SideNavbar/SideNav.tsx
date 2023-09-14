@@ -3,8 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './SideNav.css'
 import { useDispatch } from 'react-redux'
-import { signup } from '../../../features/userSlice/userSlice'
+import { logout, signup } from '../../../features/tutorSlice/tutorSlice'
+import { useNavigate } from 'react-router-dom'
 const SideBar = () => {
+  const navigate=useNavigate()
+  const hanldeSignout = () => {
+        
+        
+    localStorage.clear("tutorToken");
+    localStorage.clear("tutorData");
+    
+    dispatch(logout());
+    navigate('/tutor_login')
+  };
   const dispatch=useDispatch()
   useEffect(() => {
     const storedUserData = localStorage.getItem("tutorData");
@@ -46,7 +57,7 @@ const SideBar = () => {
         </a>
         <a className='list-group-item py-2 me-3'>
         <i className="bi bi-power fs-4 me-2"></i>
-          <span className="fs-5">Logout</span>
+          <span className="fs-5"onClick={hanldeSignout}>Logout</span>
         </a>
 
       </div>

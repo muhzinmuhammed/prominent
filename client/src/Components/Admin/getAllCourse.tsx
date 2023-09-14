@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Header/Nav";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import tutoraxiosInstance from "../../AxiosEndPoint/tutorInstance";
+import adminInstance from "../../AxiosEndPoint/adminInstance";
 import Swal from 'sweetalert2';
 
 const GetAllCourse = ({ Toggle }) => {
@@ -12,7 +12,7 @@ const GetAllCourse = ({ Toggle }) => {
 
   useEffect(() => {
     // Fetch data from your API using Axios
-    tutoraxiosInstance
+    adminInstance
       .get("/admin/getAllCourses")
       .then((response) => {
         console.log(response.data);

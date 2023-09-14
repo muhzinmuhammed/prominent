@@ -4,6 +4,7 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import adminInstance from "../../AxiosEndPoint/adminInstance";
 
 const InstructorTable = ({ Toggle }) => {
   const [studentDetails, setStudentDetails] = useState([]);
@@ -13,8 +14,8 @@ const InstructorTable = ({ Toggle }) => {
 
   useEffect(() => {
     // Fetch data from your API using Axios
-    axios
-      .get("http://localhost:5000/admin/getallinstrcutor")
+    adminInstance
+      .get("/admin/getallinstrcutor")
       .then((response) => {
         console.log(response.data);
         setStudentDetails(response.data.instructorDetails);

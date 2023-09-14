@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Header/Nav";
-import axios from "axios";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axiosInstance from "../../AxiosEndPoint/axiosEnd";
+import adminInstance from "../../AxiosEndPoint/adminInstance";
 const Home = ({ Toggle }) => {
   const [studentDetails, setStudentDetails] = useState([]);
   const [searchQuery] = useState("");
@@ -13,7 +12,7 @@ const Home = ({ Toggle }) => {
   useEffect(() => {
     // Fetch data from your API using Axios
 
-    axiosInstance
+    adminInstance
       .get("/admin/getallstudent")
       .then((response) => {
         setStudentDetails(response.data.studentDetails);
@@ -51,19 +50,21 @@ const Home = ({ Toggle }) => {
         toast.success("User Unblocked Successfully");
       }
       // Update the user's status in local storage
-      localStorage.setItem(`user_${user._id}_status`, user.isBlocked ? "blocked" : "unblocked");
+      localStorage.setItem(
+        `user_${user._id}_status`,
+        user.isBlocked ? "blocked" : "unblocked"
+      );
       setStudentDetails([...studentDetails]); // Trigger a re-render
     } catch (error) {
       // Handle errors and display an error message to the user
       toast.error(error);
     }
   };
-  
 
   return (
     <div className="px-3">
       <Nav Toggle={Toggle} /> {/* Use curly braces to pass the prop */}
-      <ToastContainer/>
+      <ToastContainer />
       <table className="table rounded mt-2">
         <thead>
           <tr>
@@ -75,23 +76,27 @@ const Home = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-            {displayedStudents.map((user, index) => (
-              <tr key={user._id}>
-                <td>{index + 1}</td>
-                <td>{user.studentname}</td>
-                <td>{user.studentemail}</td>
-                <td>{user.phone}</td>
-                <td>
+          {displayedStudents.map((user, index) => (
+            <tr key={user._id}>
+              <td>{index + 1}</td>
+              <td>{user.studentname}</td>
+              <td>{user.studentemail}</td>
+              <td>{user.phone}</td>
+              <td>
                 <button
                   onClick={() => toggleUserStatus(user)}
-                  className={user.isBlocked === false ? "btn btn-success" : "btn btn-danger"}
+                  className={
+                    user.isBlocked === false
+                      ? "btn btn-success"
+                      : "btn btn-danger"
+                  }
                 >
                   {user.isBlocked === false ? "Block" : "Unblock"}
                 </button>
               </td>
-              </tr>
-            ))}
-          </tbody>
+            </tr>
+          ))}
+        </tbody>
       </table>
       {/* <ReactPaginate 
           previousLabel={"Previous"}

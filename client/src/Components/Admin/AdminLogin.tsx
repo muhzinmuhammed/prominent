@@ -6,7 +6,7 @@ import { useState,useEffect } from 'react';
 import {toast,ToastContainer} from 'react-toastify'
 import {  useDispatch,useSelector } from 'react-redux'
 import { login,selectTutor } from '../../features/tutorSlice/tutorSlice';
-import axios from 'axios'
+import adminInstance from '../../AxiosEndPoint/adminInstance';
 
 function TutorLogin() {
   const user = useSelector(selectTutor);
@@ -30,13 +30,17 @@ function TutorLogin() {
       return;
     }
     try {
-      const response = await  axios.post('http://localhost:5000/admin/adminlogin',  {
+      const response = await  adminInstance.post('/admin/adminlogin',  {
        
       adminname: trimmedEmail,
        
       password: trimmedPassword,
       });
+      const adminData=response.data
+      console.log(adminData,"l");
       
+
+      localStorage.setItem('adminToken', JSON.stringify(adminData.token));
       
 
      
