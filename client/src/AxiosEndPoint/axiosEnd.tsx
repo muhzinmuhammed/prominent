@@ -11,7 +11,7 @@ axiosInstance.interceptors.request.use(
     if (tokenString) {
       try {
         const token = JSON.parse(tokenString);
-        console.log(token, "kkk");
+       
 
         config.headers.authorization = `Bearer ${token}`;
       } catch (error) {
@@ -29,16 +29,16 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     if (response?.data?.message === "jwt expired") {
-      localStorage.removeItem("tutorToken");
-      window.location.replace("/instructor/login");
+      localStorage.removeItem("userToken");
+      window.location.replace("/student/login");
     }
     return response;
   },
   (error) => {
     console.error(error);
     if (error?.response?.data?.message === "jwt expired") {
-      localStorage.removeItem("tutortoken");
-      window.location.replace("/tutor_login");
+      localStorage.removeItem("userToken");
+      window.location.replace("/login");
     }
     return Promise.reject(error);
   }

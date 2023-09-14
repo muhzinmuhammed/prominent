@@ -8,12 +8,15 @@ import { useNavigate } from 'react-router-dom'
 const SideBar = () => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
-const signout=()=>{
-  dispatch(logout())
-  navigate('/admin_login')
-  
-  
-}
+  const hanldeSignout = () => {
+        
+        
+    localStorage.clear("tutorToken");
+    localStorage.clear("tutorData");
+    
+    dispatch(logout());
+    navigate('/admin_login')
+  };
   return (
     <div className='bg-white sidebar p-2'>
       <div className='m-2'>
@@ -51,7 +54,7 @@ const signout=()=>{
         <i className="bi bi-person-badge fs-4 me-2"></i>
           <span className="fs-5">Add Category</span>
         </a>
-        <a className='list-group-item py-2 me-3'onClick={signout}>
+        <a className='list-group-item py-2 me-3'onClick={hanldeSignout}>
         <i className="bi bi-power fs-4 me-2"></i>
           <span className="fs-5">Logout</span>
         </a>

@@ -23,6 +23,7 @@ import CourseDetailPage from "./pages/Student/CourseDetailPage";
 import CoursePageAdmin from "./pages/Admin/CourseTable";
 import CourseTable from "./pages/tutor/courseTable";
 import PrivateRoute from "./Components/PrivateRoute";
+import EditCourse from "./pages/tutor/EditCourse";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path="/course_view_tutor" element={<CourseTable />} />
 
         <Route path="/add_course" element={<AddCourse />} />
+        <Route path="/edit_course/:id" element={<EditCourse />} />
         <Route path="/add_lesson" element={<AddLessonInTutorPage />} />
         {/* insructor routes */}
 

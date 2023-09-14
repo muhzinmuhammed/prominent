@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import userModel from "../../models/userModel";
-import categoryModel from '../../models/categoryModel'
+import categoryModel from "../../models/categoryModel";
 
 import instructorModel from "../../models/instructor";
 import generateToken from "../../../utlitis/genarateToken";
@@ -8,24 +8,18 @@ import generateToken from "../../../utlitis/genarateToken";
 /*admin login*/
 const loginAdmin = async (req: Request, res: Response) => {
   try {
-    
-    
     const adminEmail = "admin@gmail.com";
     const adminpassword = 123456;
-    const id='ObjectId(6502229c761cead53ce1099u)'
+    const id = "ObjectId(6502229c761cead53ce1099u)";
     const { adminname, password } = req.body;
-   
-    
 
     if (adminEmail == adminname && adminpassword == password) {
-      const token = generateToken(id)
-    
-      
-      return res.status(200).json({
-       id,
-       adminEmail,
-       token
+      const token = generateToken(id);
 
+      return res.status(200).json({
+        id,
+        adminEmail,
+        token,
       });
     } else {
       return res.status(400).json({
@@ -108,7 +102,6 @@ const blockStudent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-
     const userToBlock = await userModel.findById(id);
 
     if (!userToBlock) {
@@ -130,7 +123,6 @@ const unBlockStudent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     console.log(id);
-    
 
     const userToBlock = await userModel.findById(id);
 
@@ -156,5 +148,5 @@ export {
   getAllInstructor,
   blockStudent,
   unBlockStudent,
-  getAllCategory
+  getAllCategory,
 };

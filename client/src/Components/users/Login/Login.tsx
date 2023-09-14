@@ -34,6 +34,7 @@ function Login() {
       localStorage.setItem("userToken", JSON.stringify(userdata.token));
 
       dispatch(signup(userdata));
+      navigate("/");
 
       toast.success("User created successfully.");
     } catch (error) {
@@ -42,8 +43,8 @@ function Login() {
     }
   };
   useEffect(() => {
-    if (localStorage.getItem("tutorData")) {
-      navigate("/course_view_tutor");
+    if (localStorage.getItem("userData")) {
+      navigate("/");
     }
   }, [navigate]);
 

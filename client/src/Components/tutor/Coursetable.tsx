@@ -3,17 +3,23 @@ import Nav from "../tutor/SideNavbar/Nav";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
+import { Link } from "react-router-dom";
 
 const CourseTable = ({ Toggle }) => {
     
   
   const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
   const [courses, setCourses] = useState([]);
+  const tutor=localStorage.getItem("tutorData")
+  const tutor_Details=JSON.parse(tutor)
+const tutor_id=tutor_Details._id
+  
+  
 
   useEffect(() => {
     // Fetch data from your API using Axios
     tutoraxiosinstance
-      .get("/instructor/allcourses")
+      .get(`/instructor/allcourses/${tutor_id}`)
       .then((response) => {
         console.log(response.data);
         setCourses(response.data.courses);
@@ -22,6 +28,7 @@ const CourseTable = ({ Toggle }) => {
         toast.error(error.message);
       });
   }, []);
+  
 
  
 
@@ -36,8 +43,11 @@ const CourseTable = ({ Toggle }) => {
             <th>#</th>
             <th>Course</th>
             <th>Description</th>
+            <th>Photo</th>
+
            
             <th>Fees</th>
+            <th>Edit</th>
            
             
           </tr>
@@ -48,8 +58,12 @@ const CourseTable = ({ Toggle }) => {
               <td>{index + 1}</td>
               <td>{course.coursename}</td>
               <td>{course.coursedescrption}</td>
+              <td><img style={{width:"100px"}} src={`${baseUrl}/${course.photo}`}/></td>
              
               <td>{course.coursefee}</td>
+              <td>
+             <Link to={`/edit_course/${course._id}`}>  <i  className="bi bi-pencil"></i></Link> 
+              </td>
               
               
             </tr>

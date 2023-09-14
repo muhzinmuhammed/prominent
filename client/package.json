@@ -22,6 +22,7 @@
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
+    "react-modal": "^3.16.1",
     "react-owl-carousel": "^2.3.3",
     "react-paginate": "^8.2.0",
     "react-query": "^3.39.3",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/react-modal": "^3.16.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",

@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import asyncHandler from "express-async-handler";
+
 import instrcutorSchema from "../../models/instructor";
 import generateToken from "../../../utlitis/genarateToken";
 
 /*instructor register*/
-const instructorSignup = asyncHandler(async (req: Request, res: Response) => {
+const instructorSignup = (async (req: Request, res: Response) => {
+ 
  
 
   try {
@@ -13,7 +14,7 @@ const instructorSignup = asyncHandler(async (req: Request, res: Response) => {
     const userPhone = await instrcutorSchema.findOne({ phone });
 
     if (userExists || userPhone) {
-      res.status(400).json({ message: "User already exists" });
+    return  res.status(400).json({ message: "User already exists" });
     }
 
     const instructor = await instrcutorSchema.create({
@@ -34,10 +35,10 @@ const instructorSignup = asyncHandler(async (req: Request, res: Response) => {
         token,
       });
     } else {
-      res.status(400).json({ message: "Invalid instructor data" });
+     return res.status(400).json({ message: "Invalid instructor data" });
     }
   } catch (error) {
-    res.status(500); // Internal server error
+   return res.status(500); // Internal server error
     throw error;
   }
 });

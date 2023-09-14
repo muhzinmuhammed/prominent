@@ -2,7 +2,7 @@ import express from 'express'
 const tutorRouter=express.Router()
 import { instructorSignup,loginInstructor } from '../../controller/tutorController/tutorController'
 import { addCategory,getAllCategory } from '../../controller/tutorController/addCategory'
-import { addCourses,getCourses } from '../../controller/tutorController/addCourse'
+import { addCourses,editCourse,editCoursePage,getCourses } from '../../controller/tutorController/addCourse'
 import { addLesson,getLesson, getTutor } from '../../controller/tutorController/addLesson'
 import { tutorProtect } from '../../middleware/tutorMiddleware'
 
@@ -38,7 +38,13 @@ tutorRouter.post('/addCourse',tutorProtect,addCourses)
 /*add courses*/
 
 /*get all courses*/
-tutorRouter.get('/allcourses',tutorProtect,getCourses)
+tutorRouter.get('/allcourses/:id',tutorProtect,getCourses)
+/*get all courses*/
+/*specified edit course*/
+tutorRouter.get('/courses/:id',editCoursePage)
+/*specified edit course*/
+/*get all courses*/
+tutorRouter.put('/edit_courses/:id',tutorProtect,editCourse)
 /*get all courses*/
 
   /*add lessons*/

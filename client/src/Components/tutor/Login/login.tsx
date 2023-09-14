@@ -10,8 +10,8 @@ import { login,selectTutor } from '../../../features/tutorSlice/tutorSlice';
 import tutoraxiosInstance from '../../../AxiosEndPoint/tutorInstance';
 
 function TutorLogin() {
-  const user = useSelector(selectTutor);
-  console.log(user,"user");
+  const tutor = useSelector(selectTutor);
+  console.log(tutor,"user");
   
   const [instrctoremail, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
@@ -61,10 +61,10 @@ function TutorLogin() {
   }
   
   useEffect(() => {
-    if (user) {
+    if (tutor) {
       navigate('/course_view_tutor');
     }
-  }, [navigate, user]);
+  }, [navigate, tutor]);
   return (
   
    

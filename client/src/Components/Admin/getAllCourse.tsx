@@ -36,11 +36,11 @@ const GetAllCourse = ({ Toggle }) => {
   
       if (result.isConfirmed) {
         if (!course.isApproved) {
-          await tutoraxiosInstance.put(`/admin/approvedCourse/${course._id}`);
+          await adminInstance.put(`/admin/approvedCourse/${course._id}`);
           course.isApproved = true;
           toast.success(`Course "${course.coursename}" approved successfully`);
         } else {
-          await tutoraxiosInstance.put(`/admin/unapprovedCourse/${course._id}`);
+          await adminInstance.put(`/admin/unapprovedCourse/${course._id}`);
           course.isApproved = false;
           toast.success(`Course "${course.coursename}" unapproved successfully`);
         }
