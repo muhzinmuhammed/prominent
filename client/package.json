@@ -12,6 +12,8 @@
   "dependencies": {
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/react-stripe-js": "^2.3.0",
+    "@stripe/stripe-js": "^2.1.5",
     "antd": "^5.8.5",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",

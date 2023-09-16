@@ -5,6 +5,7 @@ import { studentSignup,loginStudent, student_singup_verify_otp, instructor } fro
 import { getAllCourses } from '../../controller/studentController/getAllCourse'
 import { getAllLesson } from '../../controller/studentController/getAllLessons'
 import { protect } from '../../middleware/authMiddleware'
+import { orderDetails, verifyOrder } from '../../controller/studentController/paymentController'
 /*student register*/
 studentRouter.post('/register',studentSignup)
 /*student register*/
@@ -29,6 +30,13 @@ studentRouter.get('/allCourses',getAllCourses)
 studentRouter.get("/allLessons/:id",getAllLesson)
 
 /* get all*/
+
+/* payment getway*/
+studentRouter.post("/create-payment",orderDetails)
+/* payment getway*/
+/* payment getway*/
+studentRouter.post("/verify",verifyOrder)
+/* payment getway*/
 
 
 

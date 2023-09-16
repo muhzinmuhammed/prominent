@@ -18,9 +18,13 @@ const AddLessonInTutor = ({ Toggle }) => {
   const [courseorOptions, setCourseorOptions] = useState([]);
   const [cloudinaryURL, setCloudinaryURL] = useState('');
   const storedUserDataString = localStorage.getItem("tutorData");
+  
+  
  
   
   const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : null;
+ 
+  
   function handleChange(e) {
     setVideo(e.target.files[0]);
   }
@@ -36,8 +40,10 @@ const AddLessonInTutor = ({ Toggle }) => {
       });
 
     // Fetch courses from the server
-    tutoraxiosinstance.get('/instructor/allcourses')
+    tutoraxiosinstance.get(`/instructor/allcourses/${storedUserData._id}`)
       .then((response) => {
+        console.log(response.data);
+        
         setCourseorOptions(response.data.courses);
       })
       .catch((error) => {
@@ -58,7 +64,7 @@ const AddLessonInTutor = ({ Toggle }) => {
         "https://api.cloudinary.com/v1_1/dfnwvbiyy/video/upload",
         formData
       );
-      console.log(response.data,"kk");
+   
       setCloudinaryURL(response.data.public_id);
     } catch (error) {
       console.error("Error uploading video:", error);
@@ -98,7 +104,7 @@ const AddLessonInTutor = ({ Toggle }) => {
         toast.error('Error adding lesson');
       });
   };
-  console.log(courseorOptions,"lll");
+ 
   
 
   return (

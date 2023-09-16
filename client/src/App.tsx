@@ -24,6 +24,7 @@ import CoursePageAdmin from "./pages/Admin/CourseTable";
 import CourseTable from "./pages/tutor/courseTable";
 import PrivateRoute from "./Components/PrivateRoute";
 import EditCourse from "./pages/tutor/EditCourse";
+import Success from "./Components/users/CoursePage/Success";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/tutors" element={<TutorPage />} />
         <Route path="/tutor_details" element={<TutorDetailsPage />} />
         <Route path="/course_details/:id" element={<CourseDetailPage />} />
+        <Route path="/success" element={<Success />} />
         {/* student routes */}
 
         {/* insructor routes */}

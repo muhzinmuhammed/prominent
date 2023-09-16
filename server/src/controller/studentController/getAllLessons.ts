@@ -19,7 +19,7 @@ const getAllLesson = async (req: Request, res: Response) => {
       .populate("coursename")
       .populate("category")
       .populate("instructor");
-      console.log(lessons,"ll");
+     
       
 
     if (lessons) {

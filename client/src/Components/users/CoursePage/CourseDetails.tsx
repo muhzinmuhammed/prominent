@@ -10,8 +10,65 @@ const CourseDetails = () => {
   const baseVideo="https://res.cloudinary.com/dfnwvbiyy/video/upload/v1694365110/"
   const { id } = useParams();
   const [lessons,setLessons]=useState([])
-console.log(id,"ll");
+  const studentsname=localStorage.getItem("userData")
+const student=JSON.parse(studentsname)
+const initPayment = (data: { amount: number; currency: string; id: string; }) => {
+ 
+  
+   console.log(data.amount);
+   
+   
+    
+		const options = {
+			key: "rzp_test_mEetqy2BIAhoF3",
+			amount: data.amount,
+			currency: data.currency,
+      description: "Test Transaction",
+			order_id: data.id,
+			handler: async (response: any) => {
+				try {
+					
+					const { datas } = await axiosInstance.post('/student/verify', {response,
+            studentname:student._id,
+            coursename:id,
+            amount:data.amount,
+          
+          });
+					console.log(datas);
+				} catch (error) {
+					console.log(error);
+				}
+			},
+			theme: {
+				color: "#1eb2a6",
+			},
+		};
+		const rzp1 = new window.Razorpay(options);
+		rzp1.open();
+	};
+  
+  const handlesubmit = async () => {
+    const prices = lessons.map((lesson) => lesson.coursename.coursefee);
+    
+    
+    
+   try {
+    const response=await axiosInstance.post('/student/create-payment',{
+      amount:prices[0]
+    })
 
+
+
+    initPayment(response.data.data)
+    
+    
+   } catch (error) {
+    console.log(error);
+    
+    
+   }
+    
+  };
   useEffect(()=>{
     axiosInstance.get(`/student/allLessons/${id}`)
     .then((response)=>{
@@ -126,7 +183,23 @@ console.log(id,"ll");
           <li>
           Curiosity and eagerness to learn</li></ul>  
         </div>
-        <button className="btn btn-info float-end mt-5">ENTROLL NOW</button>
+       
+        <button
+  className="btn btn-info float-end mt-5"
+  onClick={() => {
+    const userData = localStorage.getItem("userData");
+    if (userData) {
+      handlesubmit()
+    } else {
+      alert("Please login");
+    }
+   
+  }}
+>
+  ENROLL NOW
+</button>
+     
+
       </div>
      
     </section>
