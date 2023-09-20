@@ -1,9 +1,8 @@
 import React,{useState} from 'react'
-import CategoryTable from '../../Components/Admin/CategoryInAdmin';
+import OrdersTable from '../../Components/tutor/EntrolledCourse';
 import SideBar from '../../Components/Admin/Header/SideBar';
-import GetAllCourse from '../../Components/Admin/getAllCourse';
 
-const CoursePageAdmin = () => {
+const OrderPage = () => {
     const [toggle, setToggle] = useState<boolean>(true);
 
   const Toggle = () => {
@@ -15,7 +14,7 @@ const CoursePageAdmin = () => {
       <div className="row">
         {toggle && (
           <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-            <SideBar/>
+            <SideBar  />
           </div>
         )}
 
@@ -23,7 +22,7 @@ const CoursePageAdmin = () => {
 
 {toggle&&<div className="col-4 col-md-2"></div>}
         <div className="col">
-          <GetAllCourse Toggle={Toggle}/>
+          <OrdersTable Toggle={Toggle}/>
         </div>  
       </div>
     </div>
@@ -32,4 +31,4 @@ const CoursePageAdmin = () => {
   )
 }
 
-export default CoursePageAdmin
+export default OrderPage

@@ -8,17 +8,28 @@ import { toast } from "react-toastify";
 const CoursePage = () => {
   const baseUrl =
     "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
-    const navigate=useNavigate()
- 
+  const navigate = useNavigate();
+
   const [course, setCourse] = useState([]);
- 
-  
+  const [entrolled, setEntrolled] = useState([]);
+  const user = localStorage.getItem("userData");
+  const user_id = JSON.parse(user);
+  if (user_id) {
+    useEffect(() => {
+      axiosInstance
+        .get(`/student/entrolled/${user_id._id}`)
+        .then((response) => {
+          console.log(response.data, "lll");
+
+          setEntrolled(response.data.entrolled);
+        });
+    });
+  }
 
   useEffect(() => {
     axiosInstance
       .get("/student/allCourses")
       .then((response) => {
-        
         setCourse(response.data.allCourse);
       })
       .catch((error) => {
@@ -67,6 +78,40 @@ const CoursePage = () => {
             ))}
           </div>
         </div>
+        {user_id && (
+          <div className="container">
+            <div className="row ms-5 mt-5">
+              <h1>Entrolled Courses</h1>
+              {entrolled.map((entroll) => (
+                <div key={entroll._id} className="col-lg-4 mt-5">
+                  <div className="card-border card" style={{ width: "18rem" }}>
+                    <Link
+                      className="text-decoration-none"
+                      to={`/course_details/${entroll.coursename._id}`}
+                    >
+                      <img
+                        className="card-img-top"
+                        src={`${baseUrl}/${entroll.coursename.photo}`}
+                        style={{ height: "100px" }}
+                        alt="Card image cap"
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title text-center">
+                          {entroll.coursename.coursename}
+                        </h5>
+                        <p className="card-text">
+                          {entroll.coursename.coursedescription}
+                        </p>
+                        <small>{entroll.coursename.coursefee}</small>
+                        <small className="float-end">*********</small>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
     </>
   );

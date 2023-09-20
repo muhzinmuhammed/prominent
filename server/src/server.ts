@@ -26,7 +26,8 @@ app.use('/student',studentRouter)
 app.use('/instructor',tutorRouter)
 /*instructor  route*/
 /*admin  route*/
-app.use('/admin',adminRouter)
+app.use('/admin',adminRouter);
+
 /*admin  route*/
 
 app.listen(port)

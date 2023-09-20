@@ -2,7 +2,7 @@ import express from 'express'
 const studentRouter=express.Router()
 
 import { studentSignup,loginStudent, student_singup_verify_otp, instructor } from '../../controller/studentController/studentController'
-import { getAllCourses } from '../../controller/studentController/getAllCourse'
+import { entrolledCourse, getAllCourses } from '../../controller/studentController/getAllCourse'
 import { getAllLesson } from '../../controller/studentController/getAllLessons'
 import { protect } from '../../middleware/authMiddleware'
 import { orderDetails, verifyOrder } from '../../controller/studentController/paymentController'
@@ -37,6 +37,10 @@ studentRouter.post("/create-payment",orderDetails)
 /* payment getway*/
 studentRouter.post("/verify",verifyOrder)
 /* payment getway*/
+
+/* entrolled coursers*/
+studentRouter.get('/entrolled/:id',entrolledCourse)
+/* entrolled coursers*/
 
 
 

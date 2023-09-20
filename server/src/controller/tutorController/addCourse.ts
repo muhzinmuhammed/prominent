@@ -102,6 +102,8 @@ const editCoursePage=async(req:Request,res:Response)=>{
 const editCourse = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    
+    
     const {
       coursename,
       courseduration,

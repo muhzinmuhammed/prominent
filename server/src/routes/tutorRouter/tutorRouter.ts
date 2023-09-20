@@ -5,6 +5,7 @@ import { addCategory,getAllCategory } from '../../controller/tutorController/add
 import { addCourses,editCourse,editCoursePage,getCourses } from '../../controller/tutorController/addCourse'
 import { addLesson,getLesson, getTutor } from '../../controller/tutorController/addLesson'
 import { tutorProtect } from '../../middleware/tutorMiddleware'
+import { viewOrderInTutor } from '../../controller/tutorController/entrollmentStudent'
 
 
 /*instructor register*/
@@ -60,6 +61,9 @@ tutorRouter.get('/getLessons',tutorProtect,getLesson)
 /* get all lessons*/
 tutorRouter.get('/allInstructor',tutorProtect,getTutor)
 /* get all lessons*/
+/* tutor course entrollment*/
+tutorRouter.get('/orderTutor/:id',tutorProtect,viewOrderInTutor)
+/* tutor course entrollmen*/
 
 
 

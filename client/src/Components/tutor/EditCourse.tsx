@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Nav from "../tutor/SideNavbar/Nav";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from 'react-router-dom';
 import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
 import { useParams } from 'react-router-dom';
 
@@ -10,12 +11,10 @@ const EditCourse = ({ Toggle }) => {
   const { id } = useParams();
   const [coursename, setCourseName] = useState('');
   const [courseduration, setCourseduration] = useState('');
-  const [price, setPrice] = useState('');
+  const [coursefee, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-  const [photo, setPhoto] = useState(null);
-  const [categoryOptions, setCategoryOptions] = useState([]);
-
+ const navigate=useNavigate()
   useEffect(() => {
     tutoraxiosinstance.get(`/instructor/courses/${id}`)
       .then((response) => {
@@ -23,8 +22,8 @@ const EditCourse = ({ Toggle }) => {
         setEditCourse(courseData);
         setCourseName(courseData.coursename);
         setCourseduration(courseData.courseduration);
-        setPrice(courseData.price);
-        setDescription(courseData.description);
+        setPrice(courseData.coursefee);
+        setDescription(courseData.coursedescrption);
         setCategory(courseData.category);
       })
       .catch((error) => {
@@ -32,11 +31,7 @@ const EditCourse = ({ Toggle }) => {
       });
   }, [id]);
 
-  const handleChange = (e) => {
-    // Handle file input change here and set the 'photo' state.
-    const selectedFile = e.target.files[0];
-    setPhoto(selectedFile);
-  };
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,16 +40,21 @@ const EditCourse = ({ Toggle }) => {
     const formData = new FormData();
     formData.append('coursename', coursename);
     formData.append('courseduration', courseduration);
-    formData.append('price', price);
-    formData.append('description', description);
-    formData.append('category', category);
-    if (photo) {
-      formData.append('photo', photo);
-    }
+    formData.append('coursefee', coursefee);
+    formData.append('coursedescrption', description);
+  
+    
 
     // Send the formData to your API for course editing
-    tutoraxiosinstance.put(`/instructor/courses/${id}`, formData)
+    tutoraxiosinstance.put(`/instructor/edit_courses/${id}`, {
+      coursename,
+      courseduration,
+      coursefee,
+      description
+
+    })
       .then((response) => {
+        navigate('/course_view_tutor')
         // Handle the response, e.g., show a success toast
         toast.success("Course edited successfully");
       })
@@ -81,44 +81,14 @@ const EditCourse = ({ Toggle }) => {
         </div>
         <div className="form-group">
           <label>Course Price</label>
-          <input type="number" className="form-control" placeholder="Enter course price" value={price} onChange={(e) => setPrice(e.target.value)} />
+          <input type="number" className="form-control" placeholder="Enter course price" value={coursefee} onChange={(e) => setPrice(e.target.value)} />
         </div>
         <div className="form-group">
           <label>Course Description</label>
           <input type="text" className="form-control" placeholder="Enter course description" value={description} onChange={(e) => setDescription(e.target.value)} />
         </div>
-        <div className="form-group">
-          <label htmlFor="categorySelect">Course Category</label>
-          <select
-  className="form-control"
-  id="categorySelect"
-  value={category} // This sets the selected value
-  onChange={(e) => setCategory(e.target.value)}
->
-  <option value="">Select Category</option>
-  {categoryOptions.map((category) => (
-    <option key={category._id} value={category._id}>
-      {category.title}
-    </option>
-  ))}
-</select>
-        </div>
-        <div className="form-group">
-          <label>Photo</label>
-          <input
-            type="file"
-            className="form-control"
-            accept="image/*"
-            onChange={handleChange}
-          />
-          {photo && (
-            <img
-              src={URL.createObjectURL(photo)}
-              alt="Course"
-              style={{ height: "100px", width: "100px" }}
-            />
-          )}
-        </div>
+        
+       
         <button type="submit" className="btn btn-info mt-5 ms-5">
           Submit
         </button>

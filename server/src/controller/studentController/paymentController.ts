@@ -3,6 +3,7 @@ import OrderModel from "../../models/orderModel";
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import dotenv from "dotenv";
+import CourseModel from "../../models/addCourse";
 
 dotenv.config();
 
@@ -42,7 +43,9 @@ const verifyOrder = async (req: Request, res: Response, ) => {
     const { response, amount, coursename, studentname } = req.body;
     
     
-    
+    const course_id=await CourseModel.findById({_id:coursename})
+
+    const tutor_id=course_id?.instructor
 
     
 
@@ -63,7 +66,8 @@ const verifyOrder = async (req: Request, res: Response, ) => {
        await OrderModel.create({
         amount:real,
         studentname,
-        coursename
+        coursename,
+        instructor:tutor_id
 
        })
    

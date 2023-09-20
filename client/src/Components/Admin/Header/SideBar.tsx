@@ -54,6 +54,10 @@ const SideBar = () => {
         <i className="bi bi-person-badge fs-4 me-2"></i>
           <span className="fs-5">Add Category</span>
         </a>
+        <a className='list-group-item py-2 me-3' href='/admin_order'>
+        <i className="bi bi-truck fs-4 me-2"></i>
+          <span className="fs-5">Sale Table</span>
+        </a>
         <a className='list-group-item py-2 me-3'onClick={hanldeSignout}>
         <i className="bi bi-power fs-4 me-2"></i>
           <span className="fs-5">Logout</span>

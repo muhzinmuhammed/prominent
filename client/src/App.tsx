@@ -22,9 +22,10 @@ import TutorDetailsPage from "./pages/Student/TutorDetails";
 import CourseDetailPage from "./pages/Student/CourseDetailPage";
 import CoursePageAdmin from "./pages/Admin/CourseTable";
 import CourseTable from "./pages/tutor/courseTable";
-import PrivateRoute from "./Components/PrivateRoute";
+
 import EditCourse from "./pages/tutor/EditCourse";
-import Success from "./Components/users/CoursePage/Success";
+import OrderPage from "./pages/Admin/OrderPage";
+
 
 function App() {
   return (
@@ -37,11 +38,12 @@ function App() {
         <Route path="/user_otp" element={<UserOtp />} />
 
         <Route path="/courses" element={<CoursePageStudent />} />
+      
 
         <Route path="/tutors" element={<TutorPage />} />
         <Route path="/tutor_details" element={<TutorDetailsPage />} />
         <Route path="/course_details/:id" element={<CourseDetailPage />} />
-        <Route path="/success" element={<Success />} />
+     
         {/* student routes */}
 
         {/* insructor routes */}
@@ -52,6 +54,7 @@ function App() {
         <Route path="/add_course" element={<AddCourse />} />
         <Route path="/edit_course/:id" element={<EditCourse />} />
         <Route path="/add_lesson" element={<AddLessonInTutorPage />} />
+        <Route path="/orders" element={<OrderPage />} />
         {/* insructor routes */}
 
         {/* admin routes */}
@@ -63,6 +66,7 @@ function App() {
         <Route path="/admin_in_category" element={<CategoryPage />} />
         <Route path="/admin_add_category" element={<AddCategory />} />
         <Route path="/get_all_course_admin" element={<CoursePageAdmin />} />
+        <Route path="/admin_order" element={<OrderPage />} />
         {/* admin routes */}
       </Routes>
     </Router>

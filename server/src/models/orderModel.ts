@@ -5,7 +5,7 @@ import mongoose, { Schema, Document, model, Model } from 'mongoose';
 interface IORDER extends Document {
     studentname:mongoose.Schema.Types.ObjectId
     coursename: mongoose.Schema.Types.ObjectId;
-  
+    instructor:mongoose.Schema.Types.ObjectId
   
     status:boolean;
    
@@ -21,12 +21,18 @@ interface IORDER extends Document {
 const orderschema = new Schema<IORDER>({
     studentname:{
         type: mongoose.Schema.Types.ObjectId,
-        required:true
+        required:true,
+        ref:'studentCollection'
     },
     coursename: {
         type: mongoose.Schema.Types.ObjectId,
         ref:'courseModel',
         
+    },
+    instructor:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'instructorcollection',
+
     },
 amount: {
         type: Number,

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import CourseModel from '../../models/addCourse'
+import OrderModel from "../../models/orderModel";
 
 const getAllCourses=async(req:Request,res:Response)=>{
     try {
@@ -20,4 +21,18 @@ const getAllCourses=async(req:Request,res:Response)=>{
     }
 }
 
-export {getAllCourses}
+
+const entrolledCourse=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+
+        const entrolledCourse=await OrderModel.find({studentname:id}).populate('studentname').populate('instructor').populate('coursename')
+        res.status(200).json({entrolled:entrolledCourse})
+        
+    } catch (error) {
+        console.log(error);
+        
+        
+    }
+}
+export {getAllCourses,entrolledCourse}
