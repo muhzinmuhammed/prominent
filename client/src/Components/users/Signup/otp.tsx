@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { selectUser, signup } from "../../../features/userSlice/userSlice";
+import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 const UserOtp = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
@@ -32,8 +33,8 @@ const UserOtp = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/student/signup_verify",
+      const response = await axiosInstance.post(
+        "/student/signup_verify",
         {
           otp,
         }

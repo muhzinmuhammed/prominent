@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import OrdersTable from '../../Components/tutor/EntrolledCourse';
+import OrdersTable from '../../Components/Admin/order';
 import SideBar from '../../Components/Admin/Header/SideBar';
 
 const OrderPage = () => {

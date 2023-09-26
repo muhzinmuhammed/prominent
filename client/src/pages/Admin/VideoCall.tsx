@@ -1,9 +1,10 @@
 import React,{useState} from 'react'
 
 import SideBar from '../../Components/Admin/Header/SideBar';
-import GetAllCourse from '../../Components/Admin/getAllCourse';
 
-const CoursePageAdmin = () => {
+import CreateRoom from '../../Components/tutor/VideoCall/OnlineCall';
+
+const VideoCall = () => {
     const [toggle, setToggle] = useState<boolean>(true);
 
   const Toggle = () => {
@@ -21,9 +22,9 @@ const CoursePageAdmin = () => {
 
 
 
-{toggle&&<div className="col-4 col-md-2"></div>}
+{toggle&&<div className="col-4 col-md-6 d-flex align-item-center"></div>}
         <div className="col">
-          <GetAllCourse Toggle={Toggle}/>
+          <CreateRoom Toggle={Toggle}/>
         </div>  
       </div>
     </div>
@@ -32,4 +33,4 @@ const CoursePageAdmin = () => {
   )
 }
 
-export default CoursePageAdmin
+export default VideoCall

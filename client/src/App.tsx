@@ -25,6 +25,10 @@ import CourseTable from "./pages/tutor/courseTable";
 
 import EditCourse from "./pages/tutor/EditCourse";
 import OrderPage from "./pages/Admin/OrderPage";
+import TutorOrderPage from "./pages/tutor/Order";
+import CreateRoom from "./Components/tutor/VideoCall/OnlineCall";
+import Room from "./Components/tutor/VideoCall/Room";
+import VideoCall from "./pages/Admin/VideoCall";
 
 
 function App() {
@@ -51,10 +55,13 @@ function App() {
         <Route path="/tutor_signup" element={<TutorSignup />} />
         <Route path="/course_view_tutor" element={<CourseTable />} />
 
+        <Route path='/create_room' element={<VideoCall/>}/>
+          <Route path='/room/:roomId' element={<Room/>}/>
+
         <Route path="/add_course" element={<AddCourse />} />
         <Route path="/edit_course/:id" element={<EditCourse />} />
         <Route path="/add_lesson" element={<AddLessonInTutorPage />} />
-        <Route path="/orders" element={<OrderPage />} />
+        <Route path="/orders" element={<TutorOrderPage />} />
         {/* insructor routes */}
 
         {/* admin routes */}

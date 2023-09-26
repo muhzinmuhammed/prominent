@@ -8,6 +8,7 @@ import {  useSelector } from 'react-redux'
 import { selectUser, signup } from '../../../features/userSlice/userSlice';
 import NavbarHeader from "../Header/Navbar";
 import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
+import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 
 
 function Signup() {
@@ -55,7 +56,7 @@ function Signup() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/student/register', {
+      const response = await axiosInstance.post('/student/register', {
         studentname: trimmedName,
         studentemail: trimmedEmail,
         phone: trimmedPhone,

@@ -39,7 +39,7 @@ function TutorLogin() {
       password: trimmedPassword,
       });
       const adminData=response.data
-      console.log(adminData,"l");
+     
       
 
       localStorage.setItem('adminToken', JSON.stringify(adminData.token));

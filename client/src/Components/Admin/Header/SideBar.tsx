@@ -50,6 +50,10 @@ const SideBar = () => {
         <i className="bi bi-book fs-4 me-2"></i>
           <span className="fs-5">Courses</span>
         </a>
+        <a className='list-group-item py-2 me-3' href='/create_room'>
+        <i className="bi bi-camera fs-4 me-2"></i>
+          <span className="fs-5">Online Session</span>
+        </a>
         <a className='list-group-item py-2 me-3' href='/admin_add_category'>
         <i className="bi bi-person-badge fs-4 me-2"></i>
           <span className="fs-5">Add Category</span>

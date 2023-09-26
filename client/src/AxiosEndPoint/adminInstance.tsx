@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an Axios instance with a base URL
 const adminInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "http://localhost:4000",
 });
 
 

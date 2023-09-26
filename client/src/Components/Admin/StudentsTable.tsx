@@ -39,13 +39,15 @@ const Home = ({ Toggle }) => {
     (currentPage + 1) * itemsPerPage
   );
   const toggleUserStatus = async (user) => {
+   
+    
     try {
       if (user.isBlocked === false) {
-        await axiosInstance.put(`/admin/blockStudents/${user._id}`);
+        await adminInstance.put(`/admin/blockStudents/${user._id}`);
         user.isBlocked = true;
         toast.success("User Blocked Successfully");
       } else {
-        await axiosInstance.put(`/admin/unblockStudents/${user._id}`);
+        await adminInstance.put(`/admin/unblockStudents/${user._id}`);
         user.isBlocked = false;
         toast.success("User Unblocked Successfully");
       }
