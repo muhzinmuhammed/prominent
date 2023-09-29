@@ -1,30 +1,52 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import "./cousepage.css";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 import { toast } from "react-toastify";
 
 const CoursePage = () => {
-  const baseUrl =
-    "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
-  const navigate = useNavigate();
+  const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
+ 
 
   const [course, setCourse] = useState([]);
   const [entrolled, setEntrolled] = useState([]);
   const user = localStorage.getItem("userData");
   const user_id = JSON.parse(user);
-  if (user_id) {
-    useEffect(() => {
+
+  useEffect(() => {
+    if (user_id) {
       axiosInstance
         .get(`/student/entrolled/${user_id._id}`)
         .then((response) => {
-          console.log(response.data, "lll");
+          
+          
+          
+          // Filter out expired courses
+          const currentDate = new Date();
+          const filteredEntrolledCourses = response.data.entrolled.filter(
+            (entroll) => {
+              // Calculate the course end date based on duration and creation date
+              const courseDurationInDays = 1; // 1 year (adjust as needed)
+              const courseCreationDate = new Date(entroll.createdAt);
+              const courseEndDate = new Date(
+                courseCreationDate.getTime() +
+                courseDurationInDays * 24 * 60 * 60 * 1000
+              );
+              
+             
+              
+              
+              
+              // Check if the course end date is in the future
+              return courseEndDate > currentDate;
+            }
+          );
 
-          setEntrolled(response.data.entrolled);
+
+          setEntrolled(filteredEntrolledCourses);
         });
-    });
-  }
+    }
+  }, [user_id]);
 
   useEffect(() => {
     axiosInstance
@@ -81,7 +103,7 @@ const CoursePage = () => {
         {user_id && (
           <div className="container">
             <div className="row ms-5 mt-5">
-              <h1>Entrolled Courses</h1>
+              <h1>Enrolled Courses</h1>
               {entrolled.map((entroll) => (
                 <div key={entroll._id} className="col-lg-4 mt-5">
                   <div className="card-border card" style={{ width: "18rem" }}>

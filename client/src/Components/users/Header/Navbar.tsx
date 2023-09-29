@@ -88,6 +88,8 @@ const navigate=useNavigate()
         {user ? (
           <>
             <h6 className="me-5">{user.name}</h6>
+            <Link style={{textDecoration:'none', marginRight:'10px'}} to={'/join_room'}>Online Meet</Link>
+           
             <Button onClick={hanldeSignout} className="buton1">
               Logout
             </Button>

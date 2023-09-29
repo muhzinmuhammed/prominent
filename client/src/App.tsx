@@ -29,6 +29,7 @@ import TutorOrderPage from "./pages/tutor/Order";
 import CreateRoom from "./Components/tutor/VideoCall/OnlineCall";
 import Room from "./Components/tutor/VideoCall/Room";
 import VideoCall from "./pages/Admin/VideoCall";
+import JoinRoom from "./pages/Student/StudentCall";
 
 
 function App() {
@@ -47,6 +48,8 @@ function App() {
         <Route path="/tutors" element={<TutorPage />} />
         <Route path="/tutor_details" element={<TutorDetailsPage />} />
         <Route path="/course_details/:id" element={<CourseDetailPage />} />
+        <Route path='/join_room' element={<JoinRoom/>}/>
+
      
         {/* student routes */}
 

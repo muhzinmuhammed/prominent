@@ -8,7 +8,10 @@ import adminInstance from "../../AxiosEndPoint/adminInstance";
 
 const OrdersTable = ({ Toggle }) => {
   const [orders, setOrders] = useState([]);
- 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Number of items to display per page
+  const [filteredInstructors, setFilteredInstructors] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   // Number of items to display per page
 
   useEffect(() => {
@@ -27,9 +30,36 @@ const OrdersTable = ({ Toggle }) => {
       });
   }, []);
 
+  useEffect(() => {
+    // Update the filtered instructors when the search query changes
+    const filtered = orders.filter((order) =>
+    order.studentname.studentname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredInstructors(filtered);
+  }, [searchQuery, orders]);
+
   // Calculate the total number of pages
   
+  const totalPages = Math.ceil(filteredInstructors.length / itemsPerPage);
 
+  const indexOfLastCategory = currentPage * itemsPerPage;
+  const indexOfFirstCategory = indexOfLastCategory - itemsPerPage;
+  const OrderTable = filteredInstructors.slice(
+    indexOfFirstCategory,
+    indexOfLastCategory
+  );
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
 
   // Get the data to display on the current page
@@ -38,7 +68,16 @@ const OrdersTable = ({ Toggle }) => {
     <div className="px-3">
       <Nav Toggle={Toggle} />
       <ToastContainer />
-      <h1>Category Table</h1>
+      <h1>Order Table</h1>
+      <div className="mb-3">
+        <input
+          type="text"
+          placeholder="Search for an Order..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="form-control"
+        />
+      </div>
       <table className="table rounded mt-2">
         
         <thead>
@@ -55,7 +94,7 @@ const OrdersTable = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order, index) => (
+          {OrderTable.map((order, index) => (
             <tr key={order._id}>
               <td>{index + 1}</td>
               <td>{order.studentname.studentname}</td>
@@ -69,6 +108,35 @@ const OrdersTable = ({ Toggle }) => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        {currentPage > 1 && (
+          <button
+            onClick={handlePrevPage}
+            className="pagination-button"
+          >
+            Prev
+          </button>
+        )}
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentPage(index + 1)}
+            className={`pagination-button ${
+              currentPage === index + 1 ? "active" : ""
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+        {currentPage < totalPages && (
+          <button
+            onClick={handleNextPage}
+            className="pagination-button"
+          >
+            Next
+          </button>
+        )}
+      </div>
      
     </div>
   );

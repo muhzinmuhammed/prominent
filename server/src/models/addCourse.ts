@@ -1,10 +1,10 @@
 
-import mongoose, { Schema, Document, model, Model } from 'mongoose';
+import mongoose, { Schema, Document, model, Model, Date } from 'mongoose';
 
 
 interface ICOURSE extends Document {
     coursename: string;
-    courseduration: number;
+    courseduration: Date;
     coursedescrption: string;
     isApproved:boolean;
     category:mongoose.Schema.Types.ObjectId;
@@ -25,7 +25,7 @@ const courseSchema = new Schema<ICOURSE>({
         required: true,
     },
     courseduration: {
-        type: Number,
+        type: Date,
         required: true,
         
     },

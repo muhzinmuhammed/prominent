@@ -143,7 +143,7 @@ const AddCourse = ({ Toggle }) => {
         </div>
         <div className="form-group">
           <label>Course Duration</label>
-          <input type="number" className="form-control" placeholder="Enter duration" value={courseduration} onChange={(e)=>setCourseduration(e.target.value)} />
+          <input type="date" className="form-control" placeholder="Enter duration" value={courseduration} onChange={(e)=>setCourseduration(e.target.value)} />
         </div>
         <div className="form-group">
           <label>Course Price</label>
