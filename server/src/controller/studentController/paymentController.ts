@@ -65,9 +65,9 @@ const verifyOrder = async (req: Request, res: Response, ) => {
       
        await OrderModel.create({
         amount:real,
-        studentname,
-        coursename,
-        instructor:tutor_id
+        studentId: studentname,
+        courseId: coursename,
+        instructorId:tutor_id
 
        })
    

@@ -6,6 +6,8 @@ import CourseModel from "../../models/addCourse";
 const getAllLesson = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+   
+    
 
     // Find the course by its ID
     const course = await CourseModel.findById(id);
@@ -15,11 +17,12 @@ const getAllLesson = async (req: Request, res: Response) => {
     }
 
     // Find all lessons with the same course_id
-    const lessons = await LessonModel.find({ coursename: course._id })
-      .populate("coursename")
-      .populate("category")
-      .populate("instructor");
+    const lessons = await LessonModel.find({ courseId: course._id })
+      .populate("courseId")
+      .populate("categoryId")
+      .populate("instructorId");
      
+      
       
 
     if (lessons) {

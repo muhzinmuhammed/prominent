@@ -18,6 +18,7 @@ const CoursePage = () => {
       axiosInstance
         .get(`/student/entrolled/${user_id._id}`)
         .then((response) => {
+          console.log(response.data,"kk");
           
           
           
@@ -26,7 +27,7 @@ const CoursePage = () => {
           const filteredEntrolledCourses = response.data.entrolled.filter(
             (entroll) => {
               // Calculate the course end date based on duration and creation date
-              const courseDurationInDays = 1; // 1 year (adjust as needed)
+              const courseDurationInDays = 365; // 1 year (adjust as needed)
               const courseCreationDate = new Date(entroll.createdAt);
               const courseEndDate = new Date(
                 courseCreationDate.getTime() +
@@ -46,12 +47,14 @@ const CoursePage = () => {
           setEntrolled(filteredEntrolledCourses);
         });
     }
-  }, [user_id]);
+  }, []);
 
   useEffect(() => {
     axiosInstance
       .get("/student/allCourses")
       .then((response) => {
+        
+        
         setCourse(response.data.allCourse);
       })
       .catch((error) => {
@@ -109,22 +112,22 @@ const CoursePage = () => {
                   <div className="card-border card" style={{ width: "18rem" }}>
                     <Link
                       className="text-decoration-none"
-                      to={`/course_details/${entroll.coursename._id}`}
+                      to={`/course_details/${entroll.courseId._id}`}
                     >
                       <img
                         className="card-img-top"
-                        src={`${baseUrl}/${entroll.coursename.photo}`}
+                        src={`${baseUrl}/${entroll.courseId.photo}`}
                         style={{ height: "100px" }}
                         alt="Card image cap"
                       />
                       <div className="card-body">
                         <h5 className="card-title text-center">
-                          {entroll.coursename.coursename}
+                          {entroll.courseId.courseId}
                         </h5>
                         <p className="card-text">
-                          {entroll.coursename.coursedescription}
+                          {entroll.courseId.coursedescription}
                         </p>
-                        <small>{entroll.coursename.coursefee}</small>
+                        <small>{entroll.courseId.coursefee}</small>
                         <small className="float-end">*********</small>
                       </div>
                     </Link>

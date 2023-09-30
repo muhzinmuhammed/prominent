@@ -6,6 +6,8 @@ import OrderModel from "../../models/orderModel";
 const getAllCourses=async(req:Request,res:Response)=>{
     try {
         const allCourse=await CourseModel.find().where({isApproved:true})
+        console.log(allCourse);
+        
         if (allCourse) {
             res.status(200).json({allCourse})
             
@@ -26,7 +28,7 @@ const entrolledCourse=async(req:Request,res:Response)=>{
     try {
         const {id}=req.params
 
-        const entrolledCourse=await OrderModel.find({studentname:id}).populate('studentname').populate('instructor').populate('coursename')
+        const entrolledCourse=await OrderModel.find({studentId:id}).populate('studentId').populate('instructorId').populate('courseId')
         res.status(200).json({entrolled:entrolledCourse})
         
     } catch (error) {

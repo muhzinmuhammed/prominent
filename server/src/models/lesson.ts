@@ -4,16 +4,16 @@
 
     interface ILESSON extends Document {
         title:string;
-        coursename: mongoose.Schema.Types.ObjectId;
+        courseId: mongoose.Schema.Types.ObjectId;
         duration: number;
         coursedescrption: string;
         isApproved:boolean;
-        category:mongoose.Schema.Types.ObjectId;
+        categoryId:mongoose.Schema.Types.ObjectId;
         
 
     
         video: string[];
-        instructor: mongoose.Schema.Types.ObjectId;
+        instructorId: mongoose.Schema.Types.ObjectId;
         createdAt: Date;
         updatedAt: Date;
     
@@ -24,7 +24,7 @@
             type:String,
             required:true
         },
-        coursename: {
+        courseId: {
             type: mongoose.Schema.Types.ObjectId,
             ref:'courseModel',
             
@@ -38,7 +38,7 @@
             type: String,
             required: true,
         },
-        category: {
+        categoryId: {
             type: mongoose.Schema.Types.ObjectId,
             ref:'categorycollection',
             required: true,
@@ -52,7 +52,7 @@
         video: [{
             type: String,
         }],
-        instructor: {
+        instructorId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'instructorcollection',
         },

@@ -20,11 +20,11 @@ const addLesson = asyncHandler(async (req: Request, res: Response) => {
 
     const Course = await LessonModel.create({
       title,
-      coursename,
+      courseId:coursename,
       duration,
       coursedescrption,
-      category,
-      instructor,
+      categoryId:category,
+      instructorId:instructor,
       video,
     });
     if (Course) {

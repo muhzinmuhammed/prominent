@@ -2,7 +2,7 @@ import React,{useEffect, useState} from "react";
 import "./Coursedetails.css";
 import { useParams } from "react-router-dom";
 import { Badge, Accordion } from "react-bootstrap";
-import image from "../../../assets/images/mum.jpg";
+
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 const CourseDetails = () => {
   const baseUrl =
@@ -48,7 +48,7 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
 	};
   
   const handlesubmit = async () => {
-    const prices = lessons.map((lesson) => lesson.coursename.coursefee);
+    const prices = lessons.map((lesson) => lesson.courseId.coursefee);
     
     
     
@@ -72,7 +72,7 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
   useEffect(()=>{
     axiosInstance.get(`/student/allLessons/${id}`)
     .then((response)=>{
-      console.log(response);
+     
       
       
       setLessons(response.data.lessons)
@@ -103,7 +103,7 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
           {/* <p className="text-center"> Courses /{id}</p> */}
         </div>
         <div className="container course-image mt-5 me-5">
-          <img src={`${baseUrl}/${lesson.coursename.photo}`} className="img-fluid" alt="..."  />
+          <img src={`${baseUrl}/${lesson.courseId.photo}`} className="img-fluid" alt="..."  />
         </div>
         <div className="contaier">
           
@@ -114,7 +114,7 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
           
         
           <h5 className="text-color">
-           {lesson.coursename.coursename}
+           {lesson.courseId.coursename}
           </h5>
           <h4>
             Difficuly:
@@ -128,7 +128,7 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
         <div className="row">
           <div className="col-lg-4">
             <h1>Instructor</h1>
-            <p>{lesson.instructor?.instrctorname}</p>
+            <p>{lesson.instructorId?.instrctorname}</p>
           </div>
           <div className="col-lg-4">
             <h1>Duration</h1>
@@ -136,7 +136,7 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
           </div>
           <div className="col-lg-4">
             <h1>Price</h1>
-            <p>₹{lesson.coursename.coursefee}</p>
+            <p>₹{lesson.courseId.coursefee}</p>
           </div>
         </div>
       </div>

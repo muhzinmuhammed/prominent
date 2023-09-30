@@ -4,7 +4,7 @@ const studentRouter=express.Router()
 import { studentSignup,loginStudent, student_singup_verify_otp, instructor } from '../../controller/studentController/studentController'
 import { entrolledCourse, getAllCourses } from '../../controller/studentController/getAllCourse'
 import { getAllLesson } from '../../controller/studentController/getAllLessons'
-import { protect } from '../../middleware/authMiddleware'
+
 import { orderDetails, verifyOrder } from '../../controller/studentController/paymentController'
 /*student register*/
 studentRouter.post('/register',studentSignup)
