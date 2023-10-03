@@ -39,7 +39,7 @@ const CourseRefund=async(req:Request,res:Response)=>{
         await newWallet.save();
       }
   
-    //   await order_model.updateOne({ _id: id }, { $set: { status: "Refund", isWallet: 'credit' } });
+      await OrderModel.updateOne({ _id: id }, { $set: { status: "Refund", } });
   
   
      res.status(200).json({message:'success'})

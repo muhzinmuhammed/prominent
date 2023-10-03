@@ -5,7 +5,7 @@ import { addReview, getReview } from '../../controller/studentController/reviewC
 
 import { studentSignup,loginStudent, student_singup_verify_otp, instructor, allUsers } from '../../controller/studentController/studentController'
 import {  entrolledCourse, getAllCourses,entrolledCourseDetails } from '../../controller/studentController/getAllCourse'
-import { getAllLesson } from '../../controller/studentController/getAllLessons'
+import { getAllEntrolledLesson, getAllLesson } from '../../controller/studentController/getAllLessons'
 
 import { orderDetails, verifyOrder } from '../../controller/studentController/paymentController'
 import { CourseRefund } from '../../controller/studentController/walletController'
@@ -31,6 +31,7 @@ studentRouter.get('/allTutors',instructor)
 studentRouter.get('/allCourses',getAllCourses)
 /* get all course*/
 studentRouter.get("/allLessons/:id",getAllLesson)
+studentRouter.get("/entrolledlessons/:id",getAllEntrolledLesson)
 
 /* get all*/
 
@@ -57,7 +58,7 @@ studentRouter.post('/addreview',addReview)
 /* review course*/
 
 /* get review*/
-studentRouter.get('/getreview/:courseId', getReview);
+studentRouter.get('/getreview/:id', getReview);
 /* get review*/
 /* get users*/
 studentRouter.get("/allusers/:id", allUsers);

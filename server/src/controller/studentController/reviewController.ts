@@ -1,13 +1,13 @@
 import { Request,Response } from "express-serve-static-core";
 import ReviewModel from "../../models/reviewModel";
+import OrderModel from "../../models/orderModel";
 
 
 const addReview=async(req:Request,res:Response)=>{
-    console.log(req.body);
-    
+   
     
     try {
-        console.log(req.body);
+        
         
         
         const {studentId,courseId,review}=req.body
@@ -35,7 +35,10 @@ const getReview=async(req:Request,res:Response)=>{
        
        
         
-        const courseId = req.params.courseId; // Extract courseId from req.params
+        const {id} = req.params; 
+        const  course=await OrderModel.findById(id)
+        const courseId=course?.courseId
+
     
         
         const review=await ReviewModel.find({courseId:courseId}).populate('studentId','-password')

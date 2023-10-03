@@ -5,7 +5,7 @@ interface IORDER extends Document {
   courseId: mongoose.Schema.Types.ObjectId;
   instructorId: mongoose.Schema.Types.ObjectId;
 
-  status: boolean;
+  status: string;
 
   amount: number;
 
@@ -34,9 +34,9 @@ const orderschema = new Schema<IORDER>(
     },
 
     status: {
-      type: Boolean,
+      type: String,
 
-      default: true,
+      default: "suceess",
     },
 
     createdAt: {

@@ -64,6 +64,7 @@ const CoursePage = () => {
       });
   }, []);
 
+
   return (
     <>
       <div className="container course-header">
@@ -105,39 +106,43 @@ const CoursePage = () => {
           </div>
         </div>
         {user_id && (
-          <div className="container">
-            <div className="row ms-5 mt-5">
-              <h1>Enrolled Courses</h1>
-              {entrolled.map((entroll) => (
-                <div key={entroll._id} className="col-lg-4 mt-5">
-                  <div className="card-border card" style={{ width: "18rem" }}>
-                    <Link
-                      className="text-decoration-none"
-                      to={`/entroll_course/${entroll._id}`}
-                    >
-                      <img
-                        className="card-img-top"
-                        src={`${baseUrl}/${entroll.courseId.photo}`}
-                        style={{ height: "100px" }}
-                        alt="Card image cap"
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title text-center">
-                          {entroll.courseId.courseId}
-                        </h5>
-                        <p className="card-text">
-                          {entroll.courseId.coursedescription}
-                        </p>
-                        <small>{entroll.courseId.coursefee}</small>
-                        <small className="float-end">*********</small>
-                      </div>
-                    </Link>
-                  </div>
+  <div className="container">
+    <div className="row ms-5 mt-5">
+      <h1>Enrolled Courses</h1>
+      {entrolled
+        .filter((entroll) => entroll.status !== 'Refund')
+        .map((entroll) => (
+          <div key={entroll._id} className="col-lg-4 mt-5">
+            <div className="card-border card" style={{ width: "18rem" }}>
+              <Link
+                className="text-decoration-none"
+                to={`/entroll_course/${entroll._id}`}
+              >
+                <img
+                  className="card-img-top"
+                  src={`${baseUrl}/${entroll.courseId.photo}`}
+                  style={{ height: "100px" }}
+                  alt="Card image cap"
+                />
+                <div className="card-body">
+                  <h5 className="card-title text-center">
+                    {entroll.courseId.courseId}
+                  </h5>
+                  <p className="card-text">
+                    {entroll.courseId.coursedescription}
+                  </p>
+                  <small>{entroll.courseId.coursefee}</small>
+                  <small className="float-end">*********</small>
                 </div>
-              ))}
+              </Link>
             </div>
           </div>
-        )}
+        ))}
+    </div>
+  </div>
+)}
+
+
       </section>
     </>
   );

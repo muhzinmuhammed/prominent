@@ -33,6 +33,7 @@ const entrolledCourse=async(req:Request,res:Response)=>{
         const entrolledCourse=await OrderModel.find({studentId:id}).populate('studentId').populate('instructorId').populate('courseId')
         
         
+        
         res.status(200).json({entrolled:entrolledCourse})
         
     } catch (error) {
@@ -48,9 +49,11 @@ const entrolledCourseDetails=async(req:Request,res:Response)=>{
         
         
         
+        
 
         const entrolledCourse=await OrderModel.find({_id:id}).populate('studentId').populate('instructorId').populate('courseId')
         
+       
         
         res.status(200).json({entrolled:entrolledCourse})
         
