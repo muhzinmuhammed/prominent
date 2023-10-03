@@ -1,11 +1,14 @@
 import express from 'express'
 const studentRouter=express.Router()
 
-import { studentSignup,loginStudent, student_singup_verify_otp, instructor } from '../../controller/studentController/studentController'
-import { entrolledCourse, getAllCourses } from '../../controller/studentController/getAllCourse'
+import { addReview, getReview } from '../../controller/studentController/reviewController'
+
+import { studentSignup,loginStudent, student_singup_verify_otp, instructor, allUsers } from '../../controller/studentController/studentController'
+import {  entrolledCourse, getAllCourses,entrolledCourseDetails } from '../../controller/studentController/getAllCourse'
 import { getAllLesson } from '../../controller/studentController/getAllLessons'
 
 import { orderDetails, verifyOrder } from '../../controller/studentController/paymentController'
+import { CourseRefund } from '../../controller/studentController/walletController'
 /*student register*/
 studentRouter.post('/register',studentSignup)
 /*student register*/
@@ -42,6 +45,25 @@ studentRouter.post("/verify",verifyOrder)
 studentRouter.get('/entrolled/:id',entrolledCourse)
 /* entrolled coursers*/
 
+/* entrolled coursers*/
+studentRouter.get('/entrolledcourseDetails/:id',entrolledCourseDetails)
+/* entrolled coursers*/
 
+/* review course*/
+
+studentRouter.post('/addreview',addReview)
+
+
+/* review course*/
+
+/* get review*/
+studentRouter.get('/getreview/:courseId', getReview);
+/* get review*/
+/* get users*/
+studentRouter.get("/allusers/:id", allUsers);
+/* get users*/
+/* course refund  */
+studentRouter.post('/course_refund/:id',CourseRefund)
+/* course refund  */
 
 export default studentRouter

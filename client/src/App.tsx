@@ -30,6 +30,8 @@ import CreateRoom from "./Components/tutor/VideoCall/OnlineCall";
 import Room from "./Components/tutor/VideoCall/Room";
 import VideoCall from "./pages/Admin/VideoCall";
 import JoinRoom from "./pages/Student/StudentCall";
+import Chat from "./pages/Student/message/Chat";
+import EntrolledCourse from "./Components/users/CoursePage/EntrolledCourse";
 
 
 function App() {
@@ -48,7 +50,9 @@ function App() {
         <Route path="/tutors" element={<TutorPage />} />
         <Route path="/tutor_details" element={<TutorDetailsPage />} />
         <Route path="/course_details/:id" element={<CourseDetailPage />} />
+        <Route path="/entroll_course/:id" element={<EntrolledCourse />} />
         <Route path='/join_room' element={<JoinRoom/>}/>
+        <Route path="/message" element={<Chat />} />
 
      
         {/* student routes */}

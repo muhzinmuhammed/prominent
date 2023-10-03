@@ -8,7 +8,10 @@ interface ICOURSE extends Document {
     coursedescrption: string;
     isApproved:boolean;
     category:mongoose.Schema.Types.ObjectId;
-    coursefee:number
+    coursefee:number;
+    rating:string;
+    totalRating:string |number
+
     
 
    
@@ -57,6 +60,19 @@ const courseSchema = new Schema<ICOURSE>({
         required:true
 
     },
+    rating:[{
+
+        start:Number,
+    postedby:{type:mongoose.Schema.Types.ObjectId,ref:'studentCollection'}
+
+
+    }],
+    totalRating:{
+        type:String,
+        default:0
+
+    },
+
    
     createdAt: {
         type: Date,

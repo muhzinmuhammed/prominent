@@ -4,21 +4,49 @@ import { useParams } from "react-router-dom";
 import { Badge, Accordion } from "react-bootstrap";
 
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
-const CourseDetails = () => {
+const EntrolledCourse = () => {
   const baseUrl =
   "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
   const baseVideo="https://res.cloudinary.com/dfnwvbiyy/video/upload/v1694365110/"
   const { id } = useParams();
+  console.log(id);
+  const [entrolled,setEntrolled]=useState([])
+  
   const [lessons,setLessons]=useState([])
   const studentsname=localStorage.getItem("userData")
 const student=JSON.parse(studentsname)
 const [review,setReview]=useState('')
 const [showReview,setShowReview]=useState([])
 
+useEffect(()=>{
+    axiosInstance.get(`/student/entrolledcourseDetails/${id}`)
+    .then((response)=>{
+
+        setEntrolled(response.data.entrolled)
+       
+        
+        
+        
+    })
+},[id])
+
+const courseId = entrolled.length >= 0 ? entrolled[0]?.courseId._id : null;
+console.log(courseId,"oo");
+
+
+
+
+
+
+
+
+
+
 const reviewAdd=async()=>{
   await axiosInstance.post('/student/addreview',{
     studentId:student._id,
-    courseId:id,
+    courseId:courseId,
+    
     review:review
   })
 
@@ -27,73 +55,36 @@ const reviewAdd=async()=>{
 }
 
 useEffect(()=>{
-  axiosInstance.get(`/student/getreview/${id}`)
+  axiosInstance.get(`/student/getreview/${courseId}`)
   .then((response)=>{
+    
+    
 
     setShowReview(response.data.review)
    
     
   })
 },[])
-const initPayment = (data: { amount: number; currency: string; id: string; }) => {
- 
+const retutnCourse=async()=>{
+    
+    
+    
+        await axiosInstance.post(`/student/course_refund/${id}`)
+        .then((response)=>{
+            console.log(response);
+            
+        })
+
+        
+        
+
+   
+}
+
   
-   
-   
-   
-    
-		const options = {
-			key: "rzp_test_mEetqy2BIAhoF3",
-			amount: data.amount,
-			currency: data.currency,
-      description: "Test Transaction",
-			order_id: data.id,
-			handler: async (response: any) => {
-				try {
-					
-					const { datas } = await axiosInstance.post('/student/verify', {response,
-            studentname:student._id,
-            coursename:id,
-            amount:data.amount,
-          
-          });
-					console.log(datas);
-				} catch (error) {
-					console.log(error);
-				}
-			},
-			theme: {
-				color: "#1eb2a6",
-			},
-		};
-		const rzp1 = new window.Razorpay(options);
-		rzp1.open();
-	};
   
-  const handlesubmit = async () => {
-    const prices = lessons.map((lesson) => lesson.courseId.coursefee);
-    
-    
-    
-   try {
-    const response=await axiosInstance.post('/student/create-payment',{
-      amount:prices[0]
-    })
-
-
-
-    initPayment(response.data.data)
-    
-    
-   } catch (error) {
-    console.log(error);
-    
-    
-   }
-    
-  };
   useEffect(()=>{
-    axiosInstance.get(`/student/allLessons/${id}`)
+    axiosInstance.get(`/student/allLessons/${courseId}`)
     .then((response)=>{
      
       
@@ -208,20 +199,7 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
           Curiosity and eagerness to learn</li></ul>  
         </div>
        
-        <button
-  className="btn btn-info float-end mt-5"
-  onClick={() => {
-    const userData = localStorage.getItem("userData");
-    if (userData) {
-      handlesubmit()
-    } else {
-      alert("Please login");
-    }
-   
-  }}
->
-  ENROLL NOW
-</button>
+       
      
 
       </div>
@@ -241,9 +219,23 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
   ))}
 </div>
 
-
-
-     
+<h1 className="ms-5">Enter Your Review</h1>
+<form onSubmit={reviewAdd} className="about-box ms-5 mb-3">
+      <textarea
+        value={review}
+        onChange={(e) => setReview(e.target.value)}
+        className="ms-5 mb-3"
+        name=""
+        id=""
+        cols="50"
+        rows="4"
+        placeholder="Enter your course review"
+      ></textarea>
+      <button type="submit" className="btn btn-info text-white">
+        Submit
+      </button>
+    </form>
+     <button className="btn btn-info"onClick={retutnCourse}> Return course</button>
     </section>
           
           ))}
@@ -252,4 +244,4 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
   );
 };
 
-export default CourseDetails;
+export default EntrolledCourse;

@@ -4,6 +4,7 @@ import "./cousepage.css";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 import { toast } from "react-toastify";
 
+
 const CoursePage = () => {
   const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
  
@@ -95,7 +96,7 @@ const CoursePage = () => {
                       </h5>
                       <p className="card-text">{course.coursedescription}</p>
                       <small>{course.coursefee}</small>
-                      <small className="float-end">*********</small>
+                      <small className="float-end"></small>
                     </div>
                   </Link>
                 </div>
@@ -112,7 +113,7 @@ const CoursePage = () => {
                   <div className="card-border card" style={{ width: "18rem" }}>
                     <Link
                       className="text-decoration-none"
-                      to={`/course_details/${entroll.courseId._id}`}
+                      to={`/entroll_course/${entroll._id}`}
                     >
                       <img
                         className="card-img-top"

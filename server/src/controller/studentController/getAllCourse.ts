@@ -6,7 +6,7 @@ import OrderModel from "../../models/orderModel";
 const getAllCourses=async(req:Request,res:Response)=>{
     try {
         const allCourse=await CourseModel.find().where({isApproved:true})
-        console.log(allCourse);
+       
         
         if (allCourse) {
             res.status(200).json({allCourse})
@@ -27,8 +27,12 @@ const getAllCourses=async(req:Request,res:Response)=>{
 const entrolledCourse=async(req:Request,res:Response)=>{
     try {
         const {id}=req.params
+        
+        
 
         const entrolledCourse=await OrderModel.find({studentId:id}).populate('studentId').populate('instructorId').populate('courseId')
+        
+        
         res.status(200).json({entrolled:entrolledCourse})
         
     } catch (error) {
@@ -37,4 +41,25 @@ const entrolledCourse=async(req:Request,res:Response)=>{
         
     }
 }
-export {getAllCourses,entrolledCourse}
+
+const entrolledCourseDetails=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        
+        
+        
+
+        const entrolledCourse=await OrderModel.find({_id:id}).populate('studentId').populate('instructorId').populate('courseId')
+        
+        
+        res.status(200).json({entrolled:entrolledCourse})
+        
+    } catch (error) {
+        console.log(error);
+        
+        
+    }
+}
+
+
+export {getAllCourses,entrolledCourse,entrolledCourseDetails}

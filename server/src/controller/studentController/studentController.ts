@@ -156,4 +156,20 @@ const instructor = async (req: Request, res: Response) => {
 };
 /* get all instrctor*/
 
-export { studentSignup, loginStudent, student_singup_verify_otp, instructor };
+/* get all students*/
+const allUsers=async(req:Request,res:Response)=>{
+  try {
+    const users = await InstructorModel.find()
+    
+    
+    return res.json(users).status(200);
+    
+  } catch (error) {
+    console.log(error);
+    
+    
+  }
+}
+/* get all students*/
+
+export { studentSignup, loginStudent, student_singup_verify_otp, instructor,allUsers };
