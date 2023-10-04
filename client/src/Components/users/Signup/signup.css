@@ -1,3 +1,16 @@
 .heading{
     color: rgb(23, 172, 172)
 }
+
+@media (min-width: 768px) {
+  .signup-container {
+    padding: 20px;
+  }
+}
+
+/* Define styles for small screens */
+@media (max-width: 767px) {
+  .signup-container {
+    padding: 10px;
+  }
+}

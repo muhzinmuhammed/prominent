@@ -226,7 +226,7 @@ const initPayment = (data: { amount: number; currency: string; id: string; }) =>
 
       </div>
       <div className="about-box">
-      <h1>Review of Course</h1>
+      
   {showReview.map((review) => (
     <>
    

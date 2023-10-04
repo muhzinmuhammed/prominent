@@ -17,6 +17,8 @@
     "@zegocloud/zego-uikit-prebuilt": "^1.8.11",
     "@zegocloud/zego-uikit-prebuilt-live-streaming-rn": "^2.1.0",
     "antd": "^5.8.5",
+    "aws-amplify": "^5.3.11",
+    "aws-sdk": "^2.1468.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",

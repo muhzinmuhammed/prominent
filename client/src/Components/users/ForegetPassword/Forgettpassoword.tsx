@@ -1,52 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { Form, Card, Container, Button, Col, Row } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, signup } from "../../../features/userSlice/userSlice";
 
-import image from "../../../assets/images/b.jpg";
+
+
 import NavbarHeader from "../Header/Navbar";
-import { Link, useNavigate } from "react-router-dom";
-import "./LOgin.css";
+import { useNavigate } from "react-router-dom";
+
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 
-function Login() {
+function ForgetPassword() {
   const [studentemail, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
+ const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const trimmedEmail = studentemail.trim();
-    const trimmedPassword = password.trim();
-    if (trimmedEmail === "" || trimmedPassword === "") {
+   localStorage.setItem("useremail",trimmedEmail)
+    if (trimmedEmail === "" ) {
       toast.error("Please fill in all required fields.");
       return;
     }
     try {
-      const response = await axiosInstance.post("/student/login", {
+      const response = await axiosInstance.post("/student/forget_password", {
         studentemail: trimmedEmail,
-        password: trimmedPassword,
+        
       });
-      const userdata = response.data;
-      localStorage.setItem("userData", JSON.stringify(userdata));
-      localStorage.setItem("userToken", JSON.stringify(userdata.token));
+      
+      navigate('/user_forget_otp')
+      
+      
 
-      dispatch(signup(userdata));
-      navigate("/");
-
-      toast.success("User created successfully.");
+      
     } catch (error) {
       console.error(error);
       toast.error("User is blocked or please correct password");
     }
   };
-  useEffect(() => {
-    if (localStorage.getItem("userData")) {
-      navigate("/");
-    }
-  }, [navigate]);
+  
 
   return (
     <div>
@@ -56,7 +48,7 @@ function Login() {
       <Container fluid style={{ marginTop: "200px" }}>
         <Row>
           <Col xs={12} md={6}>
-            <img style={{ width: "100%" }} src={image} alt="kk" />
+            <img style={{ width: "100%",height:'66%' }} src='https://images.unsplash.com/photo-1504203700686-f21e703e5f1c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cGFzc3dvcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60' alt="kk" />
           </Col>
           <Col className="ll" xs={12} md={6}>
             <Card>
@@ -74,16 +66,7 @@ function Login() {
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label className="email">Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </Form.Group>
-
+                 
                   <Button
                     type="submit"
                     style={{
@@ -95,11 +78,11 @@ function Login() {
                     }}
                     className="w-50"
                   >
-                    Log In
+                 Submit
                   </Button>
                  
                 </Form>
-                <Link style={{ textDecoration: 'none' ,color:'#fff' }} to={'/forget_password'} >Forgot PassWord </Link>
+                
               </Card.Body>
             </Card>
           </Col>
@@ -109,4 +92,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgetPassword;

@@ -1,52 +1,48 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Form, Card, Container, Button, Col, Row } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, signup } from "../../../features/userSlice/userSlice";
+import {toast,ToastContainer} from 'react-toastify'
+
 
 import image from "../../../assets/images/b.jpg";
 import NavbarHeader from "../Header/Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import "./LOgin.css";
+
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 
-function Login() {
-  const [studentemail, setEmail] = useState("");
+function NewPassword() {
+  
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
+ 
   const navigate = useNavigate();
+const userEmail=localStorage.getItem('useremail')
+console.log(userEmail,"ll");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const trimmedEmail = studentemail.trim();
+    
     const trimmedPassword = password.trim();
-    if (trimmedEmail === "" || trimmedPassword === "") {
+    if (trimmedPassword === "") {
       toast.error("Please fill in all required fields.");
       return;
     }
     try {
-      const response = await axiosInstance.post("/student/login", {
-        studentemail: trimmedEmail,
+      const response = await axiosInstance.post("/student/newpassword", {
+        studentemail: userEmail,
         password: trimmedPassword,
       });
-      const userdata = response.data;
-      localStorage.setItem("userData", JSON.stringify(userdata));
-      localStorage.setItem("userToken", JSON.stringify(userdata.token));
+  
+     
 
-      dispatch(signup(userdata));
-      navigate("/");
+    
+      navigate("/login");
 
-      toast.success("User created successfully.");
+     
     } catch (error) {
       console.error(error);
       toast.error("User is blocked or please correct password");
     }
   };
-  useEffect(() => {
-    if (localStorage.getItem("userData")) {
-      navigate("/");
-    }
-  }, [navigate]);
+  
 
   return (
     <div>
@@ -64,15 +60,7 @@ function Login() {
                 style={{ height: "320px", backgroundColor: "#1eb2a6 " }}
               >
                 <Form onSubmit={(e) => handleSubmit(e)}>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label className="email">Email address</Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter email"
-                      value={studentemail}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </Form.Group>
+                  
 
                   <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label className="email">Password</Form.Label>
@@ -109,4 +97,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default NewPassword;

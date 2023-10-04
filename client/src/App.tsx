@@ -32,6 +32,9 @@ import VideoCall from "./pages/Admin/VideoCall";
 import JoinRoom from "./pages/Student/StudentCall";
 import Chat from "./pages/Student/message/Chat";
 import EntrolledCourse from "./Components/users/CoursePage/EntrolledCourse";
+import ForgetPassword from "./Components/users/ForegetPassword/Forgettpassoword";
+import ForgetOtp from "./Components/users/ForegetPassword/forgetOtp";
+import NewPassword from "./Components/users/ForegetPassword/newPassword";
 
 
 function App() {
@@ -52,6 +55,9 @@ function App() {
         <Route path="/course_details/:id" element={<CourseDetailPage />} />
         <Route path="/entroll_course/:id" element={<EntrolledCourse />} />
         <Route path='/join_room' element={<JoinRoom/>}/>
+        <Route path='/forget_password' element={<ForgetPassword/>}/>
+        <Route path='/user_forget_otp' element={<ForgetOtp/>}/>
+        <Route path='/new_password' element={<NewPassword/>}/>
         <Route path="/message" element={<Chat />} />
 
      

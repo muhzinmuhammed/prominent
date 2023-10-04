@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./Coursedetails.css";
 import { useParams } from "react-router-dom";
 import { Badge, Accordion } from "react-bootstrap";
-
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
+import { toast } from "react-toastify";
+import NavbarHeader from "../Header/Navbar";
 const EntrolledCourse = () => {
   const baseUrl =
     "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
   const baseVideo =
     "https://res.cloudinary.com/dfnwvbiyy/video/upload/v1694365110/";
   const { id } = useParams();
-  console.log(id);
+ const navigate=useNavigate()
   const [entrolled, setEntrolled] = useState([]);
 
   const [lessons, setLessons] = useState([]);
@@ -26,10 +28,10 @@ const EntrolledCourse = () => {
         setEntrolled(response.data.entrolled);
       });
   }, [id]);
-console.log(entrolled,"lil");
+
 
   const courseId = entrolled.length >= 0 ? entrolled[0]?.courseId._id : null;
-  console.log(courseId, "oo0");
+ 
 
   const reviewAdd = async () => {
     await axiosInstance.post("/student/addreview", {
@@ -49,8 +51,11 @@ console.log(entrolled,"lil");
     await axiosInstance
       .post(`/student/course_refund/${id}`)
       .then((response) => {
-        console.log(response);
-      });
+       toast.success('fund refunded')
+       navigate('/courses')
+      }).catch((err)=>{
+        toast.error(err)
+      })
   };
 
   useEffect(() => {
@@ -60,6 +65,8 @@ console.log(entrolled,"lil");
   }, [id]);
 
   return (
+    <>
+    <NavbarHeader/>
     <div className="conatiner ">
       {lessons.map((lesson) => (
         <section className="course-details  ">
@@ -72,7 +79,7 @@ console.log(entrolled,"lil");
                 color: "rgb(127,134,139)",
               }}
             >
-              {/* <p className="text-center"> Courses /{id}</p> */}
+              
             </div>
             <div className="container course-image mt-5 me-5">
               <img
@@ -96,6 +103,10 @@ console.log(entrolled,"lil");
               </h4>
             </div>
           </div>
+          <button className="btn btn-info ms-5 mt-5" onClick={retutnCourse}>
+            {" "}
+            Return course
+          </button>
           <div className="container mt-5">
             <div className="row">
               <div className="col-lg-4">
@@ -187,13 +198,11 @@ console.log(entrolled,"lil");
               Submit
             </button>
           </form>
-          <button className="btn btn-info" onClick={retutnCourse}>
-            {" "}
-            Return course
-          </button>
+          
         </section>
       ))}
     </div>
+    </>
   );
 };
 

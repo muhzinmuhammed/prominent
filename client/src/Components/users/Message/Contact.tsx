@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Logo from "../../../assets/images/logo.svg";
+
 
 export default function Contacts({ contacts, changeChat }) {
   
   const [currentUserName, setCurrentUserName] = useState(undefined);
-  // const [currentUserImage, setCurrentUserImage] = useState(undefined);
+ 
   const [currentSelected, setCurrentSelected] = useState(undefined);
 
   useEffect(() => {
@@ -39,8 +39,8 @@ export default function Contacts({ contacts, changeChat }) {
       {currentUserName && (
         <>
           <div className="brand">
-            <img src={Logo} alt="logo" />
-            <h3>snappy</h3>
+           
+           
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => (
@@ -51,30 +51,15 @@ export default function Contacts({ contacts, changeChat }) {
                 }`}
                 onClick={() => changeCurrentChat(index, contact)}
               >
-                 {console.log(contact,"hhdh")}
-                <div className="avatar">
-                  {/* <img
-                    src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                    alt=""
-                  /> */}
-                </div>
+               
+                
                 <div className="username">
-                  <h3>{contact.instrctorname}</h3>
+                  <h3>{contact.studentname}</h3>
                 </div>
               </div>
             ))}
           </div>
-          <div className="current-user">
-            <div className="avatar">
-              {/* <img
-                // src={`data:image/svg+xml;base64,${'dd'}`}
-                alt="avatar"
-              /> */}
-            </div>
-            <div className="username">
-              <h2>{currentUserName}</h2>
-            </div>
-          </div>
+          
         </>
       )}
     </Container>
@@ -88,19 +73,7 @@ const Container = styled.div`
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
   background-color: #080420;
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
-    img {
-      height: 2rem;
-    }
-    h3 {
-      color: white;
-      text-transform: uppercase;
-    }
-  }
+  
   .contacts {
     display: flex;
     flex-direction: column;
