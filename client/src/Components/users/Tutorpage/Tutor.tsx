@@ -5,6 +5,7 @@ import image from "../../../assets/images/a.jpg";
 import "./Tutor.css";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const TutorComponent = () => {
 
@@ -45,7 +46,9 @@ const TutorComponent = () => {
                 alt="Card image cap"
               />
               <div className="card-body">
+              <Link to={`/tutor_details/${instrutor._id}`} >
                 <h5 className="card-title text-center">{instrutor.instrctorname}</h5>
+                </Link>
                 
               </div>
             </div>

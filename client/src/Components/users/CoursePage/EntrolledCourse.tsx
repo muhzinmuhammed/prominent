@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Coursedetails.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Badge, Accordion } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
@@ -107,6 +107,9 @@ const EntrolledCourse = () => {
             {" "}
             Return course
           </button>
+          <Link to={`/certificates/${id}`}>
+          <button className="btn btn-info ms-5 mt-5">Certificate</button>
+          </Link>
           <div className="container mt-5">
             <div className="row">
               <div className="col-lg-4">
@@ -175,7 +178,7 @@ const EntrolledCourse = () => {
             {showReview.map((review) => (
               <>
                 <div className="container">
-                  <h4>{review.studentId.studentname}</h4>
+                  <h4>{review.studentId?.studentname}</h4>
                   <h6 key={review._id}>{review.review}</h6>
                 </div>
               </>

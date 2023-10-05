@@ -35,6 +35,7 @@ import EntrolledCourse from "./Components/users/CoursePage/EntrolledCourse";
 import ForgetPassword from "./Components/users/ForegetPassword/Forgettpassoword";
 import ForgetOtp from "./Components/users/ForegetPassword/forgetOtp";
 import NewPassword from "./Components/users/ForegetPassword/newPassword";
+import Certificate from "./Components/users/Certificate/Certificate";
 
 
 function App() {
@@ -48,10 +49,11 @@ function App() {
         <Route path="/user_otp" element={<UserOtp />} />
 
         <Route path="/courses" element={<CoursePageStudent />} />
+        <Route path="/certificates/:id" element={<Certificate />} />
       
 
         <Route path="/tutors" element={<TutorPage />} />
-        <Route path="/tutor_details" element={<TutorDetailsPage />} />
+        <Route path="/tutor_details/:id" element={<TutorDetailsPage />} />
         <Route path="/course_details/:id" element={<CourseDetailPage />} />
         <Route path="/entroll_course/:id" element={<EntrolledCourse />} />
         <Route path='/join_room' element={<JoinRoom/>}/>

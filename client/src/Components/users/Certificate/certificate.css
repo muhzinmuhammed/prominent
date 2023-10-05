@@ -1,0 +1,73 @@
+body {
+    font-family: Roboto;
+}
+
+.certificate-container {
+    padding: 50px;
+    width: 1024px;
+}
+.certificate {
+    border: 20px solid #0C5280;
+    padding: 25px;
+    height: 600px;
+    position: relative;
+}
+
+.certificate:after {
+    content: '';
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    background-image: url(https://image.ibb.co/ckrVv7/water_mark_logo.png);
+    background-size: 100%;
+    z-index: -1;
+}
+
+.certificate-header > .logo {
+    width: 80px;
+    height: 80px;
+}
+
+.certificate-title {
+    text-align: center;    
+}
+
+.certificate-body {
+    text-align: center;
+}
+
+h1 {
+
+    font-weight: 400;
+    font-size: 48px;
+    color: #0C5280;
+}
+
+.student-name {
+    font-size: 24px;
+}
+
+.certificate-content {
+    margin: 0 auto;
+    width: 750px;
+}
+
+.about-certificate {
+    width: 380px;
+    margin: 0 auto;
+}
+
+.topic-description {
+
+    text-align: center;
+}
+
+
+
+
+
+
+
+

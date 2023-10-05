@@ -6,6 +6,7 @@ import image from '../../../assets/images/a.jpg'
 import './instrutor.css'
 import axiosInstance from '../../../AxiosEndPoint/axiosEnd';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 const Instrutor = () => {
   const [instructor,setInstructor]=useState([])
   useEffect(()=>{
@@ -33,10 +34,10 @@ const Instrutor = () => {
          <Card.Body>
            <Card.Title className='card-title text-center card-head'>{instructor.instrctorname}</Card.Title>
           
-           <Button className='card-button ms-5'>Go somewhere</Button>
-         </Card.Body>
-       </Card>
-             
+          <Link to={`/tutor_details/${instructor._id}`} > <Button className='card-button ms-5'>Go somewhere</Button></Link>
+          </Card.Body>
+        </Card>
+              
            </Col>
 
         ))}
