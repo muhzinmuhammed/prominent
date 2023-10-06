@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Container, Button, Col, Row } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import "./cards.css";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 import { toast } from "react-toastify";
@@ -12,12 +12,12 @@ function Cards() {
   const baseUrl =
     "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
   const [course, setCourse] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // Step 1: Search query state
+
   useEffect(() => {
     axiosInstance
       .get("/student/allCourses")
       .then((response) => {
-        
-        
         setCourse(response.data.allCourse);
       })
       .catch((error) => {
@@ -26,63 +26,74 @@ function Cards() {
       });
   }, []);
 
-
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 3,
-      slidesToSlide: 3, // optional, default to 1.
+      slidesToSlide: 3,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 2,
-      slidesToSlide: 2, // optional, default to 1.
+      slidesToSlide: 2,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1,
-      slidesToSlide: 1, // optional, default to 1.
+      slidesToSlide: 1,
     },
   };
+
+  // Step 2: Filter courses based on search query
+  const filteredCourses = course.filter((course) =>
+    course.coursename.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <section>
       <h1 className="text-center mt-5 card-head">Trending Course</h1>
-<Container>
+      <Container>
+        <Form className="d-flex mx-auto"> {/* Center the search box */}
+          <Form.Control
+            type="search"
+            placeholder="Search Courses"
+            className="search"
+            aria-label="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </Form>
 
-
-      <Carousel
-        swipeable={false}
-        draggable={false}
-        showDots={true}
-        responsive={responsive}
-        ssr={true} // means to render carousel on server-side.
-        infinite={true}
-        autoPlay={false} // Set this to true if you want auto-play
-        autoPlaySpeed={1000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      >
-        {
-  course.map((course) => (
-    <div className="card" key={course.id}>
-      <img className="product--image" src={`${baseUrl}/${course.photo}`} alt="a" />
-      <h2>{course.coursename}</h2>
-      <p className="price">{course.coursefee}</p>
-      <p>{course.coursedescrption}</p>
-    </div>
-  ))
-}
-        
-       
-        
-        
-      </Carousel>
+        <Carousel
+          swipeable={false}
+          draggable={false}
+          showDots={true}
+          responsive={responsive}
+          ssr={true}
+          infinite={true}
+          autoPlay={false}
+          autoPlaySpeed={1000}
+          keyBoardControl={true}
+          customTransition="all .5"
+          transitionDuration={500}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {filteredCourses.map((course) => (
+            <div className="card mt-5" key={course.id}>
+              <img
+                className="product--image"
+                src={`${baseUrl}/${course.photo}`}
+                alt="a"
+              />
+              <h2>{course.coursename}</h2>
+              <p className="price">{course.coursefee}</p>
+              <p>{course.coursedescrption}</p>
+            </div>
+          ))}
+        </Carousel>
       </Container>
     </section>
   );

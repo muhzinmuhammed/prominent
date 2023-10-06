@@ -4,17 +4,14 @@ import instrcutorSchema from "../../models/instructor";
 import generateToken from "../../../utlitis/genarateToken";
 
 /*instructor register*/
-const instructorSignup = (async (req: Request, res: Response) => {
- 
- 
-
+const instructorSignup = async (req: Request, res: Response) => {
   try {
     const { instrctorname, instrctoremail, password, phone } = req.body;
     const userExists = await instrcutorSchema.findOne({ instrctoremail });
     const userPhone = await instrcutorSchema.findOne({ phone });
 
     if (userExists || userPhone) {
-    return  res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "User already exists" });
     }
 
     const instructor = await instrcutorSchema.create({
@@ -35,20 +32,18 @@ const instructorSignup = (async (req: Request, res: Response) => {
         token,
       });
     } else {
-     return res.status(400).json({ message: "Invalid instructor data" });
+      return res.status(400).json({ message: "Invalid instructor data" });
     }
   } catch (error) {
-   return res.status(500); // Internal server error
+    return res.status(500); // Internal server error
     throw error;
   }
-});
+};
 
 /*instructor register*/
 
 const loginInstructor = async (req: Request, res: Response) => {
   const { instrctoremail, password } = req.body;
- 
-  
 
   try {
     const user = await instrcutorSchema.findOne({ instrctoremail }); // Use StudentModel instead of userModel

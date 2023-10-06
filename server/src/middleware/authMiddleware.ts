@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
-import User  from "../models/userModel";
+import User from "../models/userModel";
 import * as dotenv from "dotenv";
 import { Document } from "mongoose";
 dotenv.config();
@@ -29,7 +29,8 @@ const protect = asyncHandler(
     if (token) {
       try {
         const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
-        const userId: string = decoded.userId;
+
+        const userId: string = decoded.user_id;
 
         const user: Document | null = await User.findById(userId).select(
           "-password"

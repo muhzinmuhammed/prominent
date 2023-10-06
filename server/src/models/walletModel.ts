@@ -1,29 +1,39 @@
-import { Schema, Document, Model, model } from 'mongoose';
+import { Schema, Document, Model, model } from "mongoose";
 
 interface IWallet extends Document {
   userId: Schema.Types.ObjectId;
-  orderId?: Schema.Types.ObjectId;
+  orderId: Schema.Types.ObjectId;
+  courseId: Schema.Types.ObjectId;
   balance: number;
-  transactions: string[];
+
+  createdAt: Date;
 }
 
 const walletSchema: Schema<IWallet> = new Schema<IWallet>({
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'studentCollection',
+    ref: "studentCollection",
     required: true,
+  },
+  courseId: {
+    type: Schema.Types.ObjectId,
+    ref: "courseModel",
   },
   orderId: {
     type: Schema.Types.ObjectId,
-    ref: 'orderModel',
+    ref: "orderModel",
   },
   balance: {
     type: Number,
     required: true,
   },
-  
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
 });
 
-const Wallet: Model<IWallet> = model<IWallet>('wallet', walletSchema);
+const Wallet: Model<IWallet> = model<IWallet>("wallet", walletSchema);
 
 export default Wallet;

@@ -28,7 +28,7 @@ function NavbarHeader() {
     dispatch(signup(parsedUserData));
   }, [dispatch]);
 
-const navigate=useNavigate()
+
  
   // Function to handle changes in the search input
   const handleSearchInputChange = (event: string) => {
@@ -66,31 +66,20 @@ const navigate=useNavigate()
             <Nav.Link className="ms-5 nav-class" href="/tutors">
               Tutors
             </Nav.Link>
+            
           </Nav>
-        </Navbar.Collapse>
-      </Container>
-
-      <div className="d-flex">
-        <Form className="d-flex ">
-          <Form.Control
-            type="search"
-            placeholder="Search"
-            className="search"
-            aria-label="Search"
-            value={searchValue}
-            onChange={handleSearchInputChange}
-          />
-          <AiOutlineSearch
-            className="search-icon"
-            style={{ display: toggleSearchIconVisibility() }}
-          />
-        </Form>
-        {user ? (
+          {user ? (
           <>
+          <Nav.Link className="me-5 nav-class" href="/message">
+              Chat
+            </Nav.Link>
+          <Nav.Link className="me-5 nav-class" href="/wallet">
+              Wallet
+            </Nav.Link>
             <h6 className="me-5">{user.name}</h6>
-            <Link style={{textDecoration:'none', marginRight:'10px'}} to={'/join_room'}>Online Meet</Link>
+            <Link style={{textDecoration:'none', marginRight:'20px',marginBottom:'10px'}} to={'/join_room'}>Online Meet</Link>
            
-            <Button onClick={hanldeSignout} className="buton1">
+            <Button  style={{textDecoration:'none', marginRight:'20px',marginBottom:'10px'}} onClick={hanldeSignout} className="buton1">
               Logout
             </Button>
           </>
@@ -106,6 +95,12 @@ const navigate=useNavigate()
             </Link>
           </>
         )}
+        </Navbar.Collapse>
+      </Container>
+
+      <div className="d-flex">
+        
+        
       </div>
     </Navbar>
   );

@@ -50,15 +50,11 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
 const getCourses = asyncHandler(async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-   
-    
 
     const courses = await addCourse
       .find({ instructor: id })
       .populate("instructor")
       .populate("category");
-      
-      
 
     if (courses) {
       res.status(200).json({
@@ -71,39 +67,31 @@ const getCourses = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-
 /* get all courses*/
 
-
 /* edit page */
-const editCoursePage=async(req:Request,res:Response)=>{
-    try {
-        const {id}=req.params
-        const editCourse=await addCourse.findById(id)
-        if (editCourse) {
-            res.status(200).json({
-                editCourse
-            })
-           
-            
-        }
-        else{
-            res.status(400).json({message:"No course"})
-        }
-        
-    } catch (error) {
-        res.status(500).json({message:"Internal server"})
-        
+const editCoursePage = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const editCourse = await addCourse.findById(id);
+    if (editCourse) {
+      res.status(200).json({
+        editCourse,
+      });
+    } else {
+      res.status(400).json({ message: "No course" });
     }
-}
+  } catch (error) {
+    res.status(500).json({ message: "Internal server" });
+  }
+};
 /* edit page * /
 
 /* update courses */
 const editCourse = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    
-    
+
     const {
       coursename,
       courseduration,
@@ -116,16 +104,20 @@ const editCourse = async (req: Request, res: Response) => {
       // Handle the case where the course with the given ID is not found.
       return res.status(404).json({ message: "Course not found" });
     } else {
-      const updateCourse = await addCourse.findByIdAndUpdate(id, {
-        coursename,
-        courseduration,
-        coursedescrption,
-        category,
-        coursefee,
-      },{ new: true });
+      const updateCourse = await addCourse.findByIdAndUpdate(
+        id,
+        {
+          coursename,
+          courseduration,
+          coursedescrption,
+          category,
+          coursefee,
+        },
+        { new: true }
+      );
       res.status(200).json({
-        updateCourse
-      })
+        updateCourse,
+      });
     }
   } catch (error) {
     console.log(error);
@@ -133,4 +125,4 @@ const editCourse = async (req: Request, res: Response) => {
 };
 /* edit courses */
 
-export { addCourses, getCourses, editCourse,editCoursePage };
+export { addCourses, getCourses, editCourse, editCoursePage };

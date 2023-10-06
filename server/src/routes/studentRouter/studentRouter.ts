@@ -30,7 +30,11 @@ import {
   orderDetails,
   verifyOrder,
 } from "../../controller/studentController/paymentController";
-import { CourseRefund } from "../../controller/studentController/walletController";
+import {
+  CourseRefund,
+  getWallet,
+} from "../../controller/studentController/walletController";
+import { protect } from "../../middleware/authMiddleware";
 /*student register*/
 studentRouter.post("/register", studentSignup);
 /*student register*/
@@ -88,13 +92,16 @@ studentRouter.post("/addreview", addReview);
 /* review course*/
 
 /* get review*/
-studentRouter.get("/getreview/:id", getReview);
+studentRouter.get("/getreview/:id", protect, getReview);
 /* get review*/
 /* get users*/
-studentRouter.get("/allusers/:id", allUsers);
+studentRouter.get("/allusers/:id", protect, allUsers);
 /* get users*/
 /* course refund  */
-studentRouter.post("/course_refund/:id", CourseRefund);
+studentRouter.post("/course_refund/:id", protect, CourseRefund);
+/* course refund  */
+/* course refund  */
+studentRouter.get("/wallet/:id", protect, getWallet);
 /* course refund  */
 
 export default studentRouter;

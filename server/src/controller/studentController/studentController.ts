@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 import userModel from "../../models/userModel";
 import generateToken from "../../../utlitis/genarateToken";
 
@@ -149,8 +149,8 @@ const forgetPassword = async (req: Request, res: Response) => {
     const { studentemail } = req.body;
     const userExists = await userModel.findOne({ studentemail });
     if (userExists) {
-     const otp= sendMail(studentemail, res);
-     forgetData.otp=otp
+      const otp = sendMail(studentemail, res);
+      forgetData.otp = otp;
     } else {
       return res.status(400).json({ message: "no user " });
     }
@@ -163,27 +163,23 @@ const forgetPassword = async (req: Request, res: Response) => {
 
 /* verify otp*/
 
-const verifyForgetPassword=async(req:Request,res:Response)=>{
+const verifyForgetPassword = async (req: Request, res: Response) => {
   try {
-    const {otp}=req.body
-    if (otp==forgetData.otp) {
-      return res.status(200).json({message:'success'})
-      
-    }else{
-      return res.status(400).json({message:'please correct passowrd'})
+    const { otp } = req.body;
+    if (otp == forgetData.otp) {
+      return res.status(200).json({ message: "success" });
+    } else {
+      return res.status(400).json({ message: "please correct passowrd" });
     }
-    
   } catch (error) {
     console.log(error);
-    
-    
   }
-}
+};
 
 /* verify otp*/
 
 /* new password */
-const newPassword = async (req:Request, res:Response) => {
+const newPassword = async (req: Request, res: Response) => {
   try {
     const { studentemail, password } = req.body;
     userModel.findOne({ studentemail: studentemail }).then((user) => {
@@ -191,11 +187,15 @@ const newPassword = async (req:Request, res:Response) => {
       bcrypt.hash(password, saltRounds, (err, hash) => {
         if (err) {
           res.status(500).send({
-            message: err.message || "Some error occurred while hashing the password",
+            message:
+              err.message || "Some error occurred while hashing the password",
           });
         } else {
           userModel
-            .findOneAndUpdate({ studentemail: studentemail }, { password: hash })
+            .findOneAndUpdate(
+              { studentemail: studentemail },
+              { password: hash }
+            )
             .then((data) => {
               if (!data) {
                 res.status(404).send({
@@ -208,7 +208,9 @@ const newPassword = async (req:Request, res:Response) => {
               }
             })
             .catch((err) => {
-              res.status(500).send({ message: "Error updating user information" });
+              res
+                .status(500)
+                .send({ message: "Error updating user information" });
             });
         }
       });
@@ -230,6 +232,5 @@ export {
   allUsers,
   forgetPassword,
   verifyForgetPassword,
-  newPassword
-
+  newPassword,
 };

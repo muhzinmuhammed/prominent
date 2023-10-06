@@ -4,15 +4,8 @@ interface IREVIEW extends Document {
   studentId: mongoose.Schema.Types.ObjectId;
   courseId: mongoose.Schema.Types.ObjectId;
 
-  review:string,
-  createdAt:Date
- 
-
- 
-
-  
-
- 
+  review: string;
+  createdAt: Date;
 }
 
 const reviewschema = new Schema<IREVIEW>(
@@ -27,18 +20,15 @@ const reviewschema = new Schema<IREVIEW>(
       ref: "courseModel",
     },
 
-    review:{
-        type:String
+    review: {
+      type: String,
     },
-    
-   
-   
+
     createdAt: {
       type: Date,
       required: true,
       default: Date.now,
     },
-    
   },
   { timestamps: true }
 );

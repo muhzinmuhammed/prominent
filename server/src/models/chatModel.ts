@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
- // Replace with the actual user model file
+// Replace with the actual user model file
 
 interface IChat extends Document {
   chatName: string;
@@ -20,7 +20,10 @@ const chatSchema = new Schema<IChat>(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Message",
     },
-    groupAdmin: { type: mongoose.Schema.Types.ObjectId, ref: "studentCollection" },
+    groupAdmin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "studentCollection",
+    },
   },
   { timestamps: true }
 );

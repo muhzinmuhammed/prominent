@@ -1,39 +1,29 @@
+import React from 'react';
+import { Carousel } from 'react-bootstrap';
+import animation from '../../../assets/video/animation.mp4';
+import './carousal.css';
 
-  import {Carousel,Card,Button} from 'react-bootstrap';
-  import carouselImage1 from '../../../assets/images/carousel.jpg';
+function Home() {
+  return (
+   
+     
+    <video
+  className='center'
+  src={animation}
   
-  import carouselImage3 from '../../../assets/images/mum.jpg';
-  import './carousal.css'
+  autoPlay
+  loop 
+  style={{
+    width: "100%",
+    height: "700px",
+    marginTop: '200px',
+  }}
+></video>
 
-  function Home() {
-    
-  
-    return (
-      <Carousel className='mt-5' interval={5000}> 
-        <Carousel.Item>
-          <img className='image-carousel' src={carouselImage1} alt="First slide" style={{ width: '100%',height:'500px' }} />
-          <Carousel.Caption >
-          
+
       
           
-  <Button className="btn button ">View Courses</Button>
- 
+  );
+}
 
-
-            
-          
-          </Carousel.Caption>
-        </Carousel.Item>
-       
-        <Carousel.Item>
-          <img className='image-carousel' src={carouselImage3} alt="Third slide" style={{ width: '100%',height:'500px' }} />
-          <Carousel.Caption>
-          <Button className="btn button ">View Courses</Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-       
-      </Carousel>
-    );
-  }
-
-  export default Home;
+export default Home;

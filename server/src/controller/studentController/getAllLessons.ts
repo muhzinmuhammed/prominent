@@ -7,9 +7,6 @@ import OrderModel from "../../models/orderModel";
 const getAllLesson = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-   
-    console.log(req.params,"iiii");
-    
 
     // Find the course by its ID
     const course = await CourseModel.findById(id);
@@ -23,16 +20,10 @@ const getAllLesson = async (req: Request, res: Response) => {
       .populate("courseId")
       .populate("categoryId")
       .populate("instructorId");
-     
-      
-      
 
     if (lessons) {
-        res.status(200).json({ lessons });
-        
+      res.status(200).json({ lessons });
     }
-
-   
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -41,16 +32,9 @@ const getAllLesson = async (req: Request, res: Response) => {
 const getAllEntrolledLesson = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-   
-    
-    
-    
 
     // Find the course by its ID
     const course = await OrderModel.findById(id);
-    
-  
-    
 
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
@@ -61,21 +45,14 @@ const getAllEntrolledLesson = async (req: Request, res: Response) => {
       .populate("courseId")
       .populate("categoryId")
       .populate("instructorId");
-     
-      
-     
-      
 
     if (lessons) {
-        res.status(200).json({ lessons });
-        
+      res.status(200).json({ lessons });
     }
-
-   
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
-export { getAllLesson,getAllEntrolledLesson };
+export { getAllLesson, getAllEntrolledLesson };

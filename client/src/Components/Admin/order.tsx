@@ -19,9 +19,7 @@ const OrdersTable = ({ Toggle }) => {
     adminInstance
       .get("/admin/order")
       .then((response) => {
-        console.log('====================================');
-        console.log(response.data,"kk");
-        console.log('====================================');
+        
        
         setOrders(response.data.order);
       })
@@ -33,7 +31,7 @@ const OrdersTable = ({ Toggle }) => {
   useEffect(() => {
     // Update the filtered instructors when the search query changes
     const filtered = orders.filter((order) =>
-    order.studentname.studentname.toLowerCase().includes(searchQuery.toLowerCase())
+    order.studentId.studentname.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredInstructors(filtered);
   }, [searchQuery, orders]);
@@ -97,11 +95,11 @@ const OrdersTable = ({ Toggle }) => {
           {OrderTable.map((order, index) => (
             <tr key={order._id}>
               <td>{index + 1}</td>
-              <td>{order.studentname.studentname}</td>
-              <td>{order.coursename.coursename}</td>
-              <td>{order.coursename.coursefee}</td>
-              <td>{order.instructor.instrctorname}</td>
-              <td>Success</td>
+              <td>{order.studentId?.studentname}</td>
+              <td>{order.courseId.coursename}</td>
+              <td>{order.courseId.coursefee}</td>
+              <td>{order.instructorId.instrctorname}</td>
+              <td>{order.status}</td>
              
               {/* Add action buttons or elements here if needed */}
             </tr>

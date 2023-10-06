@@ -1,13 +1,13 @@
 import express, { Express } from "express";
 import http from "http"; // Import the 'http' module
 import { Server as SocketIOServer, Socket } from "socket.io"; // Import Server and Socket types from 'socket.io'
-import '../connection/connection';
+import "../connection/connection";
 import studentRouter from "./routes/studentRouter/studentRouter";
 import tutorRouter from "./routes/tutorRouter/tutorRouter";
 import chatRouter from "./routes/ChatRoutes/chatRoutes";
-import cors from 'cors';
+import cors from "cors";
 import nocache from "nocache";
-import 'dotenv/config';
+import "dotenv/config";
 import adminRouter from "./routes/adminRouter/adminRouter";
 
 const app: Express = express();
@@ -19,11 +19,11 @@ app.use(cors());
 app.use(nocache());
 
 /*student route*/
-app.use('/student', studentRouter);
+app.use("/student", studentRouter);
 /*instructor route*/
-app.use('/instructor', tutorRouter);
+app.use("/instructor", tutorRouter);
 /*admin route*/
-app.use('/admin', adminRouter);
+app.use("/admin", adminRouter);
 
 /* chat router*/
 app.use("/messages", chatRouter);
@@ -31,7 +31,8 @@ app.use("/messages", chatRouter);
 
 const server = http.createServer(app); // Create an HTTP server using 'http' module
 
-const io = new SocketIOServer(server, { // Create a new Socket.IO server instance
+const io = new SocketIOServer(server, {
+  // Create a new Socket.IO server instance
   cors: {
     origin: "http://localhost:5173",
     credentials: true,
@@ -58,7 +59,3 @@ io.on("connection", (socket) => {
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-
-
-

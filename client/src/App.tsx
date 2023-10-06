@@ -36,6 +36,7 @@ import ForgetPassword from "./Components/users/ForegetPassword/Forgettpassoword"
 import ForgetOtp from "./Components/users/ForegetPassword/forgetOtp";
 import NewPassword from "./Components/users/ForegetPassword/newPassword";
 import Certificate from "./Components/users/Certificate/Certificate";
+import Wallet from "./Components/tutor/WalletTable/Wallet";
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
         <Route path='/user_forget_otp' element={<ForgetOtp/>}/>
         <Route path='/new_password' element={<NewPassword/>}/>
         <Route path="/message" element={<Chat />} />
+        <Route path="/wallet" element={<Wallet />} />
 
      
         {/* student routes */}

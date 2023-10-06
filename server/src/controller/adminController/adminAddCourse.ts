@@ -29,46 +29,46 @@ const getCourses = asyncHandler(async (req: Request, res: Response) => {
 /* get course */
 /*approved course*/
 
-
 const approvedCourseByAdmin = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-        const courseApproved = await CourseModel.findByIdAndUpdate(id, { isApproved: true });
+    const courseApproved = await CourseModel.findByIdAndUpdate(id, {
+      isApproved: true,
+    });
 
-        if (!courseApproved) {
-            return res.status(404).json({ message: "Course not found" });
-        }
-
-        return res.status(200).json({ message: "Course approved" });
-    } catch (error) {
-        console.error("Error approving course:", error);
-        return res.status(500).json({ message: "Internal server error" });
+    if (!courseApproved) {
+      return res.status(404).json({ message: "Course not found" });
     }
+
+    return res.status(200).json({ message: "Course approved" });
+  } catch (error) {
+    console.error("Error approving course:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
 /*approved course*/
 
 /*unapproved course*/
 const unApprovedCourseByAdmin = async (req: Request, res: Response) => {
-    try {
-        
-        
-        const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-        const course = await CourseModel.findByIdAndUpdate(id, { isApproved: false });
+    const course = await CourseModel.findByIdAndUpdate(id, {
+      isApproved: false,
+    });
 
-        if (!course) {
-            return res.status(404).json({ message: "Course not found" });
-        }
-
-        return res.status(200).json({ message: "Course unapproved successfully" });
-    } catch (error) {
-        console.error("Error unapproving course:", error);
-        return res.status(500).json({ message: "Internal server error" });
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
     }
+
+    return res.status(200).json({ message: "Course unapproved successfully" });
+  } catch (error) {
+    console.error("Error unapproving course:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
-  
-  
+
 /*unapproved course*/
 
-export { getCourses,approvedCourseByAdmin,unApprovedCourseByAdmin };
+export { getCourses, approvedCourseByAdmin, unApprovedCourseByAdmin };
