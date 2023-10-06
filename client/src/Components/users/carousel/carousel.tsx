@@ -16,7 +16,7 @@ function Home() {
   style={{
     width: "100%",
     height: "700px",
-    marginTop: '200px',
+    marginTop: '90px',
   }}
 ></video>
 

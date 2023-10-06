@@ -5,19 +5,15 @@ const tutoraxiosinstance = axios.create({
   baseURL: "http://localhost:4000",
 });
 
-
-
 // Add a request interceptor
 tutoraxiosinstance.interceptors.request.use(
   (config) => {
-    const tokenString = localStorage.getItem('tutorToken');
+    const tokenString = localStorage.getItem("tutorToken");
     if (tokenString) {
       try {
         const token = JSON.parse(tokenString);
-        console.log(token,"kkk");
-        
-        
-        
+        console.log(token, "kkk");
+
         config.headers.authorization = `Bearer ${token}`;
       } catch (error) {
         // Handle JSON parsing error, if any

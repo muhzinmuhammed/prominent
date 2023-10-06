@@ -64,7 +64,8 @@ function Cards() {
           />
         </Form>
 
-        <Carousel
+        <Carousel 
+        
           swipeable={false}
           draggable={false}
           showDots={true}
@@ -82,8 +83,10 @@ function Cards() {
           itemClass="carousel-item-padding-40-px"
         >
           {filteredCourses.map((course) => (
-            <div className="card mt-5" key={course.id}>
-              <img
+          
+            <div className="card mt-5" style={{ marginRight: '30px',borderRadius:'10px', }} key={course.id}>
+                <Link style={{textDecoration:'none'}} to={'/courses'}>
+              <img style={{height:'300px'}}
                 className="product--image"
                 src={`${baseUrl}/${course.photo}`}
                 alt="a"
@@ -91,6 +94,7 @@ function Cards() {
               <h2>{course.coursename}</h2>
               <p className="price">{course.coursefee}</p>
               <p>{course.coursedescrption}</p>
+              </Link>
             </div>
           ))}
         </Carousel>

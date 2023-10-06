@@ -11,7 +11,6 @@ axiosInstance.interceptors.request.use(
     if (tokenString) {
       try {
         const token = JSON.parse(tokenString);
-       
 
         config.headers.authorization = `Bearer ${token}`;
       } catch (error) {

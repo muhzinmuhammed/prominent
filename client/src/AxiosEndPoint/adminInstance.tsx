@@ -5,19 +5,14 @@ const adminInstance = axios.create({
   baseURL: "http://localhost:4000",
 });
 
-
-
 // Add a request interceptor
 adminInstance.interceptors.request.use(
   (config) => {
-    const tokenString = localStorage.getItem('adminToken');
+    const tokenString = localStorage.getItem("adminToken");
     if (tokenString) {
       try {
         const token = JSON.parse(tokenString);
-        
-        
-        
-        
+
         config.headers.authorization = `Bearer ${token}`;
       } catch (error) {
         // Handle JSON parsing error, if any
