@@ -18,6 +18,8 @@ function Cards() {
     axiosInstance
       .get("/student/allCourses")
       .then((response) => {
+        console.log(response.data);
+
         setCourse(response.data.allCourse);
       })
       .catch((error) => {
@@ -53,7 +55,9 @@ function Cards() {
     <section>
       <h1 className="text-center mt-5 card-head">Trending Course</h1>
       <Container>
-        <Form className="d-flex mx-auto"> {/* Center the search box */}
+        <Form className="d-flex mx-auto">
+          {" "}
+          {/* Center the search box */}
           <Form.Control
             type="search"
             placeholder="Search Courses"
@@ -64,8 +68,7 @@ function Cards() {
           />
         </Form>
 
-        <Carousel 
-        
+        <Carousel
           swipeable={false}
           draggable={false}
           showDots={true}
@@ -81,19 +84,30 @@ function Cards() {
           removeArrowOnDeviceType={["tablet", "mobile"]}
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
+          
         >
           {filteredCourses.map((course) => (
-          
-            <div className="card mt-5" style={{ marginRight: '30px',borderRadius:'10px', }} key={course.id}>
-                <Link style={{textDecoration:'none'}} to={'/courses'}>
-              <img style={{height:'300px'}}
-                className="product--image"
-                src={`${baseUrl}/${course.photo}`}
-                alt="a"
-              />
-              <h2>{course.coursename}</h2>
-              <p className="price">{course.coursefee}</p>
-              <p>{course.coursedescrption}</p>
+            <div
+              className="card mt-5 "
+              style={{ marginRight: "30px", borderRadius: "10px", height:'580px' }}
+              key={course.id}
+            >
+              <Link style={{ textDecoration: "none" }} to={`/course_details/${course._id}`}>
+                <img
+                  style={{ height: "300px", width: "100%" }}
+                  className="product--image"
+                  src={`${baseUrl}/${course.photo}`}
+                  alt="a"
+                />
+                <h2 className="text-center mt-5">{course.coursename}</h2>
+                <p className="text-dark mt-3">
+                  <b>{course.coursedescription}</b>
+                </p>
+                <small className="text-dark mt-5 ms-3">
+                  {course.instructor.instrctorname}
+                </small>
+
+                <h4 className="price text-center">₹ {course.coursefee}</h4>
               </Link>
             </div>
           ))}

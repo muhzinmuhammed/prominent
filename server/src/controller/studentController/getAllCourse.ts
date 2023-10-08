@@ -5,7 +5,7 @@ import OrderModel from "../../models/orderModel";
 
 const getAllCourses = async (req: Request, res: Response) => {
   try {
-    const allCourse = await CourseModel.find().where({ isApproved: true });
+    const allCourse = await CourseModel.find().populate('instructor').where({ isApproved: true });
 
     if (allCourse) {
       res.status(200).json({ allCourse });
@@ -34,6 +34,8 @@ const entrolledCourse = async (req: Request, res: Response) => {
 };
 
 const entrolledCourseDetails = async (req: Request, res: Response) => {
+ 
+  
   try {
     const { id } = req.params;
 
@@ -41,6 +43,7 @@ const entrolledCourseDetails = async (req: Request, res: Response) => {
       .populate("studentId")
       .populate("instructorId")
       .populate("courseId");
+
 
     res.status(200).json({ entrolled: entrolledCourse });
   } catch (error) {

@@ -10,9 +10,11 @@ function Home() {
     <video
   className='center'
   src={animation}
+
   
   autoPlay
   loop 
+  muted
   style={{
     width: "100%",
     height: "700px",

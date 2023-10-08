@@ -57,7 +57,7 @@ const tutor_id=tutor_Details._id
             <tr key={course._id}>
               <td>{index + 1}</td>
               <td>{course.coursename}</td>
-              <td>{course.coursedescrption}</td>
+              <td>{course.coursedescription}</td>
               <td><img style={{width:"100px"}} src={`${baseUrl}/${course.photo}`}/></td>
              
               <td>{course.coursefee}</td>

@@ -9,6 +9,17 @@ dotenv.config();
 
 const orderDetails = async (req: Request, res: Response) => {
   try {
+   const {coursename,studentname} =req.body
+   const course = await OrderModel.findOne({ courseId: coursename, studentId:studentname });
+  
+  
+   if (course) {
+    return res.status(400).json({message:'course alredy buying'})
+    
+  }
+   
+  
+    
     const instance = new Razorpay({
       key_id: process.env.KEY_ID || "",
       key_secret: process.env.KEY_SECRET || "",

@@ -4,10 +4,13 @@ import OrderModel from "../../models/orderModel";
 const viewOrderInTutor = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    
+    
 
-    const orders = await OrderModel.find({ instructor: id })
-      .populate("coursename")
-      .populate("studentname");
+    const orders = await OrderModel.find({ instructorId: id })
+      .populate("courseId")
+      .populate("studentId");
+
 
     if (orders) {
       res.status(200).json({ order: orders });

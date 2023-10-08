@@ -39,7 +39,7 @@ const instrcutorSchema = new Schema<ITUTOR>(
     ],
     courses: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "courseModel",
+      ref: "Course",
     },
     createdAt: {
       type: Date,

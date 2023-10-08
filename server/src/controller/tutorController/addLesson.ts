@@ -3,42 +3,27 @@ import asyncHandler from "express-async-handler";
 
 import LessonModel from "../../models/lesson";
 import instructorModel from "../../models/instructor";
+import CourseModel from "../../models/addCourse";
 
 /* add category */
 
 const addLesson = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const {
-      coursename,
-      title,
-      duration,
-      coursedescrption,
-      category,
-      instructor,
-      video,
-    } = req.body;
+    console.log(req.body);
+    
+    const { video, coursename,title,duration,description } = req.body;
 
-    const Course = await LessonModel.create({
-      title,
-      courseId: coursename,
-      duration,
-      coursedescrption,
-      categoryId: category,
-      instructorId: instructor,
-      video,
-    });
-    if (Course) {
-      res.status(200).json({
-        title,
-        coursename,
-        duration,
-        coursedescrption,
-        category,
-        instructor,
-        video,
-      });
+console.log(typeof(video));
+
+    const updatedCourse = await CourseModel.findOneAndUpdate(
+      { _id: coursename },
+      { $push: { courseLessons:{ video,title:title,duration:duration,description:description} } },
+      { new: true }
+    );
+    if (updatedCourse) {
+      res.status(201).json(updatedCourse);
     } else {
-      res.status(400).json({ message: "Invalid instructor data" });
+      res.status(404).json({ error: "Course not found" });
     }
   } catch (error) {
     res.status(500); // Internal server error
@@ -51,9 +36,9 @@ const addLesson = asyncHandler(async (req: Request, res: Response) => {
 /* get all courses*/
 const getLesson = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const courses = await LessonModel.find()
+    const courses = await CourseModel.find()
       .populate("instructor")
-      .populate("coursename")
+     
       .populate("category");
 
     if (courses) {

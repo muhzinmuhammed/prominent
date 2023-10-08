@@ -41,7 +41,7 @@ const EntrolledCourse = ({ Toggle }) => {
     <div className="px-3">
       <Nav Toggle={Toggle} />
       <ToastContainer />
-      <h1>Category Table</h1>
+      <h1>Entrolled Course </h1>
       <table className="table rounded mt-2">
         
         <thead>
@@ -61,9 +61,9 @@ const EntrolledCourse = ({ Toggle }) => {
           {orders.map((order, index) => (
             <tr key={order._id}>
               <td>{index + 1}</td>
-              <td>{order.studentname.studentname}</td>
-              <td>{order.coursename.coursename}</td>
-              <td>{order.coursename.coursefee}</td>
+              <td>{order.studentId?.studentname}</td>
+              <td>{order.courseId?.coursename}</td>
+              <td>{order.amount}</td>
             
               <td>Success</td>
              

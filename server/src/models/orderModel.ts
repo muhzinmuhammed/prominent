@@ -22,7 +22,7 @@ const orderschema = new Schema<IORDER>(
     },
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "courseModel",
+      ref: "Course",
     },
     instructorId: {
       type: mongoose.Schema.Types.ObjectId,

@@ -4,13 +4,14 @@ import "./cousepage.css";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 import { toast } from "react-toastify";
 
-
 const CoursePage = () => {
-  const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
- 
+  const baseUrl =
+    "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
 
   const [course, setCourse] = useState([]);
   const [entrolled, setEntrolled] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [filteredCourses, setFilteredCourses] = useState([]); // State for filtered courses
   const user = localStorage.getItem("userData");
   const user_id = JSON.parse(user);
 
@@ -19,9 +20,7 @@ const CoursePage = () => {
       axiosInstance
         .get(`/student/entrolled/${user_id._id}`)
         .then((response) => {
-          console.log(response.data,"kk");
-          
-          
+          console.log(response.data,"loll");
           
           // Filter out expired courses
           const currentDate = new Date();
@@ -32,18 +31,13 @@ const CoursePage = () => {
               const courseCreationDate = new Date(entroll.createdAt);
               const courseEndDate = new Date(
                 courseCreationDate.getTime() +
-                courseDurationInDays * 24 * 60 * 60 * 1000
+                  courseDurationInDays * 24 * 60 * 60 * 1000
               );
-              
-             
-              
-              
-              
+
               // Check if the course end date is in the future
               return courseEndDate > currentDate;
             }
           );
-
 
           setEntrolled(filteredEntrolledCourses);
         });
@@ -55,7 +49,7 @@ const CoursePage = () => {
       .get("/student/allCourses")
       .then((response) => {
         
-        
+
         setCourse(response.data.allCourse);
       })
       .catch((error) => {
@@ -64,6 +58,23 @@ const CoursePage = () => {
       });
   }, []);
 
+  // Function to filter courses based on search query
+  const filterCourses = () => {
+    if (searchQuery.trim() === "") {
+      // If the search query is empty, reset the filtered courses
+      setFilteredCourses([]);
+    } else {
+      // Otherwise, filter the courses that match the search query
+      const filtered = course.filter((course) =>
+        course.coursename.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredCourses(filtered);
+    }
+  };
+
+  useEffect(() => {
+    filterCourses(); // Call the filterCourses function whenever the searchQuery changes
+  }, [searchQuery]);
 
   return (
     <>
@@ -73,76 +84,114 @@ const CoursePage = () => {
           Choose from over 9 online video courses with new additions published
           every month
         </h5>
+
+        {/* Add an input field for search */}
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search for courses"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       </div>
 
       <section className="course-card">
         <div className="container">
           <div className="row ms-5 mt-5">
-            {course.map((course) => (
-              <div key={course._id} className="col-lg-4 mt-5">
-                <div className="card-border card" style={{ width: "18rem" }}>
-                  <Link
-                    to={`/course_details/${course._id}`}
-                    className="text-decoration-none"
-                  >
-                    <img
-                      className="card-img-top"
-                      src={`${baseUrl}/${course.photo}`}
-                      style={{ height: "100px" }}
-                      alt="Card image cap"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title text-center">
-                        {course.coursename}
-                      </h5>
-                      <p className="card-text">{course.coursedescription}</p>
-                      <small>{course.coursefee}</small>
-                      <small className="float-end"></small>
+            {searchQuery === "" // Check if search query is empty
+              ? course.map((course) => (
+                  // Display all courses if search query is empty
+                  <div key={course._id} className="col-lg-4 mt-5">
+                    <div className="card-border card" style={{ width: "18rem" }}>
+                      <Link
+                        to={`/course_details/${course._id}`}
+                        className="text-decoration-none"
+                      >
+                        <img
+                          className="card-img-top"
+                          src={`${baseUrl}/${course.photo}`}
+                          style={{ height: "100px" }}
+                          alt="Card image cap"
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title text-center">
+                            {course.coursename}
+                          </h5>
+                          <p className="card-text text-center">
+                            {course.instructor?.instrctorname}
+                          </p>
+                          <h4 className="text-center">{course.coursefee}</h4>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-                </div>
-              </div>
-            ))}
+                  </div>
+                ))
+              : filteredCourses.map((course) => (
+                  // Display filtered courses if search query is not empty
+                  <div key={course._id} className="col-lg-4 mt-5">
+                    <div className="card-border card" style={{ width: "18rem" }}>
+                      <Link
+                        to={`/course_details/${course._id}`}
+                        className="text-decoration-none"
+                      >
+                        <img
+                          className="card-img-top"
+                          src={`${baseUrl}/${course.photo}`}
+                          style={{ height: "100px" }}
+                          alt="Card image cap"
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title text-center">
+                            {course.coursename}
+                          </h5>
+                          <p className="card-text text-center">
+                            {course.instructor?.instrctorname}
+                          </p>
+                          <h4 className="text-center">{course.coursefee}</h4>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
           </div>
         </div>
+
         {user_id && (
-  <div className="container">
-    <div className="row ms-5 mt-5">
-      <h1>Enrolled Courses</h1>
-      {entrolled
-        .filter((entroll) => entroll.status !== 'Refund')
-        .map((entroll) => (
-          <div key={entroll._id} className="col-lg-4 mt-5">
-            <div className="card-border card" style={{ width: "18rem" }}>
-              <Link
-                className="text-decoration-none"
-                to={`/entroll_course/${entroll._id}`}
-              >
-                <img
-                  className="card-img-top"
-                  src={`${baseUrl}/${entroll.courseId.photo}`}
-                  style={{ height: "100px" }}
-                  alt="Card image cap"
-                />
-                <div className="card-body">
-                  <h5 className="card-title text-center">
-                    {entroll.courseId.courseId}
-                  </h5>
-                  <p className="card-text">
-                    {entroll.courseId.coursedescription}
-                  </p>
-                  <small>{entroll.courseId.coursefee}</small>
-                  <small className="float-end">*********</small>
-                </div>
-              </Link>
+          <div className="container">
+            <div className="row ms-5 mt-5">
+              <h1>Enrolled Courses</h1>
+              {entrolled
+                .filter((entroll) => entroll.status !== "Refund")
+                .map((entroll) => (
+                  <div key={entroll._id} className="col-lg-4 mt-5">
+                    <div className="card-border card" style={{ width: "18rem" }}>
+                      <Link
+                        className="text-decoration-none"
+                        to={`/entroll_course/${entroll._id}`}
+                      >
+                        <img
+                          className="card-img-top"
+                          src={`${baseUrl}/${entroll.courseId.photo}`}
+                          style={{ height: "100px" }}
+                          alt="Card image cap"
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title text-center">
+                            {entroll.courseId.courseId}
+                          </h5>
+                          <p className="card-text">
+                            {entroll.courseId.coursedescription}
+                          </p>
+                          <h3>{entroll.courseId.coursefee}</h3>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
-        ))}
-    </div>
-  </div>
-)}
-
-
+        )}
       </section>
     </>
   );

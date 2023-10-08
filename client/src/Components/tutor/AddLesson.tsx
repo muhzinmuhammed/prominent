@@ -90,9 +90,9 @@ const AddLessonInTutor = ({ Toggle }) => {
         title,
         coursename,
         duration:courseduration,
-        coursedescrption: description,
-        category,
-        instructor:storedUserData._id,
+        description: description,
+      
+    
         video: cloudinaryURL,
       })
       .then((response) => {
@@ -159,22 +159,7 @@ const AddLessonInTutor = ({ Toggle }) => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="categorySelect">Course Category</label>
-          <select
-            className="form-control"
-            id="categorySelect"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">Select Category</option>
-            {categoryOptions.map((category) => (
-              <option key={category._id} value={category._id}>
-                {category.title}
-              </option>
-            ))}
-          </select>
-        </div>
+       
      
         <div className="form-group">
           <label>Video</label>

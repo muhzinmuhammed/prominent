@@ -148,9 +148,7 @@ if (!isNameValid(trimmedName)) {
                   />
                 </Form.Group>
 
-                <Button type="submit" className="w-25">
-                  Sign Up
-                </Button>
+                <button type="submit" className="btn btn-info btn-lg btn-block">Register</button>
                
               </Form>
               <div className="mt-3">

@@ -17,7 +17,7 @@ const reviewschema = new Schema<IREVIEW>(
     },
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "courseModel",
+      ref: "Course",
     },
 
     review: {

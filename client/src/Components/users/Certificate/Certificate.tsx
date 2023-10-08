@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import './certificate.css';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../../../AxiosEndPoint/axiosEnd';
-import htmlToPdf from 'html-to-pdf';
+
 
 const Certificate = () => {
   const { id } = useParams();
   const [entrolled, setEnrolled] = useState([]);
-  const pdfRef = useRef(null);
+
 
   useEffect(() => {
     axiosInstance
@@ -18,16 +18,7 @@ const Certificate = () => {
       });
   }, [id]);
 
-  const handleDownloadPdf = () => {
-    const certificateContainer = document.querySelector('.certificate-container');
-    const options = {
-      filename: 'certificate.pdf',
-      orientation: 'landscape',
-      format: 'a4',
-    };
 
-    htmlToPdf.convert(certificateContainer, options);
-  };
 
   return (
     <>
@@ -71,7 +62,7 @@ const Certificate = () => {
           ))}
         </div>
       </div>
-      <button ref={pdfRef} onClick={handleDownloadPdf}>Download Pdf</button>
+      <button  >Download Pdf</button>
     </>
   );
 };

@@ -1,22 +1,32 @@
-import mongoose, { Schema, Document, model, Model, Date } from "mongoose";
+import mongoose, { Schema, Document, model, Model } from "mongoose";
 
-interface ICOURSE extends Document {
+enum CourseLevel {
+  Easy = "easy",
+  Medium = "medium",
+  Hard = "hard",
+}
+
+interface ICourse extends Document {
   coursename: string;
   courseduration: Date;
-  coursedescrption: string;
+  coursedescription: string;
   isApproved: boolean;
   category: mongoose.Schema.Types.ObjectId;
   coursefee: number;
-  rating: string;
+  rating: {
+    start: number;
+    postedby: mongoose.Schema.Types.ObjectId;
+  }[];
   totalRating: string | number;
-
+  courseLevel: CourseLevel;
   photo: string[];
   instructor: mongoose.Schema.Types.ObjectId;
+  courseLessons:string[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-const courseSchema = new Schema<ICOURSE>(
+const courseSchema = new Schema<ICourse>(
   {
     coursename: {
       type: String,
@@ -26,13 +36,13 @@ const courseSchema = new Schema<ICOURSE>(
       type: Date,
       required: true,
     },
-    coursedescrption: {
+    coursedescription: {
       type: String,
       required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "categorycollection",
+      ref: "categorycollection", // Replace with your actual category collection name
       required: true,
     },
     coursefee: {
@@ -41,8 +51,12 @@ const courseSchema = new Schema<ICOURSE>(
     },
     isApproved: {
       type: Boolean,
-
       default: false,
+    },
+    courseLevel: {
+      type: String,
+      enum: Object.values(CourseLevel),
+      required: true,
     },
     photo: [
       {
@@ -51,7 +65,7 @@ const courseSchema = new Schema<ICOURSE>(
     ],
     instructor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "instructorcollection",
+      ref: "instructorcollection", // Replace with your actual instructor collection name
       required: true,
     },
     rating: [
@@ -59,29 +73,44 @@ const courseSchema = new Schema<ICOURSE>(
         start: Number,
         postedby: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "studentCollection",
+          ref: "studentCollection", // Replace with your actual student collection name
         },
       },
     ],
+    courseLessons: [
+        {
+          title: {
+            type: String,
+            required: true,
+          },
+          duration: {
+            type: Number,
+            required: true,
+          },
+          description: {
+            type: String,
+            required: true,
+          },
+          video: {
+            type: String,
+            required: true,
+          },
+          
+          isActive: {
+            type: Boolean,
+            required: true,
+            default: true,
+          },
+        },
+      ],
     totalRating: {
-      type: String,
+      type: Number, // Change the type to Number
       default: 0,
-    },
-
-    createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      required: true,
-      default: Date.now,
     },
   },
   { timestamps: true }
 );
 
 // Define the model using the model function and export it
-const CourseModel: Model<ICOURSE> = model<ICOURSE>("courseModel", courseSchema);
+const CourseModel: Model<ICourse> = model<ICourse>("Course", courseSchema);
 export default CourseModel;

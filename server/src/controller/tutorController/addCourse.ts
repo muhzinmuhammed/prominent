@@ -9,31 +9,36 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
     const {
       coursename,
       courseduration,
-      coursedescrption,
+      coursedescription,
       category,
       instructor,
       photo,
       coursefee,
+      courseLevel
     } = req.body;
+    console.log(req.body);
+    
 
     const Course = await addCourse.create({
       coursename,
       courseduration,
-      coursedescrption,
+      coursedescription,
       category,
       instructor,
       photo,
       coursefee,
+      courseLevel
     });
     if (Course) {
       res.status(200).json({
         coursename,
         courseduration,
-        coursedescrption,
+        coursedescription,
         category,
         instructor,
         photo,
         coursefee,
+        courseLevel
       });
     } else {
       res.status(400).json({ message: "Invalid instructor data" });

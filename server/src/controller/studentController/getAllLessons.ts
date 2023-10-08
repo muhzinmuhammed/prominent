@@ -9,20 +9,18 @@ const getAllLesson = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     // Find the course by its ID
-    const course = await CourseModel.findById(id);
+    const course = await CourseModel.findById(id)
+      .populate("category")
+      .populate("instructor");
 
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
 
     // Find all lessons with the same course_id
-    const lessons = await LessonModel.find({ courseId: course._id })
-      .populate("courseId")
-      .populate("categoryId")
-      .populate("instructorId");
 
-    if (lessons) {
-      res.status(200).json({ lessons });
+    if (course) {
+      res.status(200).json({ course });
     }
   } catch (error) {
     console.error("Error:", error);
@@ -34,17 +32,15 @@ const getAllEntrolledLesson = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     // Find the course by its ID
-    const course = await OrderModel.findById(id);
+    const lessons = await OrderModel.findById(id)
+      .populate("courseId")
+      .populate("instructorId");
+   
+      
 
-    if (!course) {
+    if (!lessons) {
       return res.status(404).json({ message: "Course not found" });
     }
-
-    // Find all lessons with the same course_id
-    const lessons = await LessonModel.find({ courseId: course?.courseId })
-      .populate("courseId")
-      .populate("categoryId")
-      .populate("instructorId");
 
     if (lessons) {
       res.status(200).json({ lessons });

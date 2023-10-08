@@ -41,7 +41,7 @@ const userSchema = new Schema<IStudent>(
     ],
     courses: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "courseModel",
+      ref: "Course",
     },
     isBlocked: {
       type: Boolean,

@@ -17,7 +17,7 @@ const walletSchema: Schema<IWallet> = new Schema<IWallet>({
   },
   courseId: {
     type: Schema.Types.ObjectId,
-    ref: "courseModel",
+    ref: "Course",
   },
   orderId: {
     type: Schema.Types.ObjectId,
