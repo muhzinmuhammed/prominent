@@ -35,15 +35,23 @@ console.log(typeof(video));
 
 /* get all courses*/
 const getLesson = asyncHandler(async (req: Request, res: Response) => {
+ 
+  
+  
   try {
-    const courses = await CourseModel.find()
-      .populate("instructor")
+    const {id}=req.params
+   
+    
+    const courses = await CourseModel.findById(id)
      
-      .populate("category");
+     
+    const allLessons = courses?.courseLessons;
 
-    if (courses) {
+    
+
+    if (allLessons) {
       res.status(200).json({
-        courses,
+        allLessons,
       });
     }
   } catch (error) {

@@ -132,6 +132,8 @@ const instructor = async (req: Request, res: Response) => {
 const allUsers = async (req: Request, res: Response) => {
   try {
     const users = await StudentModel.find();
+   
+    
 
     return res.json(users).status(200);
   } catch (error) {

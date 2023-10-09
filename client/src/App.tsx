@@ -26,7 +26,7 @@ import CourseTable from "./pages/tutor/courseTable";
 import EditCourse from "./pages/tutor/EditCourse";
 import OrderPage from "./pages/Admin/OrderPage";
 import TutorOrderPage from "./pages/tutor/Order";
-import CreateRoom from "./Components/tutor/VideoCall/OnlineCall";
+
 import Room from "./Components/tutor/VideoCall/Room";
 import VideoCall from "./pages/Admin/VideoCall";
 import JoinRoom from "./pages/Student/StudentCall";
@@ -37,6 +37,9 @@ import ForgetOtp from "./Components/users/ForegetPassword/forgetOtp";
 import NewPassword from "./Components/users/ForegetPassword/newPassword";
 import Certificate from "./Components/users/Certificate/Certificate";
 import Wallet from "./Components/tutor/WalletTable/Wallet";
+
+import AdminDashBoard from "./pages/Admin/AdminDashBoard";
+import LessonDetails from "./pages/tutor/LessonDetails";
 
 
 function App() {
@@ -71,6 +74,7 @@ function App() {
         <Route path="/tutor_login" element={<TutorLogin />} />
         <Route path="/tutor_signup" element={<TutorSignup />} />
         <Route path="/course_view_tutor" element={<CourseTable />} />
+        <Route path="/course_lessons/:id" element={<LessonDetails />} />
 
         <Route path='/create_room' element={<VideoCall/>}/>
           <Route path='/room/:roomId' element={<Room/>}/>
@@ -85,6 +89,7 @@ function App() {
 
         <Route path="/admin_in_students" element={<UserInAdmin />} />
         <Route path="/admin_login" element={<AdminLogin />} />
+        <Route path="/dashboard" element={<AdminDashBoard />} />
         <Route path="/admin_in_instructor" element={<InstructorInAdmin />} />
 
         <Route path="/admin_in_category" element={<CategoryPage />} />

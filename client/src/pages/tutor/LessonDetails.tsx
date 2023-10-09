@@ -1,30 +1,30 @@
 import React,{useState} from 'react'
-
 import SideBar from '../../Components/tutor/SideNavbar/SideNav';
+import LesseonTable from '../../Components/tutor/LessonsDetails';
 
-import CreateRoom from '../../Components/tutor/VideoCall/OnlineCall';
 
-const VideoCall = () => {
+
+const LessonDetails = () => {
     const [toggle, setToggle] = useState<boolean>(true);
-
-  const Toggle = () => {
-    setToggle(!toggle);
-  };
+    const Toggle = () => {
+        setToggle(!toggle);
+      };
   return (
     <div>
       <div className="container-fluid bg-secondary min-vh-100">
       <div className="row">
         {toggle && (
           <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-            <SideBar/>
+            <SideBar  />
           </div>
         )}
 
 
 
-{toggle&&<div className="col-4 col-md-6 d-flex align-item-center"></div>}
+{toggle&&<div className="col-4 col-md-2"></div>}
         <div className="col">
-          <CreateRoom Toggle={Toggle}/>
+         
+          <LesseonTable Toggle={Toggle}/>
         </div>  
       </div>
     </div>
@@ -33,4 +33,4 @@ const VideoCall = () => {
   )
 }
 
-export default VideoCall
+export default LessonDetails

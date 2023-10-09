@@ -78,8 +78,7 @@ export default function Chat() {
     <Nav/>
     <Container>
       <div className="container">
-       
-        
+      
         <Contacts contacts={contacts} changeChat={handleChatChange} />
         {currentChat === undefined ? (
           <Welcome />

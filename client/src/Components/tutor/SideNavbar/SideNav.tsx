@@ -59,6 +59,10 @@ const SideBar = () => {
         <i className="bi bi-plus fs-4 me-2"></i>
           <span className="fs-5">View Entrolled Course</span>
         </a>
+        <a className='list-group-item py-2 me-3' href='/create_room'>
+        <i className="bi bi-camera fs-4 me-2"></i>
+          <span className="fs-5">Online Session</span>
+        </a>
         <a className='list-group-item py-2 me-3'>
         <i className="bi bi-power fs-4 me-2"></i>
           <span className="fs-5"onClick={hanldeSignout}>Logout</span>

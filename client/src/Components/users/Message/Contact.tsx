@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 
 export default function Contacts({ contacts, changeChat }) {
+  console.log(contacts,"ll");
+  
   
   const [currentUserName, setCurrentUserName] = useState(undefined);
  

@@ -95,7 +95,7 @@ studentRouter.post("/addreview", addReview);
 studentRouter.get("/getreview/:id", protect, getReview);
 /* get review*/
 /* get users*/
-studentRouter.get("/allusers/:id", protect, allUsers);
+studentRouter.get("/allusers/:id", allUsers);
 /* get users*/
 /* course refund  */
 studentRouter.post("/course_refund/:id", protect, CourseRefund);

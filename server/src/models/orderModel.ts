@@ -36,7 +36,7 @@ const orderschema = new Schema<IORDER>(
     status: {
       type: String,
 
-      default: "suceess",
+      default: "success",
     },
 
     createdAt: {

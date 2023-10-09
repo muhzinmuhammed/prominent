@@ -12,6 +12,7 @@ import { approvedCourseByAdmin, getCourses, unApprovedCourseByAdmin } from "../.
 import { addCategory } from "../../controller/adminController/adminAddCategory";
 import { adminProtect } from "../../middleware/adminMiddleware";
 import {viewOrder} from '../../controller/adminController/orderController'
+import { TotalSales, totalGraph } from "../../controller/adminController/adminDashBoard";
  
 
 
@@ -63,6 +64,9 @@ adminRouter.put('/unapprovedCourse/:id',unApprovedCourseByAdmin)
 /* get orders*/
 adminRouter.get('/order',adminProtect,viewOrder)
 /* get orders*/
+
+adminRouter.get('/total_count',adminProtect,TotalSales)
+adminRouter.get('/sales_report',adminProtect,totalGraph)
 
 
 export default adminRouter;

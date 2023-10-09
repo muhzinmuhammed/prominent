@@ -25,15 +25,12 @@ const SideBar = () => {
       </div>
       <hr className='text-dark' />
       <div className="list-group list-group-flush">
-        <a className='list-group-item py-2 me-3'>
+        <a className='list-group-item py-2 me-3' href='/dashboard'>
           <i className='bi bi-speedometer2 fs-5 me-2' ></i>
           <span className="fs-5">DashBoard</span>
         </a>
        
-        <a className='list-group-item py-2 me-3' href='/home'>
-          <i className='bi bi-house fs-4 me-2'></i>
-          <span className="fs-5">Home</span>
-        </a>
+       
         <a className='list-group-item py-2 me-3' href='/admin_in_students'>
         <i className="bi bi-people fs-4 me-2"></i>
           <span className="fs-5">Student</span>
@@ -50,10 +47,7 @@ const SideBar = () => {
         <i className="bi bi-book fs-4 me-2"></i>
           <span className="fs-5">Courses</span>
         </a>
-        <a className='list-group-item py-2 me-3' href='/create_room'>
-        <i className="bi bi-camera fs-4 me-2"></i>
-          <span className="fs-5">Online Session</span>
-        </a>
+       
         <a className='list-group-item py-2 me-3' href='/admin_add_category'>
         <i className="bi bi-person-badge fs-4 me-2"></i>
           <span className="fs-5">Add Category</span>

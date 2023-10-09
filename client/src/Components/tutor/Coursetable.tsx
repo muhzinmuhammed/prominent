@@ -47,7 +47,11 @@ const tutor_id=tutor_Details._id
 
            
             <th>Fees</th>
+       
+
             <th>Edit</th>
+            
+            <th>Lessons</th>
            
             
           </tr>
@@ -63,6 +67,9 @@ const tutor_id=tutor_Details._id
               <td>{course.coursefee}</td>
               <td>
              <Link to={`/edit_course/${course._id}`}>  <i  className="bi bi-pencil"></i></Link> 
+              </td>
+              <td>
+             <Link to={`/course_lessons/${course._id}`}>  <i  className="bi bi-book"></i></Link> 
               </td>
               
               
