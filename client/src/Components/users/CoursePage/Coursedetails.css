@@ -13,6 +13,16 @@
   padding: 50px;
   margin: 20px;
 }
+.buy-button:hover{
+    background-color: #fff;
+  color: #1eb2a6;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.4);
+}
+.buy-button{
+    background-color: #1eb2a6;
+  color: #fff;
+
+}
 .border-course{
     border-radius: 10px;
     padding: 8px;

@@ -20,8 +20,8 @@ const CoursePage = () => {
       axiosInstance
         .get(`/student/entrolled/${user_id._id}`)
         .then((response) => {
-          console.log(response.data,"loll");
-          
+          console.log(response.data, "loll");
+
           // Filter out expired courses
           const currentDate = new Date();
           const filteredEntrolledCourses = response.data.entrolled.filter(
@@ -48,8 +48,6 @@ const CoursePage = () => {
     axiosInstance
       .get("/student/allCourses")
       .then((response) => {
-        
-
         setCourse(response.data.allCourse);
       })
       .catch((error) => {
@@ -103,7 +101,10 @@ const CoursePage = () => {
               ? course.map((course) => (
                   // Display all courses if search query is empty
                   <div key={course._id} className="col-lg-4 mt-5">
-                    <div className="card-border card" style={{ width: "18rem" }}>
+                    <div
+                      className="card-border card"
+                      style={{ width: "18rem", height: "370px" }}
+                    >
                       <Link
                         to={`/course_details/${course._id}`}
                         className="text-decoration-none"
@@ -118,6 +119,9 @@ const CoursePage = () => {
                           <h5 className="card-title text-center">
                             {course.coursename}
                           </h5>
+                          <p className="text-dark mt-3">
+                            <b>{course.coursedescription}</b>
+                          </p>
                           <p className="card-text text-center">
                             {course.instructor?.instrctorname}
                           </p>
@@ -130,7 +134,10 @@ const CoursePage = () => {
               : filteredCourses.map((course) => (
                   // Display filtered courses if search query is not empty
                   <div key={course._id} className="col-lg-4 mt-5">
-                    <div className="card-border card" style={{ width: "18rem" }}>
+                    <div
+                      className="card-border card"
+                      style={{ width: "18rem" }}
+                    >
                       <Link
                         to={`/course_details/${course._id}`}
                         className="text-decoration-none"
@@ -165,7 +172,10 @@ const CoursePage = () => {
                 .filter((entroll) => entroll.status !== "Refund")
                 .map((entroll) => (
                   <div key={entroll._id} className="col-lg-4 mt-5">
-                    <div className="card-border card" style={{ width: "18rem" }}>
+                    <div
+                      className="card-border card"
+                      style={{ width: "18rem" }}
+                    >
                       <Link
                         className="text-decoration-none"
                         to={`/entroll_course/${entroll._id}`}

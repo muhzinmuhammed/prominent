@@ -44,11 +44,11 @@ const Wallet = () => {
           </td>
           <td>
             
-            {walletItem.courseId.coursename}
+            {walletItem.courseId?.coursename}
           </td>
           <td>
             
-            {walletItem.courseId.coursefee}
+            {walletItem.courseId?.coursefee}
           </td>
           <td>
             

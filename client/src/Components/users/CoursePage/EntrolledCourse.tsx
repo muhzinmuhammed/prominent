@@ -91,7 +91,7 @@ const courseId=newLessons.courseId?._id
                   style={{ color: "rgb(0,0,0)" }}
                 ></h1>
 
-                <h5 className="text-color">{newLessons.courseId?.coursename}</h5>
+                <h1 className="text-dark text-center ">{newLessons.courseId?.coursename}</h1>
                 <h4>
                   Difficuly:
                   <Badge bg="success" className="ms-3 mt-3">
@@ -100,26 +100,33 @@ const courseId=newLessons.courseId?._id
                 </h4>
               </div>
             </div>
-            <button className="btn btn-info ms-5 mt-5" onClick={retutnCourse}>
+           <div className="row">
+            <div className="col-lg-8 ms-5">
+            <button className="btn btn-info buy-button ms-5 mt-5" onClick={retutnCourse}>
               {" "}
               Return course
             </button>
+            </div>
+            <div className="col-lg-2">
             <Link to={`/certificates/${id}`}>
-              <button className="btn btn-info ms-5 mt-5">Certificate</button>
+              <button className="btn btn-info buy-button ms-5 mt-5">Certificate</button>
             </Link>
+            </div>
+           </div>
+            
             <div className="container mt-5">
               <div className="row">
                 <div className="col-lg-4">
                   <h1>Instructor</h1>
-                  <p>{newLessons.instructorId?.instrctorname}</p>
+                  <h4>{newLessons.instructorId?.instrctorname}</h4>
                 </div>
                 <div className="col-lg-4">
                   <h1>Duration</h1>
-                  <p>{newLessons.courseId?.duration} week</p>
+                  <h4>{newLessons.courseId?.duration} week</h4>
                 </div>
                 <div className="col-lg-4">
                   <h1>Price</h1>
-                  <p>₹{newLessons.courseId?.coursefee}</p>
+                  <h4>₹{newLessons.courseId?.coursefee}</h4>
                 </div>
               </div>
             </div>
@@ -149,25 +156,6 @@ const courseId=newLessons.courseId?._id
 
       </div>
             <div className="container">
-              <h3 className="mt-5">About this course</h3>
-              <div className="about-box">
-                Learn JavaScript from scratch with this comprehensive
-                beginner-friendly course. JavaScript is the language of the web,
-                and this course will teach you how to create interactive web
-                applications. No prior programming experience required. Join now
-                and start your journey into web development!
-              </div>
-            </div>
-            <div className="container">
-              <h3 className="mt-5">Requirements</h3>
-              <div className="about-box">
-                <ul>
-                  <li>No prior programming experience required</li>
-                  <li>Access to a computer with an internet connection</li>
-                  <li>Curiosity and eagerness to learn</li>
-                </ul>
-              </div>
-            </div>
             <div className="about-box">
               <h1>Review of Course</h1>
               {showReview.map((review) => (
@@ -180,7 +168,10 @@ const courseId=newLessons.courseId?._id
               ))}
             </div>
 
-            <h1 className="ms-5">Enter Your Review</h1>
+            </div>
+            
+<div className="container">
+<h1 className="ms-5">Enter Your Review</h1>
             <form onSubmit={reviewAdd} className="about-box ms-5 mb-3">
               <textarea
                 value={review}
@@ -196,6 +187,9 @@ const courseId=newLessons.courseId?._id
                 Submit
               </button>
             </form>
+
+</div>
+            
           </section>
         )}
       </div>

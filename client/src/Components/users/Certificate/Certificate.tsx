@@ -22,6 +22,9 @@ const Certificate = () => {
 
   return (
     <>
+    <div className="container">
+
+  
       <div className="certificate-container">
         <div className="certificate">
           <div className="water-mark-overlay"></div>
@@ -62,7 +65,8 @@ const Certificate = () => {
           ))}
         </div>
       </div>
-      <button  >Download Pdf</button>
+      </div>
+      
     </>
   );
 };

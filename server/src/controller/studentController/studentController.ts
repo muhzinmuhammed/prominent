@@ -131,9 +131,9 @@ const instructor = async (req: Request, res: Response) => {
 /* get all students*/
 const allUsers = async (req: Request, res: Response) => {
   try {
-    const users = await StudentModel.find();
-   
-    
+    const { id } = req.params;
+
+    const users = await StudentModel.find({ _id: { $ne: id } });
 
     return res.json(users).status(200);
   } catch (error) {

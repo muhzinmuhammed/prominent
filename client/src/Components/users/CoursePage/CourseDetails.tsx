@@ -123,33 +123,52 @@ const CourseDetails = () => {
             </div>
             
             <div className="container">
-              <h1 className="text-center mt-5" style={{ color: "rgb(0,0,0)" }}>
-                {/* Course Title */}
-                {course.coursename}
+              <h1 className="text-center mt-5 text-info" >
+               
+                     {course.coursename}
               </h1>
 
-              <h5 className="text-color">Course Name: {course.coursename}</h5>
+             
               <h4>
                 Difficuly:
-                <Badge bg="success" className="ms-3 mt-3">
-                  easy
+                <Badge bg="success" className="ms-3 ">
+                {course.courseLevel}
                 </Badge>
               </h4>
             </div>
           </div>
+
+         
           <div className="container mt-5">
         <div className="row">
-          <div className="col-lg-4">
+          <div className="col-lg-3">
             <h1>Instructor</h1>
-            <p>{course.instructor?.instrctorname}</p>
+            <h6>{course.instructor?.instrctorname}</h6>
           </div>
-          <div className="col-lg-4">
+          <div className="col-lg-3">
             <h1>Duration</h1>
-            <p>{course.duration} week</p>
+            <h6>{course.duration} week</h6>
           </div>
-          <div className="col-lg-4">
+          <div className="col-lg-3">
             <h1>Price</h1>
-            <p>₹{course.coursefee}</p>
+            <h6>₹{course.coursefee}</h6>
+          </div>
+          <div className="col-lg-3 ">
+          <h1>Buy Now</h1>
+          <button
+  className="btn btn-info  buy-button"
+  onClick={() => {
+    const userData = localStorage.getItem("userData");
+    if (userData) {
+      handleSubmit()
+    } else {
+      alert("Please login");
+    }
+   
+  }}
+>
+  ENROLL NOW
+</button>
           </div>
         </div>
       </div>
@@ -178,34 +197,24 @@ const CourseDetails = () => {
 
 
       </div>
-          <div className="container">
-            <h3 className="mt-5">About this course</h3>
-            <p>{course.coursedescription}</p>
-          </div>
-          <div className="container">
-            <h3 className="mt-5">Requirements</h3>
-            {/* Render Requirements here */}
-            <ul>
-              <li>No prior programming experience required</li>
-              <li>Access to a computer with an internet connection</li>
-              <li>Curiosity and eagerness to learn</li>
-            </ul>
-           
-          </div>
-          <button
-  className="btn btn-info float-end mt-5"
-  onClick={() => {
-    const userData = localStorage.getItem("userData");
-    if (userData) {
-      handleSubmit()
-    } else {
-      alert("Please login");
-    }
-   
-  }}
->
-  ENROLL NOW
-</button>
+
+
+      <div className="container">
+            <div className="about-box">
+              <h1>Review of Course</h1>
+              {showReview.map((review) => (
+                <>
+                  <div className="container">
+                    <h4>{review.studentId?.studentname}</h4>
+                    <h6 key={review._id}>{review.review}</h6>
+                  </div>
+                </>
+              ))}
+            </div>
+
+            </div>
+          
+          
         </section>
       )}
     </div>
