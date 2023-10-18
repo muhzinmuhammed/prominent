@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState } from "react";
 import { Form, Card, Container, Button, Col, Row } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -14,7 +14,7 @@ function ForgetPassword() {
   
  const navigate=useNavigate()
 
-  const handleSubmit = async (e) => {
+ const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     const trimmedEmail = studentemail.trim();
    localStorage.setItem("useremail",trimmedEmail)
@@ -23,7 +23,7 @@ function ForgetPassword() {
       return;
     }
     try {
-      const response = await axiosInstance.post("/student/forget_password", {
+       await axiosInstance.post("/student/forget_password", {
         studentemail: trimmedEmail,
         
       });

@@ -4,6 +4,7 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import CourseModel from "../../models/addCourse";
+import instructorModel from "../../models/instructor";
 
 dotenv.config();
 
@@ -62,10 +63,33 @@ const verifyOrder = async (req: Request, res: Response) => {
     if (response.razorpay_signature === expectedSign) {
       const real = amount / 100;
 
+      const adminAmount=(real*90)/100
+
+      const tutorAmount=(real*10)/100
+      const tutor=await instructorModel.findById(tutor_id)
+      if (tutor) {
+        await instructorModel.findOneAndUpdate(
+          { _id: tutor_id },
+          {
+            $inc:{
+              income:tutorAmount
+            }
+          }
+        );
+        
+      }
+      
+
+      
+      
+      
+      
+
+
       // Assuming you have a mongoose OrderModel defined
 
       await OrderModel.create({
-        amount: real,
+        amount: adminAmount,
         studentId: studentname,
         courseId: coursename,
         instructorId: tutor_id,

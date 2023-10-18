@@ -2,10 +2,10 @@ import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
-const CreateRoom = ({Toggle}) => {
+const CreateRoom = () => {
     const navigate=useNavigate()
     const [roomeCode,setRoomCode]=useState('')
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         navigate(`/room/${roomeCode}`)
     }

@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import  { useState } from "react";
 import { Form, Card, Container, Button, Col, Row } from "react-bootstrap";
 import {toast,ToastContainer} from 'react-toastify'
 
@@ -17,7 +17,7 @@ function NewPassword() {
 const userEmail=localStorage.getItem('useremail')
 console.log(userEmail,"ll");
 
-  const handleSubmit = async (e) => {
+const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     
     const trimmedPassword = password.trim();
@@ -26,7 +26,7 @@ console.log(userEmail,"ll");
       return;
     }
     try {
-      const response = await axiosInstance.post("/student/newpassword", {
+       await axiosInstance.post("/student/newpassword", {
         studentemail: userEmail,
         password: trimmedPassword,
       });

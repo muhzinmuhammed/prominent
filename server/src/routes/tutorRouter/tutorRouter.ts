@@ -21,6 +21,7 @@ import {
 } from "../../controller/tutorController/addLesson";
 import { tutorProtect } from "../../middleware/tutorMiddleware";
 import { viewOrderInTutor } from "../../controller/tutorController/entrollmentStudent";
+import { totalCount } from "../../controller/tutorController/tutorDashBoard";
 
 /*instructor register*/
 tutorRouter.post("/register", instructorSignup);
@@ -73,5 +74,9 @@ tutorRouter.get("/allInstructor", tutorProtect, getTutor);
 /* tutor course entrollment*/
 tutorRouter.get("/orderTutor/:id", tutorProtect, viewOrderInTutor);
 /* tutor course entrollmen*/
+
+/*tutor dashboard*/
+tutorRouter.get('/total_count/:id',totalCount)
+/*tutor dashboard*/
 
 export default tutorRouter;

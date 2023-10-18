@@ -2,20 +2,48 @@ import React, { useEffect, useState } from "react";
 import "./Coursedetails.css";
 import { useParams } from "react-router-dom";
 import { Badge, Accordion } from "react-bootstrap";
-
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
-const CourseDetails = () => {
+interface CourseDetailsProps {
+  course: {
+    _id: string;
+    photo: string;
+    coursename: string;
+    courseLevel: string;
+    coursedescription: string;
+    instructor?: {
+      instrctorname: string;
+    };
+    duration: string;
+    coursefee: string;
+    courseLessons: Array<{
+      title: string;
+      video: string;
+    }>;
+  };
+}
+
+interface Review {
+  _id: string;
+  review: string | null;
+  studentId?: {
+    studentname: string | null;
+  };
+}
+
+const CourseDetails: React.FC = () => {
   const baseUrl =
     "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
   const baseVideo =
     "https://res.cloudinary.com/dfnwvbiyy/video/upload/v1694365110/";
-  const { id } = useParams();
-  const [course, setCourse] = useState(null);
+  const { id } = useParams<{ id: string }>();
+  const [course, setCourse] = useState<CourseDetailsProps["course"] | null>(
+    null
+  );
   const studentsname = localStorage.getItem("userData");
-  const student = JSON.parse(studentsname);
-  const [showReview, setShowReview] = useState([]);
+  const student = studentsname ? JSON.parse(studentsname) : null;
+  const [showReview, setShowReview] = useState<Review[] | null>(null);
 
   useEffect(() => {
     axiosInstance.get(`/student/getreview/${id}`).then((response) => {
@@ -26,20 +54,25 @@ const CourseDetails = () => {
   useEffect(() => {
     axiosInstance.get(`/student/allLessons/${id}`).then((response) => {
       if (response.data.course) {
-        console.log(response.data,"lll");
-        
         setCourse(response.data.course);
       }
     });
   }, [id]);
 
-  const initPayment = async (data) => {
+  const initPayment = async (data: {
+    amount: string;
+    currency: string;
+    id: string;
+  }) => {
     try {
-      const response = await axiosInstance.post("/student/create-payment", {
-        amount: data.amount,
-        coursename: id,
-        studentname: student._id,
-      });
+      const response = await axiosInstance.post<any>(
+        "/student/create-payment",
+        {
+          amount: data.amount,
+          coursename: id,
+          studentname: student?._id,
+        }
+      );
 
       if (response.status === 200) {
         const options = {
@@ -48,14 +81,17 @@ const CourseDetails = () => {
           currency: data.currency,
           description: "Test Transaction",
           order_id: data.id,
-          handler: async (response) => {
+          handler: async (response: any) => {
             try {
-              const { datas } = await axiosInstance.post('/student/verify', {
-                response,
-                studentname: student._id,
-                coursename: id,
-                amount: data.amount,
-              });
+              const { datas } = await axiosInstance.post<any>(
+                "/student/verify",
+                {
+                  response,
+                  studentname: student?._id,
+                  coursename: id,
+                  amount: data.amount,
+                }
+              );
               console.log(datas);
             } catch (error) {
               console.log(error);
@@ -65,42 +101,41 @@ const CourseDetails = () => {
             color: "#1eb2a6",
           },
         };
-        const rzp1 = new window.Razorpay(options);
+        const rzp1 = new (window as any).Razorpay(options);
         rzp1.open();
       } else {
-        toast.error('Already Buying This Course');
+        toast.error("Already Buying This Course");
       }
     } catch (error) {
-      toast.error('Already Buying This Course');
+      toast.error("Already Buying This Course");
     }
   };
-  
 
   const handleSubmit = async () => {
     if (course) {
       const prices = course?.coursefee;
 
       try {
-        const response = await axiosInstance.post("/student/create-payment", {
+        const response = await axiosInstance.post<any>("/student/create-payment", {
           amount: prices,
           coursename: id,
-          studentname: student._id,
+          studentname: student?._id,
         });
 
         if (response.status === 200) {
           initPayment(response.data.data);
         } else {
-          toast.error('Already Buying This Course');
+          toast.error("Already Buying This Course");
         }
       } catch (error) {
-        toast.error('Already Buying This Course');
+        toast.error("Already Buying This Course");
       }
     }
   };
 
   return (
     <div className="container">
-      <ToastContainer/>
+      <ToastContainer />
       {course && (
         <section className="course-details">
           <div className="container">
@@ -112,7 +147,6 @@ const CourseDetails = () => {
                 color: "rgb(127,134,139)",
               }}
             >
-              {/* <p className="text-center"> Courses /{id}</p> */}
             </div>
             <div className="container course-image mt-5 me-5">
               <img
@@ -121,100 +155,108 @@ const CourseDetails = () => {
                 alt="..."
               />
             </div>
-            
+
             <div className="container">
-              <h1 className="text-center mt-5 text-info" >
-               
-                     {course.coursename}
+              <h1 className="text-center mt-5 text-info">
+                {course.coursename}
               </h1>
 
-             
               <h4>
                 Difficuly:
                 <Badge bg="success" className="ms-3 ">
-                {course.courseLevel}
+                  {course.courseLevel}
                 </Badge>
               </h4>
             </div>
           </div>
 
-         
           <div className="container mt-5">
-        <div className="row">
-          <div className="col-lg-3">
-            <h1>Instructor</h1>
-            <h6>{course.instructor?.instrctorname}</h6>
+            <div className="row">
+              <div className="col-lg-3">
+                <h1>Instructor</h1>
+                <h6>{course.instructor?.instrctorname}</h6>
+              </div>
+              <div className="col-lg-3">
+                <h1>Duration</h1>
+                <h6>{course.duration} week</h6>
+              </div>
+              <div className="col-lg-3">
+                <h1>Price</h1>
+                <h6>₹{course.coursefee}</h6>
+              </div>
+              <div className="col-lg-3 ">
+                <h1>Buy Now</h1>
+                <button
+                  className="btn btn-info  buy-button"
+                  onClick={() => {
+                    const userData = localStorage.getItem("userData");
+                    if (userData) {
+                      handleSubmit();
+                    } else {
+                      alert("Please login");
+                    }
+                  }}
+                >
+                  ENROLL NOW
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="col-lg-3">
-            <h1>Duration</h1>
-            <h6>{course.duration} week</h6>
+
+          <div className="container">
+            <h3 className="mt-5 ms-5">About this course</h3>
+            <div className="about-box">{course.coursedescription}</div>
           </div>
-          <div className="col-lg-3">
-            <h1>Price</h1>
-            <h6>₹{course.coursefee}</h6>
-          </div>
-          <div className="col-lg-3 ">
-          <h1>Buy Now</h1>
-          <button
-  className="btn btn-info  buy-button"
-  onClick={() => {
-    const userData = localStorage.getItem("userData");
-    if (userData) {
-      handleSubmit()
-    } else {
-      alert("Please login");
-    }
-   
-  }}
->
-  ENROLL NOW
-</button>
-          </div>
-        </div>
-      </div>
-      <div className="container mt-5">
-        <h1>Syullbus</h1>
-        
-        {course?.courseLessons?.map((lesson, index) => (
-  <Accordion key={index} defaultActiveKey="0" className="mt-5 bg-danger">
-    <Accordion.Item eventKey="0">
-      <Accordion.Header>Module {index + 1}</Accordion.Header>
-      <Accordion.Body> {lesson.title}</Accordion.Body>
-      <Accordion.Body>
-        {index === 0 && lesson.video && (
-          <video
-            src={`${baseVideo}/${lesson.video}`}
-            controls
-            style={{ width: "100%", height: "100px" }}
-          >
-           
-          </video>
-        )}
-      </Accordion.Body>
-    </Accordion.Item>
-  </Accordion>
-))}
 
-
-      </div>
-
-
-      <div className="container">
+          <div className="container">
+            <h3 className="mt-5 ms-5">Requirements</h3>
             <div className="about-box">
-              <h1>Review of Course</h1>
-              {showReview.map((review) => (
-                <>
-                  <div className="container">
-                    <h4>{review.studentId?.studentname}</h4>
-                    <h6 key={review._id}>{review.review}</h6>
-                  </div>
-                </>
-              ))}
+              <ul>
+                <li>No prior programming experience required</li>
+                <li>Access to a computer with an internet connection</li>
+                <li>Curiosity and eagerness to learn</li>
+              </ul>
             </div>
+          </div>
+          <div className="container mt-5">
+            <h1>Syllabus</h1>
 
+            {course?.courseLessons?.map((lesson, index) => (
+              <Accordion
+                key={index}
+                defaultActiveKey="0"
+                className="mt-5 bg-danger"
+              >
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>Module {index + 1}</Accordion.Header>
+                  <Accordion.Body> {lesson.title}</Accordion.Body>
+                  <Accordion.Body>
+                    {index === 0 && lesson.video && (
+                      <video
+                        src={`${baseVideo}/${lesson.video}`}
+                        controls
+                        style={{ width: "100%", height: "100px" }}
+                      ></video>
+                    )}
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            ))}
+          </div>
+
+          {showReview && (
+            <div className="container">
+              <div className="about-box">
+                <h1>Review of Course</h1>
+                {showReview.map((review) => (
+                  <div key={review._id} className="container">
+                    <h4>{review.studentId?.studentname}</h4>
+                    <h6>{review.review}</h6>
+                  </div>
+                ))}
+              </div>
             </div>
-          
-          
+          )}
         </section>
       )}
     </div>

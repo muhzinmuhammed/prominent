@@ -14,10 +14,9 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
       instructor,
       photo,
       coursefee,
-      courseLevel
+      courseLevel,
     } = req.body;
     console.log(req.body);
-    
 
     const Course = await addCourse.create({
       coursename,
@@ -27,7 +26,7 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
       instructor,
       photo,
       coursefee,
-      courseLevel
+      courseLevel,
     });
     if (Course) {
       res.status(200).json({
@@ -38,7 +37,7 @@ const addCourses = asyncHandler(async (req: Request, res: Response) => {
         instructor,
         photo,
         coursefee,
-        courseLevel
+        courseLevel,
       });
     } else {
       res.status(400).json({ message: "Invalid instructor data" });

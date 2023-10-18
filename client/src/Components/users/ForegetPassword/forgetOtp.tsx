@@ -10,7 +10,7 @@ import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 const ForgetOtp = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const [error,] = useState("");
   
   const [timer, setTimer] = useState(60);
   useEffect(() => {
@@ -28,7 +28,7 @@ const ForgetOtp = () => {
     // Clean up the interval when the component unmounts
     return () => clearInterval(countdown);
   }, [timer, navigate]);
-  const handleSubmit = async (e) => {
+  const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
 
     try {

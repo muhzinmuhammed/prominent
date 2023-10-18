@@ -10,6 +10,7 @@ interface ITUTOR extends Document {
   courses: mongoose.Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
+  income:Number;
   matchPassword(enteredPassword: string): Promise<boolean>;
 }
 
@@ -51,7 +52,14 @@ const instrcutorSchema = new Schema<ITUTOR>(
       required: true,
       default: Date.now,
     },
+    income:{
+      type:Number,
+      default:0
+      
+    },
+    
   },
+  
   { timestamps: true }
 );
 

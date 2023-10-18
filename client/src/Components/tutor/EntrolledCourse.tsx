@@ -47,6 +47,7 @@ const EntrolledCourse = ({ Toggle }) => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Course Id</th>
             <th>Student Name</th>
             <th>Course Name</th>
 
@@ -61,6 +62,7 @@ const EntrolledCourse = ({ Toggle }) => {
           {orders.map((order, index) => (
             <tr key={order._id}>
               <td>{index + 1}</td>
+              <td>{order._id}</td>
               <td>{order.studentId?.studentname}</td>
               <td>{order.courseId?.coursename}</td>
               <td>{order.amount}</td>

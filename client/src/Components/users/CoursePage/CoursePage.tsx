@@ -1,19 +1,41 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./cousepage.css";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 import { toast } from "react-toastify";
 
-const CoursePage = () => {
-  const baseUrl =
-    "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
+interface Course {
+  _id: string;
+  photo: string;
+  coursename: string;
+  coursedescription: string;
+  instructor?: {
+    instrctorname: string;
+  };
+  coursefee: string;
+}
 
-  const [course, setCourse] = useState([]);
-  const [entrolled, setEntrolled] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(""); // State for search query
-  const [filteredCourses, setFilteredCourses] = useState([]); // State for filtered courses
+interface Entroll {
+  _id: string;
+  courseId: {
+    corsename: string;
+    courseId: string;
+    coursedescription: string;
+    photo: string;
+    coursefee: string;
+  };
+  status: string;
+}
+
+const CoursePage: React.FC = () => {
+  const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
+
+  const [course, setCourse] = useState<Course[]>([]);
+  const [entrolled, setEntrolled] = useState<Entroll[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]); // State for filtered courses
   const user = localStorage.getItem("userData");
-  const user_id = JSON.parse(user);
+  const user_id = user ? JSON.parse(user) : null;
 
   useEffect(() => {
     if (user_id) {
@@ -25,7 +47,7 @@ const CoursePage = () => {
           // Filter out expired courses
           const currentDate = new Date();
           const filteredEntrolledCourses = response.data.entrolled.filter(
-            (entroll) => {
+            (entroll: Entroll) => {
               // Calculate the course end date based on duration and creation date
               const courseDurationInDays = 365; // 1 year (adjust as needed)
               const courseCreationDate = new Date(entroll.createdAt);
@@ -42,7 +64,7 @@ const CoursePage = () => {
           setEntrolled(filteredEntrolledCourses);
         });
     }
-  }, []);
+  }, [user_id]);
 
   useEffect(() => {
     axiosInstance
@@ -103,7 +125,7 @@ const CoursePage = () => {
                   <div key={course._id} className="col-lg-4 mt-5">
                     <div
                       className="card-border card"
-                      style={{ width: "18rem", height: "370px" }}
+                      style={{ width: "18rem", height: "400px" }}
                     >
                       <Link
                         to={`/course_details/${course._id}`}
@@ -180,12 +202,14 @@ const CoursePage = () => {
                         className="text-decoration-none"
                         to={`/entroll_course/${entroll._id}`}
                       >
-                        <img
-                          className="card-img-top"
-                          src={`${baseUrl}/${entroll.courseId.photo}`}
-                          style={{ height: "100px" }}
-                          alt="Card image cap"
-                        />
+                        {entroll.courseId.photo && (
+                          <img
+                            className="card-img-top"
+                            src={`${baseUrl}/${entroll.courseId.photo}`}
+                            style={{ height: "100px" }}
+                            alt="Card image cap"
+                          />
+                        )}
                         <div className="card-body">
                           <h5 className="card-title text-center">
                             {entroll.courseId.courseId}

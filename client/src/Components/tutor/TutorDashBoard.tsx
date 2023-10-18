@@ -1,16 +1,20 @@
-import  { useEffect, useState } from "react";
-import Nav from "./Header/Nav";
+import  {  useEffect, useState } from "react";
+import Nav from "./SideNavbar/Nav";
 import { ToastContainer } from "react-bootstrap";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import adminInstance from "../../AxiosEndPoint/adminInstance";
 import { toast } from "react-toastify";
-const Dashboard = ({ Toggle }) => {
-  const [counts, setCounts] = useState([]);
+import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
+const TutorDashboard = ({ Toggle }: { Toggle: () => void }) => {
+  const [counts, setCounts] = useState<{ tot?: number, totalUsersCount?: number, totalOrderCount?: number, InsructorCount?: number, CourseCount?: number }>({});
+
   const [monthlySales, setMonthlySales] = useState([]);
+const tutor= JSON.parse(localStorage.getItem('tutorData')?? "");
+
 
   useEffect(() => {
-    adminInstance
-      .get("/admin/total_count")
+    tutoraxiosinstance
+      .get(`/instructor/total_count/${tutor._id}`)
       .then((response) => {
         console.log(response.data);
 
@@ -33,13 +37,13 @@ const Dashboard = ({ Toggle }) => {
         });
 
         // Update the initial array with the fetched data
-        const updatedMonthlySales = initialMonthlySales.map((item) => {
-          const matchingData = response.data.find((data) => data._id === item._id);
+        const updatedMonthlySales: any = initialMonthlySales.map((item) => {
+          const matchingData = response.data.find((data: any) => data._id === item._id);
           return matchingData || item;
         });
 
         // Sort the data by month
-        updatedMonthlySales.sort((a, b) => a._id - b._id);
+        updatedMonthlySales.sort((a:any, b:any) => a._id - b._id);
 
         setMonthlySales(updatedMonthlySales);
       })
@@ -59,7 +63,7 @@ const Dashboard = ({ Toggle }) => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Total Revenue</h5>
-              <p className="card-text">{counts.tot}</p>
+              <p className="card-text">{counts?.tot}</p>
             </div>
           </div>
         </div>
@@ -67,7 +71,7 @@ const Dashboard = ({ Toggle }) => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Total Users</h5>
-              <p className="card-text">{counts.totalUsersCount}</p>
+              <p className="card-text">{counts?.totalUsersCount}</p>
             </div>
           </div>
         </div>
@@ -122,4 +126,4 @@ const Dashboard = ({ Toggle }) => {
   );
 };
 
-export default Dashboard;
+export default TutorDashboard;

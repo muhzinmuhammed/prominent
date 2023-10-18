@@ -4,8 +4,10 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
+import { useNavigate } from "react-router-dom";
 const AddLessonInTutor = ({ Toggle }) => {
   const [category, setCategory] = useState('');
+ const navigate=useNavigate()
   
   const [video, setVideo] = useState(null); // Initialize with null
   const [coursename, setCourseName] = useState('');
@@ -98,6 +100,8 @@ const AddLessonInTutor = ({ Toggle }) => {
       .then((response) => {
         console.log(response.data);
         toast.success('Lesson added successfully');
+        navigate('/course_view_tutor')
+        
       })
       .catch((error) => {
         console.error(error);

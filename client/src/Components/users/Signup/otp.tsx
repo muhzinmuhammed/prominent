@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Col, Row, Container, Form, Button, Alert } from "react-bootstrap";
-import axios from "axios";
+
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { selectUser, signup } from "../../../features/userSlice/userSlice";
+import {  signup } from "../../../features/userSlice/userSlice";
 import axiosInstance from "../../../AxiosEndPoint/axiosEnd";
 const UserOtp = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const [error, ] = useState("");
   const dispatch = useDispatch();
   const [timer, setTimer] = useState(60);
   useEffect(() => {

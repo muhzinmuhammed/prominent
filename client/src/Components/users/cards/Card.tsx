@@ -8,11 +8,22 @@ import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+interface Course {
+  _id: string;
+  coursename: string;
+  coursedescription: string;
+  coursefee: number;
+  photo: string;
+  instructor: {
+    instrctorname: string;
+  };
+}
+
 function Cards() {
   const baseUrl =
     "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
-  const [course, setCourse] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(""); // Step 1: Search query state
+  const [course, setCourse] = useState<Course[]>([]); // Provide type annotation for course
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     axiosInstance
@@ -46,7 +57,6 @@ function Cards() {
     },
   };
 
-  // Step 2: Filter courses based on search query
   const filteredCourses = course.filter((course) =>
     course.coursename.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -56,8 +66,6 @@ function Cards() {
       <h1 className="text-center mt-5 card-head">Trending Course</h1>
       <Container>
         <Form className="d-flex mx-auto">
-          {" "}
-          {/* Center the search box */}
           <Form.Control
             type="search"
             placeholder="Search Courses"
@@ -84,15 +92,21 @@ function Cards() {
           removeArrowOnDeviceType={["tablet", "mobile"]}
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
-          
         >
           {filteredCourses.map((course) => (
             <div
               className="card mt-5 "
-              style={{ marginRight: "30px", borderRadius: "10px", height:'580px' }}
-              key={course.id}
+              style={{
+                marginRight: "30px",
+                borderRadius: "10px",
+                height: "580px",
+              }}
+              key={course._id}
             >
-              <Link style={{ textDecoration: "none" }} to={`/course_details/${course._id}`}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/course_details/${course._id}`}
+              >
                 <img
                   style={{ height: "300px", width: "100%" }}
                   className="product--image"

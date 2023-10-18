@@ -1,30 +1,47 @@
-import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
-import ChatInput from "./ChatInput";
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import ChatInput from './ChatInput';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { sendMessageRoute, recieveMessageRoute } from '../../../utils/APIRoutes';
 
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
-import { sendMessageRoute, recieveMessageRoute } from "../../../utils/APIRoutes";
+type Message = {
+  fromSelf: boolean;
+  message: string;
+};
 
-export default function ChatContainer({ currentChat, socket }) {
-  const [messages, setMessages] = useState([]);
-  const scrollRef = useRef();
-  const [arrivalMessage, setArrivalMessage] = useState(null);
+type CurrentChat = {
+  _id: string;
+  username: string;
+  avatarImage: string;
+};
+
+interface ChatContainerProps {
+  currentChat: CurrentChat;
+  socket: React.RefObject<WebSocket>;
+}
+
+const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) => {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [arrivalMessage, setArrivalMessage] = useState<Message | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
+        const userData = localStorage.getItem('userData')
+          ? JSON.parse(localStorage.getItem('userData'))
+          : '';
         const response = await axios.post(recieveMessageRoute, {
           from: userData._id,
           to: currentChat._id,
         });
         setMessages(response.data);
       } catch (error) {
-        console.error("Error fetching messages:", error);
+        console.error('Error fetching messages:', error);
       }
     };
-  
+
     fetchData();
   }, [currentChat]);
   
@@ -32,9 +49,7 @@ export default function ChatContainer({ currentChat, socket }) {
   useEffect(() => {
     const getCurrentChat = async () => {
       if (currentChat) {
-        await JSON.parse(
-          localStorage.getItem('userData')
-        )._id;
+        await JSON.parse(localStorage.getItem('userData'))._id;
       }
     };
     getCurrentChat();
@@ -116,7 +131,7 @@ export default function ChatContainer({ currentChat, socket }) {
     </Container>
   );
 }
-
+export default ChatContainer;
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 80% 10%;

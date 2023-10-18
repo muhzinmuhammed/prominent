@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
 const Room: React.FC = () => {
-  const { roomId } = useParams<{ roomId: string }>();
+  const { roomId } = useParams<{ roomId: string  }>();
   const elementRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const Room: React.FC = () => {
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appID,
         serverSecret,
-        roomId,
+        roomId || "",
         Date.now().toString(),
         "muhzin sidhiq"
       );
@@ -25,6 +25,10 @@ const Room: React.FC = () => {
           scenario: {
             mode: ZegoUIKitPrebuilt.VideoConference,
           },
+          // Use the correct property name
+          showRemoveUserButton: true,
+          showTurnOffRemoteCameraButton: true,
+          showTurnOffRemoteMicrophoneButton: true,
         });
       }
     };

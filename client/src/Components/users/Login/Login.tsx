@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Form, Card, Container, Button, Col, Row } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, signup } from "../../../features/userSlice/userSlice";
+import { useDispatch } from "react-redux";
+import {  signup } from "../../../features/userSlice/userSlice";
 
 import image from "../../../assets/images/b.jpg";
 import NavbarHeader from "../Header/Navbar";
@@ -16,7 +16,7 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     const trimmedEmail = studentemail.trim();
     const trimmedPassword = password.trim();

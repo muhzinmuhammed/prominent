@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 
-import LessonModel from "../../models/lesson";
 import instructorModel from "../../models/instructor";
 import CourseModel from "../../models/addCourse";
 
@@ -9,15 +8,20 @@ import CourseModel from "../../models/addCourse";
 
 const addLesson = asyncHandler(async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
-    
-    const { video, coursename,title,duration,description } = req.body;
-
-console.log(typeof(video));
+    const { video, coursename, title, duration, description } = req.body;
 
     const updatedCourse = await CourseModel.findOneAndUpdate(
       { _id: coursename },
-      { $push: { courseLessons:{ video,title:title,duration:duration,description:description} } },
+      {
+        $push: {
+          courseLessons: {
+            video,
+            title: title,
+            duration: duration,
+            description: description,
+          },
+        },
+      },
       { new: true }
     );
     if (updatedCourse) {
@@ -35,19 +39,12 @@ console.log(typeof(video));
 
 /* get all courses*/
 const getLesson = asyncHandler(async (req: Request, res: Response) => {
- 
-  
-  
   try {
-    const {id}=req.params
-   
-    
-    const courses = await CourseModel.findById(id)
-     
-     
-    const allLessons = courses?.courseLessons;
+    const { id } = req.params;
 
-    
+    const courses = await CourseModel.findById(id);
+
+    const allLessons = courses?.courseLessons;
 
     if (allLessons) {
       res.status(200).json({

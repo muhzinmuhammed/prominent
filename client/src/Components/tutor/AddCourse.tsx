@@ -154,7 +154,7 @@
           </div>
           <div className="form-group">
             <label>Course Description</label>
-            <input type="text" className="form-control" placeholder="Enter course description" value={description} onChange={(e)=>setDescription(e.target.value)} />
+            <textarea className="form-control" placeholder="Enter course description" value={description} onChange={(e)=>setDescription(e.target.value)} />
           </div>
           <div className="form-group">
     <label htmlFor="categorySelect">Course Category</label>

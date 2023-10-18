@@ -1,12 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect,  useState } from 'react';
 import './certificate.css';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../../../AxiosEndPoint/axiosEnd';
-
+interface Enrolled {
+  courseId: {
+    coursename: string;
+  };
+  studentId: {
+    studentname: string;
+  };
+  continuityHours: number;
+  topicDescription: string;
+  instructorId: {
+    instrctorname: string;
+  };
+}
 
 const Certificate = () => {
   const { id } = useParams();
-  const [entrolled, setEnrolled] = useState([]);
+  const [entrolled, setEnrolled] = useState<Enrolled[]>([]);
 
 
   useEffect(() => {

@@ -2,7 +2,8 @@ import axios from "axios";
 
 // Create an Axios instance with a base URL
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000",
+  // baseURL: "http://localhost:4000",
+  baseURL:'http://prominentmuhzin.online'
 });
 
 axiosInstance.interceptors.request.use(

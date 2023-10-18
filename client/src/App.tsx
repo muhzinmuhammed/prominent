@@ -40,6 +40,7 @@ import Wallet from "./Components/tutor/WalletTable/Wallet";
 
 import AdminDashBoard from "./pages/Admin/AdminDashBoard";
 import LessonDetails from "./pages/tutor/LessonDetails";
+import TutorDashBoard from "./pages/tutor/TutorDash";
 
 
 function App() {
@@ -83,6 +84,7 @@ function App() {
         <Route path="/edit_course/:id" element={<EditCourse />} />
         <Route path="/add_lesson" element={<AddLessonInTutorPage />} />
         <Route path="/orders" element={<TutorOrderPage />} />
+        <Route path="/tutor_dashboard" element={<TutorDashBoard />} />
         {/* insructor routes */}
 
         {/* admin routes */}

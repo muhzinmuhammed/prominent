@@ -1,5 +1,4 @@
-import React from 'react';
-import { Carousel } from 'react-bootstrap';
+
 import animation from '../../../assets/video/animation.mp4';
 import './carousal.css';
 
