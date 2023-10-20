@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import "bootstrap/js/dist/dropdown";
 import { useNavigate } from "react-router-dom";
 
-const Nav = ({ Toggle }) => {
+const Nav =({ Toggle }: { Toggle: () => void }) => {
   const navigate = useNavigate();
   useEffect(() => {
     const tutor = localStorage.getItem("adminToken");

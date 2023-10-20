@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import OrdersTable from '../../Components/Admin/order';
 import SideBar from '../../Components/Admin/Header/SideBar';
 

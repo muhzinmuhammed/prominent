@@ -1,10 +1,10 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import Nav from './Header/Nav'
 import adminInstance from '../../AxiosEndPoint/adminInstance'
 import { useNavigate } from 'react-router-dom'
 import {toast,ToastContainer} from 'react-toastify'
 
-const AddCategory: React.FC<AddCategoryProps> = ({ Toggle }) => {
+const AddCategory = ({ Toggle }: { Toggle: () => void }) => {
 const navigate=useNavigate()
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');

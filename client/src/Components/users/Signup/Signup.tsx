@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Card, Container, Button } from "react-bootstrap";
+import { Form, Card, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -84,7 +84,7 @@ if (!isNameValid(trimmedName)) {
       
       navigate('/user_otp');
     } catch (error) {
-      console.error('An error occurred while registering:', error.message);
+      console.error('An error occurred while registering:',);
       toast.error("An error occurred.");
     }
   };

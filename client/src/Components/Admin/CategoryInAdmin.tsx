@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from "react";
-import Nav from "./Header/Nav";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import adminInstance from "../../AxiosEndPoint/adminInstance";
+import React, { useState, useEffect, useCallback } from 'react';
+import Nav from './Header/Nav';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import adminInstance from '../../AxiosEndPoint/adminInstance';
 
-const CategoryTable = ({ Toggle }) => {
-  const [category, setCategory] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+type Category = {
+  _id: string;
+  title: string;
+  description: string;
+};
+
+const CategoryTable: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
+  const [category, setCategory] = useState<Category[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2; // Change this number based on your desired items per page
 
   useEffect(() => {
     // Fetch data from your API using Axios
     adminInstance
-      .get("/admin/getallcategory")
+      .get('/admin/getallcategory')
       .then((response) => {
         console.log(response.data);
         setCategory(response.data.categoryDetails);
@@ -39,17 +45,17 @@ const CategoryTable = ({ Toggle }) => {
     indexOfLastCategory
   );
 
-  const handlePrevPage = () => {
+  const handlePrevPage = useCallback(() => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
-  };
+  }, [currentPage]);
 
-  const handleNextPage = () => {
+  const handleNextPage = useCallback(() => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
-  };
+  }, [currentPage, totalPages]);
 
   return (
     <div className="px-3">
@@ -85,29 +91,25 @@ const CategoryTable = ({ Toggle }) => {
       </table>
       <div className="pagination">
         {currentPage > 1 && (
-          <button
-            onClick={handlePrevPage}
-            className="pagination-button"
-          >
+          <button onClick={handlePrevPage} className="pagination-button">
             Prev
           </button>
         )}
+
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
             onClick={() => setCurrentPage(index + 1)}
             className={`pagination-button ${
-              currentPage === index + 1 ? "active" : ""
+              currentPage === index + 1 ? 'active' : ''
             }`}
           >
             {index + 1}
           </button>
         ))}
+
         {currentPage < totalPages && (
-          <button
-            onClick={handleNextPage}
-            className="pagination-button"
-          >
+          <button onClick={handleNextPage} className="pagination-button">
             Next
           </button>
         )}

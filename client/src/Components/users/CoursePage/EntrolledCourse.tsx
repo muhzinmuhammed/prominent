@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import "./Coursedetails.css";
 import { Link, useParams } from "react-router-dom";
@@ -126,6 +127,7 @@ const EntrolledCourse: React.FC = () => {
             </div>
             <div className="container mt-5">
               <h1>Syllabus</h1>
+             
               {newLessons.courseId?.courseLessons?.map((lesson: any, index: number) => (
                 <Accordion key={index} defaultActiveKey="0" className="mt-5 bg-danger">
                   <Accordion.Item eventKey="0">

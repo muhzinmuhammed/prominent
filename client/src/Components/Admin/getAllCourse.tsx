@@ -5,16 +5,29 @@ import "react-toastify/dist/ReactToastify.css";
 import adminInstance from "../../AxiosEndPoint/adminInstance";
 import Swal from "sweetalert2";
 
-const GetAllCourse = ({ Toggle }) => {
-  const [courseStatus, setCourseStatus] = useState([]);
-  const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
-  const [courses, setCourses] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Change this number based on your desired items per page
+interface Course {
+  _id: string;
+  coursename: string;
+  coursedescrption: string;
+  instructor?: { instrctorname: string };
+  coursefee: number;
+  photo: string;
+  isApproved: boolean;
+}
+
+interface GetAllCourseProps {
+  Toggle: () => void;
+}
+
+const GetAllCourse: React.FC<GetAllCourseProps> = ({ Toggle }) => {
+  const baseUrl =
+    "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage: number = 3;
 
   useEffect(() => {
-    // Fetch data from your API using Axios
     adminInstance
       .get("/admin/getAllCourses")
       .then((response) => {
@@ -39,9 +52,8 @@ const GetAllCourse = ({ Toggle }) => {
     indexOfLastCourse
   );
 
-  const toggleCourseStatus = async (course) => {
+  const toggleCourseStatus = async (course: Course) => {
     try {
-      // Display a confirmation dialog using SweetAlert
       const result = await Swal.fire({
         title: `Are you sure you want to ${
           course.isApproved ? "unapprove" : "approve"
@@ -62,16 +74,14 @@ const GetAllCourse = ({ Toggle }) => {
           course.isApproved = false;
           toast.success(`Course "${course.coursename}" unapproved successfully`);
         }
-        // Update the user's status in local storage
         localStorage.setItem(
           `user_${course._id}_status`,
-          course.isBlocked ? "Not Approved" : "Approved"
+          course.isApproved ? "Approved" : "Not Approved"
         );
-        setCourses([...courses]); // Trigger a re-render
+        setCourses([...courses]);
       }
     } catch (error) {
-      // Handle errors and display an error message to the user
-      toast.error(error.message);
+      toast.error("inavalid");
     }
   };
 

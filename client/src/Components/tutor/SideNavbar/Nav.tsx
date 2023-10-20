@@ -1,11 +1,14 @@
-import React,{useEffect} from 'react'
+import {useEffect} from 'react'
 import 'bootstrap/js/dist/dropdown'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { logout } from '../../../features/tutorSlice/tutorSlice'
 
-const Nav = ({Toggle}) => {
-    const dispatch=useDispatch()
+interface HomeProps {
+    Toggle: () => void;
+  }
+
+
+const Nav: React.FC<HomeProps> = ({ Toggle }) => {
+    
     const navigate=useNavigate()
     useEffect(()=>{
         const tutor= localStorage.getItem('tutorToken',)

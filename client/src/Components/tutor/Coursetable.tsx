@@ -5,16 +5,14 @@ import "react-toastify/dist/ReactToastify.css";
 import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
 import { Link } from "react-router-dom";
 
-const CourseTable = ({ Toggle }) => {
-    
-  
-  const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
-  const [courses, setCourses] = useState([]);
-  const tutor=localStorage.getItem("tutorData")
-  const tutor_Details=JSON.parse(tutor)
-const tutor_id=tutor_Details._id
-  
-  
+const CourseTable: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
+  const baseUrl =
+    "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [courses, setCourses] = useState<any[]>([]);
+  const tutor = localStorage.getItem("tutorData");
+  const tutor_Details = tutor ? JSON.parse(tutor) : null;
+  const tutor_id = tutor_Details ? tutor_Details._id : "";
 
   useEffect(() => {
     // Fetch data from your API using Axios
@@ -27,10 +25,7 @@ const tutor_id=tutor_Details._id
       .catch((error) => {
         toast.error(error.message);
       });
-  }, []);
-  
-
- 
+  }, [tutor_id]);
 
   return (
     <div className="px-3">
@@ -44,16 +39,9 @@ const tutor_id=tutor_Details._id
             <th>Course</th>
             <th>Description</th>
             <th>Photo</th>
-
-           
             <th>Fees</th>
-       
-
             <th>Edit</th>
-            
             <th>Lessons</th>
-           
-            
           </tr>
         </thead>
         <tbody>
@@ -62,17 +50,20 @@ const tutor_id=tutor_Details._id
               <td>{index + 1}</td>
               <td>{course.coursename}</td>
               <td>{course.coursedescription}</td>
-              <td><img style={{width:"100px"}} src={`${baseUrl}/${course.photo}`}/></td>
-             
+              <td>
+                <img style={{ width: "100px" }} src={`${baseUrl}/${course.photo}`} alt={course.coursename} />
+              </td>
               <td>{course.coursefee}</td>
               <td>
-             <Link to={`/edit_course/${course._id}`}>  <i  className="bi bi-pencil"></i></Link> 
+                <Link to={`/edit_course/${course._id}`}>
+                  <i className="bi bi-pencil"></i>
+                </Link>
               </td>
               <td>
-             <Link to={`/course_lessons/${course._id}`}>  <i  className="bi bi-book"></i></Link> 
+                <Link to={`/course_lessons/${course._id}`}>
+                  <i className="bi bi-book"></i>
+                </Link>
               </td>
-              
-              
             </tr>
           ))}
         </tbody>

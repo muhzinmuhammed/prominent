@@ -18,72 +18,64 @@ type CurrentChat = {
 
 interface ChatContainerProps {
   currentChat: CurrentChat;
-  socket: React.RefObject<WebSocket>;
+  socket: React.RefObject<WebSocket | null>;
 }
 
 const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const [arrivalMessage, setArrivalMessage] = useState<Message | null>(null);
+  const userList = localStorage.getItem('userData');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = localStorage.getItem('userData')
-          ? JSON.parse(localStorage.getItem('userData'))
-          : '';
-        const response = await axios.post(recieveMessageRoute, {
-          from: userData._id,
-          to: currentChat._id,
-        });
-        setMessages(response.data);
+        const userData = userList ? JSON.parse(userList) : null;
+        if (userData) {
+          const response = await axios.post(recieveMessageRoute, {
+            from: userData._id,
+            to: currentChat._id,
+          });
+          setMessages(response.data);
+        }
       } catch (error) {
         console.error('Error fetching messages:', error);
       }
     };
 
     fetchData();
-  }, [currentChat]);
-  
+  }, [currentChat, userList]);
 
-  useEffect(() => {
-    const getCurrentChat = async () => {
-      if (currentChat) {
-        await JSON.parse(localStorage.getItem('userData'))._id;
-      }
-    };
-    getCurrentChat();
-  }, [currentChat]);
+  const handleSendMsg = async (msg: string) => {
+    const data = JSON.parse(localStorage.getItem('userData') || 'null');
 
-  const handleSendMsg = async (msg) => {
-    const data = await JSON.parse(
-      localStorage.getItem('userData')
-    );
-    socket.current.emit("send-msg", {
-      to: currentChat._id,
-      from: data._id,
-      msg,
-    });
-    await axios.post(sendMessageRoute, {
-      from: data._id,
-      to: currentChat._id,
-      message: msg,
-    });
-   
-    
+    if (data) {
+      socket.current?.send(JSON.stringify({
+        to: currentChat._id,
+        from: data._id,
+        msg,
+      }));
 
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
-    setMessages(msgs);
+      await axios.post(sendMessageRoute, {
+        from: data._id,
+        to: currentChat._id,
+        message: msg,
+      });
+
+      const msgs = [...messages];
+      msgs.push({ fromSelf: true, message: msg });
+      setMessages(msgs);
+    }
   };
 
   useEffect(() => {
     if (socket.current) {
-      socket.current.on("msg-recieve", (msg) => {
+      socket.current.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
         setArrivalMessage({ fromSelf: false, message: msg });
-      });
+      };
     }
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
@@ -107,7 +99,6 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) =>
             <h3>{currentChat.username}</h3>
           </div>
         </div>
-        
       </div>
       <div className="chat-messages">
         {messages.map((message) => {
@@ -115,11 +106,10 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) =>
             <div ref={scrollRef} key={uuidv4()}>
               <div
                 className={`message ${
-                  message.fromSelf ? "sended" : "recieved"
+                  message.fromSelf ? "sended" : "received"
                 }`}
               >
-               
-                <div className="content ">
+                <div className="content">
                   <p>{message.message}</p>
                 </div>
               </div>
@@ -131,7 +121,9 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) =>
     </Container>
   );
 }
+
 export default ChatContainer;
+
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 80% 10%;

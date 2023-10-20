@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import OrdersTable from '../../Components/tutor/EntrolledCourse';
 import SideBar from '../../Components/tutor/SideNavbar/SideNav';
 

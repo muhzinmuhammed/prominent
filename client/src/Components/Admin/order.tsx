@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Header/Nav";
-
-
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import adminInstance from "../../AxiosEndPoint/adminInstance";
 
-const OrdersTable = ({ Toggle }) => {
-  const [orders, setOrders] = useState([]);
+interface OrdersTableProps {
+  Toggle: () => void;
+}
+
+const OrdersTable: React.FC<OrdersTableProps> = ({ Toggle }) => {
+  const [orders, setOrders] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Number of items to display per page
-  const [filteredInstructors, setFilteredInstructors] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  // Number of items to display per page
+  const itemsPerPage: number = 10; // Number of items to display per page
+  const [filteredInstructors, setFilteredInstructors] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     // Fetch data from your API using Axios
     adminInstance
       .get("/admin/order")
       .then((response) => {
-        
-       
         setOrders(response.data.order);
       })
       .catch((error) => {
@@ -29,20 +28,19 @@ const OrdersTable = ({ Toggle }) => {
   }, []);
 
   useEffect(() => {
-    // Update the filtered instructors when the search query changes
+    // Update the filtered orders when the search query changes
     const filtered = orders.filter((order) =>
-    order.studentId.studentname.toLowerCase().includes(searchQuery.toLowerCase())
+      order.studentId.studentname.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredInstructors(filtered);
   }, [searchQuery, orders]);
 
   // Calculate the total number of pages
-  
-  const totalPages = Math.ceil(filteredInstructors.length / itemsPerPage);
+  const totalPages: number = Math.ceil(filteredInstructors.length / itemsPerPage);
 
-  const indexOfLastCategory = currentPage * itemsPerPage;
-  const indexOfFirstCategory = indexOfLastCategory - itemsPerPage;
-  const OrderTable = filteredInstructors.slice(
+  const indexOfLastCategory: number = currentPage * itemsPerPage;
+  const indexOfFirstCategory: number = indexOfLastCategory - itemsPerPage;
+  const OrderTable: any[] = filteredInstructors.slice(
     indexOfFirstCategory,
     indexOfLastCategory
   );
@@ -59,9 +57,6 @@ const OrdersTable = ({ Toggle }) => {
     }
   };
 
-
-  // Get the data to display on the current page
- 
   return (
     <div className="px-3">
       <Nav Toggle={Toggle} />
@@ -77,18 +72,14 @@ const OrdersTable = ({ Toggle }) => {
         />
       </div>
       <table className="table rounded mt-2">
-        
         <thead>
           <tr>
             <th>#</th>
             <th>Student Name</th>
             <th>Course Name</th>
-
             <th>Rate</th>
             <th>Instructor</th>
             <th>Payment Status</th>
-           
-           
           </tr>
         </thead>
         <tbody>
@@ -100,13 +91,11 @@ const OrdersTable = ({ Toggle }) => {
               <td>{order.courseId.coursefee}</td>
               <td>{order.instructorId.instrctorname}</td>
               <td>{order.status}</td>
-             
-              {/* Add action buttons or elements here if needed */}
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="pagination">
+    <div className="pagination">
         {currentPage > 1 && (
           <button
             onClick={handlePrevPage}
@@ -135,7 +124,6 @@ const OrdersTable = ({ Toggle }) => {
           </button>
         )}
       </div>
-     
     </div>
   );
 };

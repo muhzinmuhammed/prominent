@@ -3,13 +3,15 @@ import { useParams } from 'react-router-dom'
 import tutoraxiosinstance from '../../AxiosEndPoint/tutorInstance'
 import Nav from './SideNavbar/Nav'
 
-const LessonsDetails = ({Toggle}) => {
+const LessonsDetails: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
     const{id}=useParams()
     const baseVideo =
     "https://res.cloudinary.com/dfnwvbiyy/video/upload/v1694365110/";
    
     
-    const [lessons,setLessons]=useState([])
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [lessons,setLessons]=useState<any[]>([]);
+
     useEffect(()=>{
         tutoraxiosinstance.get(`/instructor/get_lessons/${id}`)
         .then((response)=>{

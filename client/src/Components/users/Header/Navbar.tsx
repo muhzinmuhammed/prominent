@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import  { useEffect } from "react";
 import { Nav, Navbar, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { logout, selectUser, signup } from "../../../features/userSlice/userSlice";
-import { useDispatch } from "react-redux";
-interface User {
-  name: string | null;
-}
+
+
+
 function NavbarHeader() {
-  const user: User = useSelector(selectUser);
+  const user = useSelector(selectUser) as any
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function NavbarHeader() {
   }, [dispatch]);
 
   const handleSignout = () => {
-    localStorage.removeItem("userData"); // Use removeItem instead of clear
+    localStorage.removeItem("userData");
     dispatch(logout());
   };
 
@@ -57,8 +57,8 @@ function NavbarHeader() {
                 Wallet
               </Nav.Link>
               <h6 className="me-5">
-        {user ? user.name : ''}
-      </h6>
+                {user ? user.name : ""}
+              </h6>
               <Link
                 style={{
                   textDecoration: "none",

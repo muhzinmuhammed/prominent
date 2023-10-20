@@ -1,26 +1,54 @@
-import  { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./Header/Nav";
 import { ToastContainer } from "react-bootstrap";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 import adminInstance from "../../AxiosEndPoint/adminInstance";
 import { toast } from "react-toastify";
-const Dashboard = ({ Toggle }) => {
-  const [counts, setCounts] = useState([]);
-  const [monthlySales, setMonthlySales] = useState([]);
+
+interface Counts {
+  tot: number;
+  totalUsersCount: number;
+  totalOrderCount: number;
+  InsructorCount: number;
+  CourseCount: number;
+}
+
+interface MonthlySale {
+  _id: number;
+  total: number;
+}
+
+const Dashboard: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
+  const [counts, setCounts] = useState<Counts>({
+    tot: 0,
+    totalUsersCount: 0,
+    totalOrderCount: 0,
+    InsructorCount: 0,
+    CourseCount: 0,
+  });
+
+  const [monthlySales, setMonthlySales] = useState<MonthlySale[]>([]);
 
   useEffect(() => {
     adminInstance
       .get("/admin/total_count")
       .then((response) => {
         console.log(response.data);
-
         setCounts(response.data);
       })
       .catch((err) => {
         toast.error(err);
       });
   }, []);
-
 
   useEffect(() => {
     adminInstance.get('/admin/sales_report')
@@ -34,7 +62,7 @@ const Dashboard = ({ Toggle }) => {
 
         // Update the initial array with the fetched data
         const updatedMonthlySales = initialMonthlySales.map((item) => {
-          const matchingData = response.data.find((data) => data._id === item._id);
+          const matchingData = response.data.find((data: { _id: number; }) => data._id === item._id);
           return matchingData || item;
         });
 
@@ -97,26 +125,26 @@ const Dashboard = ({ Toggle }) => {
         </div>
       </div>
       <div className="mt-5">
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart
-          data={monthlySales}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="_id"
-            tickFormatter={(month) =>
-              new Date(0, month - 1, 1).toLocaleDateString("en-US", {
-                month: "short",
-              })
-            }
-          />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="total" fill="#8884d8" name="Monthly Sales" />
-        </BarChart>
-      </ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart
+            data={monthlySales}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="_id"
+              tickFormatter={(month) =>
+                new Date(0, month - 1, 1).toLocaleDateString("en-US", {
+                  month: "short",
+                })
+              }
+            />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="total" fill="#8884d8" name="Monthly Sales" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

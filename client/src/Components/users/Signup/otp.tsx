@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import  { useState, useEffect,FormEvent } from "react";
 import { Col, Row, Container, Form, Button, Alert } from "react-bootstrap";
 
 import { useDispatch } from "react-redux";
@@ -29,7 +29,7 @@ const UserOtp = () => {
     // Clean up the interval when the component unmounts
     return () => clearInterval(countdown);
   }, [timer, navigate]);
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {

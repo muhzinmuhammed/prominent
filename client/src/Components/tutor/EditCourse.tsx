@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React ,  { useEffect, useState,FormEvent } from 'react';
 import Nav from "../tutor/SideNavbar/Nav";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,14 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
 import { useParams } from 'react-router-dom';
 
-const EditCourse = ({ Toggle }) => {
+const EditCourse : React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
   const [editCourse, setEditCourse] = useState({});
+  console.log(editCourse);
+  
   const { id } = useParams();
   const [coursename, setCourseName] = useState('');
   const [courseduration, setCourseduration] = useState('');
   const [coursefee, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  console.log(category);
+  
  const navigate=useNavigate()
   useEffect(() => {
     tutoraxiosinstance.get(`/instructor/courses/${id}`)
@@ -33,7 +37,7 @@ const EditCourse = ({ Toggle }) => {
 
  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     // Here, you can submit the form data, such as coursename, courseduration, etc., to your backend API for editing the course.
     // Make sure to send the data as needed by your API.
@@ -53,7 +57,7 @@ const EditCourse = ({ Toggle }) => {
       description
 
     })
-      .then((response) => {
+      .then(() => {
         navigate('/course_view_tutor')
         // Handle the response, e.g., show a success toast
         toast.success("Course edited successfully");

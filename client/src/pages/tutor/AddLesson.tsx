@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 
 import SideBar from '../../Components/tutor/SideNavbar/SideNav';
 import AddLessonInTutor from '../../Components/tutor/AddLesson';

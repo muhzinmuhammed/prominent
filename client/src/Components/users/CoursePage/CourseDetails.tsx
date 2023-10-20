@@ -65,6 +65,7 @@ const CourseDetails: React.FC = () => {
     id: string;
   }) => {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response = await axiosInstance.post<any>(
         "/student/create-payment",
         {
@@ -81,9 +82,11 @@ const CourseDetails: React.FC = () => {
           currency: data.currency,
           description: "Test Transaction",
           order_id: data.id,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           handler: async (response: any) => {
             try {
-              const { datas } = await axiosInstance.post<any>(
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+               await axiosInstance.post<any>(
                 "/student/verify",
                 {
                   response,
@@ -92,7 +95,7 @@ const CourseDetails: React.FC = () => {
                   amount: data.amount,
                 }
               );
-              console.log(datas);
+             
             } catch (error) {
               console.log(error);
             }
@@ -101,6 +104,7 @@ const CourseDetails: React.FC = () => {
             color: "#1eb2a6",
           },
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const rzp1 = new (window as any).Razorpay(options);
         rzp1.open();
       } else {
@@ -116,6 +120,7 @@ const CourseDetails: React.FC = () => {
       const prices = course?.coursefee;
 
       try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const response = await axiosInstance.post<any>("/student/create-payment", {
           amount: prices,
           coursename: id,

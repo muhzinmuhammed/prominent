@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Header/Nav";
-
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import adminInstance from "../../AxiosEndPoint/adminInstance";
-const Home = ({ Toggle }) => {
-  const [studentDetails, setStudentDetails] = useState([]);
-  const [searchQuery] = useState("");
-  const [currentPage] = useState(0); // Current page number
-  const itemsPerPage = 10; // Number of items to display per page
+
+interface HomeProps {
+  Toggle: () => void;
+}
+
+const Home: React.FC<HomeProps> = ({ Toggle }) => {
+  const [studentDetails, setStudentDetails] = useState<any[]>([]);
+  const [searchQuery] = useState<string>("");
+  const [currentPage] = useState<number>(0); // Current page number
+  const itemsPerPage: number = 10; // Number of items to display per page
+
   useEffect(() => {
     // Fetch data from your API using Axios
-
     adminInstance
       .get("/admin/getallstudent")
       .then((response) => {
@@ -25,22 +29,20 @@ const Home = ({ Toggle }) => {
   // Filter student data based on the search query
   const filteredStudents = studentDetails.filter((user) => {
     const fullName = user.studentname.toLowerCase();
-
     const query = searchQuery.toLowerCase();
     return fullName.includes(query);
   });
 
-  // Calculate the total number of pages
-  const pageCount = Math.ceil(filteredStudents.length / itemsPerPage);
+  // Calculate the total number of page
+ 
 
   // Slice the data to display only the current page
-  const displayedStudents = filteredStudents.slice(
+  const displayedStudents: any[] = filteredStudents.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
-  const toggleUserStatus = async (user) => {
-   
-    
+
+  const toggleUserStatus = async (user: any) => {
     try {
       if (user.isBlocked === false) {
         await adminInstance.put(`/admin/blockStudents/${user._id}`);
@@ -59,13 +61,13 @@ const Home = ({ Toggle }) => {
       setStudentDetails([...studentDetails]); // Trigger a re-render
     } catch (error) {
       // Handle errors and display an error message to the user
-      toast.error(error);
+      toast.error("error");
     }
   };
 
   return (
     <div className="px-3">
-      <Nav Toggle={Toggle} /> {/* Use curly braces to pass the prop */}
+      <Nav Toggle={Toggle} />
       <ToastContainer />
       <table className="table rounded mt-2">
         <thead>
@@ -100,18 +102,6 @@ const Home = ({ Toggle }) => {
           ))}
         </tbody>
       </table>
-      {/* <ReactPaginate 
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageChange}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-        /> */}
     </div>
   );
 };

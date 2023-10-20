@@ -1,20 +1,37 @@
-import React, { useEffect, useState, useRef } from "react";
+import  { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../../../utils/APIRoutes";
 import ChatContainer from "../../../Components/users/Message/ChatContainer";
 import Contacts from "../../../Components/users/Message/Contact";
 import Welcome from "../../../Components/users/Message/Welcome";
 import Nav from  '../../../Components/users/Header/Navbar'
+
+interface Contact {
+  _id: string;
+  studentname: string;
+  // Add other properties as needed
+}
+
+interface ContactsData {
+  contacts: Contact[];
+}
+
+
+interface User {
+  _id: string;
+  // Add other user properties as needed
+}
+
 export default function Chat() {
   const navigate = useNavigate();
-  const socket = useRef(null);
-  const [contacts, setContacts] = useState([]);
+  const socket = useRef<Socket | null>(null);
+  const [contacts, setContacts] = useState<User[]>([]);
 
-  const [currentChat, setCurrentChat] = useState(undefined);
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentChat, setCurrentChat] = useState<User | undefined>();
+  const [currentUser, setCurrentUser] = useState<User | undefined>();
 
   useEffect(() => {
     async function fetchData() {
@@ -52,12 +69,7 @@ export default function Chat() {
       try {
         if (currentUser) {
           const { data } = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-          
-         
-          
           setContacts(data);
-          
-          
         } 
       } catch (error) {
         console.error("Error fetching contacts:", error);
@@ -68,10 +80,9 @@ export default function Chat() {
   }, [currentUser, navigate]);
   
 
-  const handleChatChange = (chat) => {
+  const handleChatChange = (chat: User) => {
     setCurrentChat(chat);
   };
-
 
   return (
     <>
@@ -79,7 +90,8 @@ export default function Chat() {
     <Container>
       <div className="container">
       
-        <Contacts contacts={contacts} changeChat={handleChatChange} />
+      <Contacts contacts={contacts} changeChat={handleChatChange} />
+
         {currentChat === undefined ? (
           <Welcome />
         ) : (

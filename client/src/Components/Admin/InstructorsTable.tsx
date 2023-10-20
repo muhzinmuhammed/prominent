@@ -4,12 +4,16 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import adminInstance from "../../AxiosEndPoint/adminInstance";
 
-const InstructorTable = ({ Toggle }) => {
-  const [studentDetails, setStudentDetails] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Number of items to display per page
-  const [filteredInstructors, setFilteredInstructors] = useState([]);
+interface InstructorTableProps {
+  Toggle: () => void;
+}
+
+const InstructorTable: React.FC<InstructorTableProps> = ({ Toggle }) => {
+  const [studentDetails, setStudentDetails] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage: number = 10; // Number of items to display per page
+  const [filteredInstructors, setFilteredInstructors] = useState<any[]>([]);
 
   useEffect(() => {
     // Fetch data from your API using Axios
@@ -85,7 +89,6 @@ const InstructorTable = ({ Toggle }) => {
               <td>{user.instrctorname}</td>
               <td>{user.instrctoremail}</td>
               <td>{user.phone}</td>
-              {/* Add action buttons or elements here if needed */}
             </tr>
           ))}
         </tbody>

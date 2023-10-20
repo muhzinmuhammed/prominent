@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import SideBar from '../../Components/Admin/Header/SideBar';
 import AddCategories from '../../Components/Admin/AddCategory';
 

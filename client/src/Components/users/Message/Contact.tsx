@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import styled from "styled-components";
 
+interface Contact {
+  _id: string;
+  studentname: string; // Assuming studentname is a string
+  // Add other properties as needed
+}
 
-export default function Contacts({ contacts, changeChat }) {
-  console.log(contacts,"ll");
-  
-  
-  const [currentUserName, setCurrentUserName] = useState(undefined);
- 
-  const [currentSelected, setCurrentSelected] = useState(undefined);
+interface ContactsProps {
+  contacts: Contact[];
+  changeChat: (contact: Contact) => void;
+}
+
+export default function Contacts({ contacts, changeChat }: ContactsProps) {
+  const [currentUserName, setCurrentUserName] = useState<string | undefined>(undefined);
+  const [currentSelected, setCurrentSelected] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const userData = await JSON.parse(localStorage.getItem("userData"));
-      
-        
+        const userData = await JSON.parse(localStorage.getItem("userData") || "null");
+
         if (userData) {
           setCurrentUserName(userData.name);
-          
-          
-         
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -30,45 +32,36 @@ export default function Contacts({ contacts, changeChat }) {
     fetchData();
   }, []);
 
-  const changeCurrentChat = (index, contact) => {
+  const changeCurrentChat = (index: number, contact: Contact) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
 
   return (
     <Container>
-        
       {currentUserName && (
         <>
           <div className="brand">
-           
-           
+            {/* Your brand content */}
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => (
               <div
                 key={contact._id}
-                className={`contact ${
-                  index === currentSelected ? "selected" : ""
-                }`}
+                className={`contact ${index === currentSelected ? "selected" : ""}`}
                 onClick={() => changeCurrentChat(index, contact)}
               >
-               
-                
                 <div className="username">
                   <h3>{contact.studentname}</h3>
                 </div>
               </div>
             ))}
           </div>
-          
         </>
       )}
     </Container>
   );
 }
-
-
 
 const Container = styled.div`
   display: grid;

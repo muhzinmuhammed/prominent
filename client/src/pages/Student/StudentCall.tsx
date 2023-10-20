@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './JoinRoom.css'; // Import your CSS file for styling
 
@@ -6,7 +6,7 @@ const JoinRoom = () => {
   const navigate = useNavigate();
   const [roomCode, setRoomCode] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     navigate(`/room/${roomCode}`);
   };

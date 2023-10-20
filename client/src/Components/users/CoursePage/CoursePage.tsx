@@ -16,6 +16,7 @@ interface Course {
 }
 
 interface Entroll {
+  createdAt: string | number | Date;
   _id: string;
   courseId: {
     corsename: string;

@@ -1,15 +1,13 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 
 import SideBar from '../../Components/tutor/SideNavbar/SideNav';
 
 import CreateRoom from '../../Components/tutor/VideoCall/OnlineCall';
 
 const VideoCall = () => {
-    const [toggle, setToggle] = useState<boolean>(true);
+    const [toggle, ] = useState<boolean>(true);
 
-  const Toggle = () => {
-    setToggle(!toggle);
-  };
+ 
   return (
     <div>
       <div className="container-fluid bg-secondary min-vh-100">
@@ -24,7 +22,7 @@ const VideoCall = () => {
 
 {toggle&&<div className="col-4 col-md-6 d-flex align-item-center"></div>}
         <div className="col">
-          <CreateRoom Toggle={Toggle}/>
+          <CreateRoom />
         </div>  
       </div>
     </div>

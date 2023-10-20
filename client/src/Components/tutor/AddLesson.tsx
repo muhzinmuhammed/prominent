@@ -1,34 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import Nav from "../../Components/tutor/SideNavbar/Nav";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import tutoraxiosinstance from "../../AxiosEndPoint/tutorInstance";
 import { useNavigate } from "react-router-dom";
-const AddLessonInTutor = ({ Toggle }) => {
-  const [category, setCategory] = useState('');
- const navigate=useNavigate()
-  
-  const [video, setVideo] = useState(null); // Initialize with null
-  const [coursename, setCourseName] = useState('');
-  const [description, setDescription] = useState('');
-  const [courseduration, setCourseduration] = useState(0); // Initialize with 0
 
-  const [categoryOptions, setCategoryOptions] = useState([]);
-  const [title, setTitle] = useState('');
+const AddLessonInTutor: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
+  const navigate = useNavigate();
+
+  const [video, setVideo] = useState<File | null>(null);
+  const [coursename, setCourseName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [courseduration, setCourseduration] = useState<number>(0);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [categoryOptions, setCategoryOptions] = useState<any[]>([]);
+  const [title, setTitle] = useState<string>('');
+  console.log(categoryOptions);
   
-  const [courseorOptions, setCourseorOptions] = useState([]);
-  const [cloudinaryURL, setCloudinaryURL] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [courseorOptions, setCourseorOptions] = useState<any[]>([]);
+  const [cloudinaryURL, setCloudinaryURL] = useState<string>('');
+
   const storedUserDataString = localStorage.getItem("tutorData");
-  
-  
- 
-  
   const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : null;
- 
-  
-  function handleChange(e) {
-    setVideo(e.target.files[0]);
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.files && e.target.files.length > 0) {
+      setVideo(e.target.files[0]);
+    }
   }
 
   useEffect(() => {
@@ -45,36 +46,36 @@ const AddLessonInTutor = ({ Toggle }) => {
     tutoraxiosinstance.get(`/instructor/allcourses/${storedUserData._id}`)
       .then((response) => {
         console.log(response.data);
-        
         setCourseorOptions(response.data.courses);
       })
       .catch((error) => {
         console.error(error);
       });
-
-  
-      
   }, []);
 
   const handlePhotoUpload = async () => {
     try {
       const formData = new FormData();
-      formData.append("file", video);
-      formData.append("upload_preset", "videoupload");
-      formData.append("cloud_name", "dfnwvbiyy");
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dfnwvbiyy/video/upload",
-        formData
-      );
-   
-      setCloudinaryURL(response.data.public_id);
+      if (video) {
+        formData.append("file", video);
+        formData.append("upload_preset", "videoupload");
+        formData.append("cloud_name", "dfnwvbiyy");
+        const response = await axios.post(
+          "https://api.cloudinary.com/v1_1/dfnwvbiyy/video/upload",
+          formData
+        );
+
+        setCloudinaryURL(response.data.public_id);
+      } else {
+        toast.error("No video file selected");
+      }
     } catch (error) {
       console.error("Error uploading video:", error);
       toast.error("Error uploading video");
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     // Perform video upload first
@@ -91,25 +92,20 @@ const AddLessonInTutor = ({ Toggle }) => {
       .post('/instructor/addLesson', {
         title,
         coursename,
-        duration:courseduration,
-        description: description,
-      
-    
+        duration: courseduration,
+        description,
         video: cloudinaryURL,
       })
       .then((response) => {
         console.log(response.data);
         toast.success('Lesson added successfully');
-        navigate('/course_view_tutor')
-        
+        navigate('/course_view_tutor');
       })
       .catch((error) => {
         console.error(error);
         toast.error('Error adding lesson');
       });
   };
- 
-  
 
   return (
     <div className="px-3">
@@ -150,7 +146,7 @@ const AddLessonInTutor = ({ Toggle }) => {
             className="form-control"
             placeholder="Enter duration"
             value={courseduration}
-            onChange={(e) => setCourseduration(e.target.value)}
+            onChange={(e) => setCourseduration(Number(e.target.value))}
           />
         </div>
         <div className="form-group">
@@ -163,8 +159,7 @@ const AddLessonInTutor = ({ Toggle }) => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-       
-     
+
         <div className="form-group">
           <label>Video</label>
           <input

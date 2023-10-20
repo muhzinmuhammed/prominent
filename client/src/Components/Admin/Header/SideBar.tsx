@@ -1,4 +1,4 @@
-import React from 'react'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './Sidebar.css'
@@ -11,8 +11,8 @@ const SideBar = () => {
   const hanldeSignout = () => {
         
         
-    localStorage.clear("tutorToken");
-    localStorage.clear("tutorData");
+    localStorage.removeItem("tutorToken");
+    localStorage.removeItem("tutorData");
     
     dispatch(logout());
     navigate('/admin_login')

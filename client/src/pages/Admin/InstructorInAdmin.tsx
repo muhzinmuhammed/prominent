@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import InstructorTable from '../../Components/Admin/InstructorsTable';
 import SideBar from '../../Components/Admin/Header/SideBar';
 const InstructorInAdmin = () => {

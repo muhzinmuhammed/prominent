@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import {useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './SideNav.css'
@@ -10,8 +10,8 @@ const SideBar = () => {
   const hanldeSignout = () => {
         
         
-    localStorage.clear("tutorToken");
-    localStorage.clear("tutorData");
+    localStorage.removeItem("tutorToken");
+    localStorage.removeItem("tutorData");
     
     dispatch(logout());
     navigate('/tutor_login')
@@ -22,7 +22,7 @@ const SideBar = () => {
     
     
 
-    const parsedUserData = JSON.parse(storedUserData);
+    const parsedUserData = storedUserData?JSON.parse(storedUserData):null
 
     dispatch(signup(parsedUserData));
   }, [dispatch]);
