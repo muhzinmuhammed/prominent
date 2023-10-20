@@ -9,6 +9,7 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ Toggle }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [studentDetails, setStudentDetails] = useState<any[]>([]);
   const [searchQuery] = useState<string>("");
   const [currentPage] = useState<number>(0); // Current page number
@@ -37,11 +38,13 @@ const Home: React.FC<HomeProps> = ({ Toggle }) => {
  
 
   // Slice the data to display only the current page
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const displayedStudents: any[] = filteredStudents.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const toggleUserStatus = async (user: any) => {
     try {
       if (user.isBlocked === false) {

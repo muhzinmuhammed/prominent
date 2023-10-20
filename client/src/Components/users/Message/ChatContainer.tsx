@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import ChatInput from './ChatInput';
-import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
-import { sendMessageRoute, recieveMessageRoute } from '../../../utils/APIRoutes';
+import React, { useEffect, useState, useRef } from "react";
+import styled from "styled-components";
+import ChatInput from "./ChatInput";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+import {
+  sendMessageRoute,
+  recieveMessageRoute,
+} from "../../../utils/APIRoutes";
 
 type Message = {
   fromSelf: boolean;
@@ -21,11 +24,14 @@ interface ChatContainerProps {
   socket: React.RefObject<WebSocket | null>;
 }
 
-const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) => {
+const ChatContainer: React.FC<ChatContainerProps> = ({
+  currentChat,
+  socket,
+}) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const [arrivalMessage, setArrivalMessage] = useState<Message | null>(null);
-  const userList = localStorage.getItem('userData');
+  const [arrivalMessage, setArrivalMessage] = useState<Message | null>();
+  const userList = localStorage.getItem("userData");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +45,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) =>
           setMessages(response.data);
         }
       } catch (error) {
-        console.error('Error fetching messages:', error);
+        console.error("Error fetching messages:", error);
       }
     };
 
@@ -47,14 +53,16 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) =>
   }, [currentChat, userList]);
 
   const handleSendMsg = async (msg: string) => {
-    const data = JSON.parse(localStorage.getItem('userData') || 'null');
+    const data = JSON.parse(localStorage.getItem("userData") || "null");
 
     if (data) {
-      socket.current?.send(JSON.stringify({
-        to: currentChat._id,
-        from: data._id,
-        msg,
-      }));
+      socket.current?.send(
+        JSON.stringify({
+          to: currentChat._id,
+          from: data._id,
+          msg,
+        })
+      );
 
       await axios.post(sendMessageRoute, {
         from: data._id,
@@ -120,7 +128,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ currentChat, socket }) =>
       <ChatInput handleSendMsg={handleSendMsg} />
     </Container>
   );
-}
+};
 
 export default ChatContainer;
 

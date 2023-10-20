@@ -1,4 +1,5 @@
-export const host = "http://localhost:4000";
+export const host = ["http://localhost:4000","http://prominentmuhzin.online","https://prominentmuhzin.online"];
+
 
 
 export const allUsersRoute = `${host}/student/allusers`;

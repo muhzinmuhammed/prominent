@@ -9,12 +9,14 @@ interface Contact {
 
 interface ContactsProps {
   contacts: Contact[];
-  changeChat: (contact: Contact) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  changeChat: (chat:any) => void; // Define changeChat function
 }
-
 export default function Contacts({ contacts, changeChat }: ContactsProps) {
   const [currentUserName, setCurrentUserName] = useState<string | undefined>(undefined);
   const [currentSelected, setCurrentSelected] = useState<number | undefined>(undefined);
+  console.log(contacts,"iiii");
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -39,27 +41,27 @@ export default function Contacts({ contacts, changeChat }: ContactsProps) {
 
   return (
     <Container>
-      {currentUserName && (
-        <>
-          <div className="brand">
-            {/* Your brand content */}
-          </div>
-          <div className="contacts">
-            {contacts.map((contact, index) => (
-              <div
-                key={contact._id}
-                className={`contact ${index === currentSelected ? "selected" : ""}`}
-                onClick={() => changeCurrentChat(index, contact)}
-              >
-                <div className="username">
-                  <h3>{contact.studentname}</h3>
-                </div>
+    {currentUserName && (
+      <>
+        <div className="brand">
+          {/* Your brand content */}
+        </div>
+        <div className="contacts">
+          {contacts.map((contact, index) => (
+            <div
+              key={contact?._id}
+              className={`contact ${index === currentSelected ? "selected" : ""}`}
+              onClick={() => changeCurrentChat(index, contact)}
+            >
+              <div className="username">
+                <h3>{contact.studentname}</h3>
               </div>
-            ))}
-          </div>
-        </>
-      )}
-    </Container>
+            </div>
+          ))}
+        </div>
+      </>
+    )}
+  </Container>
   );
 }
 

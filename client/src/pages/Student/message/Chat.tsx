@@ -1,4 +1,4 @@
-import  { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
@@ -7,7 +7,7 @@ import { allUsersRoute, host } from "../../../utils/APIRoutes";
 import ChatContainer from "../../../Components/users/Message/ChatContainer";
 import Contacts from "../../../Components/users/Message/Contact";
 import Welcome from "../../../Components/users/Message/Welcome";
-import Nav from  '../../../Components/users/Header/Navbar'
+import Nav from '../../../Components/users/Header/Navbar';
 
 interface Contact {
   _id: string;
@@ -15,23 +15,46 @@ interface Contact {
   // Add other properties as needed
 }
 
-interface ContactsData {
-  contacts: Contact[];
-}
-
-
 interface User {
   _id: string;
+  studentname: string;
   // Add other user properties as needed
 }
 
-export default function Chat() {
+interface CurrentChat {
+  _id: string;
+  username: string;
+  avatarImage: string;
+}
+
+const Container = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  background-color: #131324;
+  .container {
+    height: 85vh;
+    width: 85vw;
+    background-color: #00000076;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    @media screen and (min-width: 720px) and (max-width: 1080px) {
+      grid-template-columns: 35% 65%;
+    }
+  }
+};
+`
+const Chat: React.FC = () => {
   const navigate = useNavigate();
   const socket = useRef<Socket | null>(null);
-  const [contacts, setContacts] = useState<User[]>([]);
-
-  const [currentChat, setCurrentChat] = useState<User | undefined>();
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [currentChat, setCurrentChat] = useState<CurrentChat | undefined>();
   const [currentUser, setCurrentUser] = useState<User | undefined>();
+  const webSocketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -55,9 +78,8 @@ export default function Chat() {
       socket.current = io(host);
       socket.current.emit("add-user", currentUser._id);
     }
-    
+
     return () => {
-      // Cleanup the socket connection when the component unmounts.
       if (socket.current) {
         socket.current.disconnect();
       }
@@ -69,8 +91,10 @@ export default function Chat() {
       try {
         if (currentUser) {
           const { data } = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+          console.log(data,"uuuuu");
+          
           setContacts(data);
-        } 
+        }
       } catch (error) {
         console.error("Error fetching contacts:", error);
       }
@@ -78,48 +102,33 @@ export default function Chat() {
 
     fetchContacts();
   }, [currentUser, navigate]);
-  
 
-  const handleChatChange = (chat: User) => {
-    setCurrentChat(chat);
+  const handleChatChange = (contact: Contact) => {
+    setCurrentChat({
+      _id: contact._id,
+      username: contact.studentname,
+      avatarImage: '', // Add the avatar image if needed
+    });
   };
 
   return (
     <>
-    <Nav/>
-    <Container>
-      <div className="container">
-      
-      <Contacts contacts={contacts} changeChat={handleChatChange} />
+      <Nav />
+      <Container>
+        <div className="container">
+          <Contacts contacts={contacts} changeChat={handleChatChange} />
+         
+         
 
-        {currentChat === undefined ? (
-          <Welcome />
-        ) : (
-          <ChatContainer currentChat={currentChat} socket={socket} />
-        )}
-      </div>
-    </Container>
+          {currentChat === undefined ? (
+            <Welcome />
+          ) : (
+            <ChatContainer currentChat={currentChat} socket={webSocketRef} />
+          )}
+        </div>
+      </Container>
     </>
   );
-}
+};
 
-const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  align-items: center;
-  background-color: #131324;
-  .container {
-    height: 85vh;
-    width: 85vw;
-    background-color: #00000076;
-    display: grid;
-    grid-template-columns: 25% 75%;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      grid-template-columns: 35% 65%;
-    }
-  }
-`;
+export default Chat;

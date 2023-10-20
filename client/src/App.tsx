@@ -42,7 +42,6 @@ import AdminDashBoard from "./pages/Admin/AdminDashBoard";
 import LessonDetails from "./pages/tutor/LessonDetails";
 import TutorDashBoard from "./pages/tutor/TutorDash";
 
-
 function App() {
   return (
     <Router>
@@ -55,20 +54,18 @@ function App() {
 
         <Route path="/courses" element={<CoursePageStudent />} />
         <Route path="/certificates/:id" element={<Certificate />} />
-      
 
         <Route path="/tutors" element={<TutorPage />} />
         <Route path="/tutor_details/:id" element={<TutorDetailsPage />} />
         <Route path="/course_details/:id" element={<CourseDetailPage />} />
         <Route path="/entroll_course/:id" element={<EntrolledCourse />} />
-        <Route path='/join_room' element={<JoinRoom/>}/>
-        <Route path='/forget_password' element={<ForgetPassword/>}/>
-        <Route path='/user_forget_otp' element={<ForgetOtp/>}/>
-        <Route path='/new_password' element={<NewPassword/>}/>
+        <Route path="/join_room" element={<JoinRoom />} />
+        <Route path="/forget_password" element={<ForgetPassword />} />
+        <Route path="/user_forget_otp" element={<ForgetOtp />} />
+        <Route path="/new_password" element={<NewPassword />} />
         <Route path="/message" element={<Chat />} />
         <Route path="/wallet" element={<Wallet />} />
 
-     
         {/* student routes */}
 
         {/* insructor routes */}
@@ -77,8 +74,8 @@ function App() {
         <Route path="/course_view_tutor" element={<CourseTable />} />
         <Route path="/course_lessons/:id" element={<LessonDetails />} />
 
-        <Route path='/create_room' element={<VideoCall/>}/>
-          <Route path='/room/:roomId' element={<Room/>}/>
+        <Route path="/create_room" element={<VideoCall />} />
+        <Route path="/room/:roomId" element={<Room />} />
 
         <Route path="/add_course" element={<AddCourse />} />
         <Route path="/edit_course/:id" element={<EditCourse />} />

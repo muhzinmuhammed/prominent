@@ -9,6 +9,7 @@ import cors from "cors";
 import nocache from "nocache";
 import "dotenv/config";
 import adminRouter from "./routes/adminRouter/adminRouter";
+import path from "path";
 
 const app: Express = express();
 const port: number = Number(process.env.PORT);
@@ -34,10 +35,22 @@ const server = http.createServer(app); // Create an HTTP server using 'http' mod
 const io = new SocketIOServer(server, {
   // Create a new Socket.IO server instance
   cors: {
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "http://prominentmuhzin.online",
+      "https://prominentmuhzin.online",
+    ],
     credentials: true,
   },
 });
+if (process.env.PRODUCTION=="production") {
+  app.use(express.static(path.join(__dirname, "../../client/dist")));
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
+});
+}
+
 
 // Define global variables with proper types
 const onlineUsers: Map<string, string> = new Map(); // Assuming userId is a string
