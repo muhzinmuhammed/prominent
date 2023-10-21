@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const http_1 = __importDefault(require("http")); // Import the 'http' module
 const socket_io_1 = require("socket.io"); // Import Server and Socket types from 'socket.io'
-require("../connection/connection");
+const connection_1 = __importDefault(require("../connection/connection"));
 const studentRouter_1 = __importDefault(require("./routes/studentRouter/studentRouter"));
 const tutorRouter_1 = __importDefault(require("./routes/tutorRouter/tutorRouter"));
 const chatRoutes_1 = __importDefault(require("./routes/ChatRoutes/chatRoutes"));
@@ -21,6 +21,7 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
 app.use((0, nocache_1.default)());
+(0, connection_1.default)();
 /*student route*/
 app.use("/student", studentRouter_1.default);
 /*instructor route*/
@@ -43,8 +44,9 @@ const io = new socket_io_1.Server(server, {
     },
 });
 if (process.env.PRODUCTION == "production") {
+    console.log(path_1.default.join(__dirname, "../../client/dist"));
     app.use(express_1.default.static(path_1.default.join(__dirname, "../../client/dist")));
-    app.get("*", function (req, res) {
+    app.all("/", function (req, res) {
         res.sendFile(path_1.default.join(__dirname, "../../client/dist/index.html"));
     });
 }
