@@ -1,4 +1,4 @@
-export const host = ["http://localhost:4000","http://prominentmuhzin.online","https://prominentmuhzin.online"];
+export const host = ["http://localhost:4001","http://prominentmuhzin.online","https://prominentmuhzin.online"];
 
 
 
