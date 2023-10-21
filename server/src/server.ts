@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import http from "http"; // Import the 'http' module
 import { Server as SocketIOServer, Socket } from "socket.io"; // Import Server and Socket types from 'socket.io'
-import "../connection/connection";
+import connectDb from "../connection/connection";
 import studentRouter from "./routes/studentRouter/studentRouter";
 import tutorRouter from "./routes/tutorRouter/tutorRouter";
 import chatRouter from "./routes/ChatRoutes/chatRoutes";
@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(nocache());
 
+connectDb();
 /*student route*/
 app.use("/student", studentRouter);
 /*instructor route*/
