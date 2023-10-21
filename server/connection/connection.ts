@@ -4,16 +4,12 @@ mongoose.set('strictQuery',true)
 
 dotenv.config();
 
-// if (process.env.ENV=='dev') {
-//     dotenv
-    
-// }
-
 
 async function connectToDb() {
     const URI:string = process.env.MONGO_URI??""
+    console.log(URI)
     try {
-        await mongoose.connect(URI)
+        await mongoose.connect(URI);
         console.log("Connected to database")
     } catch (error) {
         console.error(error)
