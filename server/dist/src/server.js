@@ -44,10 +44,10 @@ const io = new socket_io_1.Server(server, {
     },
 });
 if (process.env.PRODUCTION == "production") {
-    console.log(path_1.default.join(__dirname, "../../client/dist"));
-    app.use(express_1.default.static(path_1.default.join(__dirname, "../../client/dist")));
+    console.log(path_1.default.join(__dirname, "../../../client/dist"));
+    app.use(express_1.default.static(path_1.default.join(__dirname, "../../../client/dist")));
     app.all("/", function (req, res) {
-        res.sendFile(path_1.default.join(__dirname, "../../client/dist/index.html"));
+        res.sendFile(path_1.default.join(__dirname, "../../../client/dist/index.html"));
     });
 }
 // Define global variables with proper types

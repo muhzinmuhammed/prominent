@@ -45,11 +45,11 @@ const io = new SocketIOServer(server, {
   },
 });
 if (process.env.PRODUCTION=="production") {
-  console.log(path.join(__dirname, "../../client/dist"))
-  app.use(express.static(path.join(__dirname, "../../client/dist")));
+  console.log(path.join(__dirname, "../../../client/dist"))
+  app.use(express.static(path.join(__dirname, "../../../client/dist")));
 
 app.all("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
+  res.sendFile(path.join(__dirname, "../../../client/dist/index.html"));
 });
 }
 
