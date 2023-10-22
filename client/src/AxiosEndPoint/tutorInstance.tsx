@@ -3,7 +3,7 @@ import axios from "axios";
 // Create an Axios instance with a base URL
 const tutoraxiosinstance = axios.create({
   // baseURL: "http://localhost:4000",
-  baseURL:'http://prominentmuhzin.online'
+  baseURL:'https://prominentmuhzin.online'
 });
 
 // Add a request interceptor
