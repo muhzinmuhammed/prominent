@@ -10,6 +10,7 @@ import nocache from "nocache";
 import "dotenv/config";
 import adminRouter from "./routes/adminRouter/adminRouter";
 import path from "path";
+import morgan from 'morgan'
 
 const app: Express = express();
 const port: number = Number(process.env.PORT);
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(nocache());
-
+app.use(morgan('tiny'));
 connectDb();
 /*student route*/
 app.use("/student", studentRouter);
