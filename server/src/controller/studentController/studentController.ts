@@ -21,6 +21,9 @@ const globalData = {
 };
 const studentSignup = async (req: Request, res: Response) => {
   try {
+    console.log('====================================');
+    console.log(req.body);
+    console.log('====================================');
     const { studentname, studentemail, password, phone } = req.body;
 
     if (!studentname || !studentemail || !password || !phone) {
