@@ -37,7 +37,7 @@ const TutorComponent: React.FC = () => {
         <div className="container">
           <div className="row ms-5 mt-5">
             {instructors.map((instructor) => (
-              <div className="col-lg-4" key={instructor._id}>
+              <div className="col-lg-4" key={instructor?._id}>
                 <div className="card-border card" style={{ width: "18rem", height: "20rem" }}>
                   <img
                     className="card-img-top"
@@ -45,8 +45,8 @@ const TutorComponent: React.FC = () => {
                     alt="Card image cap"
                   />
                   <div className="card-body">
-                    <Link to={`/tutor_details/${instructor._id}`}>
-                      <h5 className="card-title text-center">{instructor.instrctorname}</h5>
+                    <Link to={`/tutor_details/${instructor?._id}`}>
+                      <h5 className="card-title text-center">{instructor?.instrctorname}</h5>
                     </Link>
                   </div>
                 </div>

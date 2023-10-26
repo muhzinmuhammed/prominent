@@ -25,7 +25,7 @@ const Certificate = () => {
     axiosInstance
       .get(`/student/entrolledcourseDetails/${id}`)
       .then((response) => {
-        console.log(response.data, 'lll');
+        
         setEnrolled(response.data.entrolled);
       });
   }, [id]);
@@ -48,21 +48,21 @@ const Certificate = () => {
               <p className="certificate-title">
                 Certificate of Completion of
               </p>
-              <h1>{enrolled.courseId.coursename}</h1>
-              <p className="student-name">Student Name:{enrolled.studentId.studentname}</p>
+              <h1>{enrolled?.courseId?.coursename}</h1>
+              <p className="student-name">Student Name:{enrolled?.studentId?.studentname}</p>
               <div className="certificate-content">
                 <div className="about-certificate"></div>
                 <p className="topic-title">
-                  The Topic consists of {enrolled.continuityHours} Continuity hours and includes the following:
+                  The Topic consists of {enrolled?.continuityHours} Continuity hours and includes the following:
                 </p>
                 <div className="text-center">
-                  <p className="topic-description text-muted">{enrolled.topicDescription}</p>
+                  <p className="topic-description text-muted">{enrolled?.topicDescription}</p>
                 </div>
               </div>
               <div className="certificate-footer text-muted">
                 <div className="row">
                   <div className="col-md-6">
-                    <p>Instructor:{enrolled.instructorId.instrctorname}</p>
+                    <p>Instructor:{enrolled?.instructorId?.instrctorname}</p>
                   </div>
                   <div className="col-md-6">
                     <div className="row">

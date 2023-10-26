@@ -57,7 +57,7 @@ function NavbarHeader() {
                 Wallet
               </Nav.Link>
               <h6 className="me-5">
-                {user ? user.name : ""}
+                {user ? user?.name : ""}
               </h6>
               <Link
                 style={{

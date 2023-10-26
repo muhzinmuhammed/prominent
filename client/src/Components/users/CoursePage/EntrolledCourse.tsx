@@ -75,19 +75,19 @@ const EntrolledCourse: React.FC = () => {
               ></div>
               <div className="container course-image mt-5 me-5">
                 <img
-                  src={`${baseUrl}/${newLessons.courseId?.photo}`}
+                  src={`${baseUrl}/${newLessons?.courseId?.photo}`}
                   className="img-fluid w-100"
                   alt="Course"
                 />
               </div>
               <div className="container">
                 <h1 className="text-dark text-center">
-                  {newLessons.courseId?.coursename}
+                  {newLessons?.courseId?.coursename}
                 </h1>
                 <h4>
                   Difficulty:
                   <Badge bg="success" className="ms-3 mt-3">
-                    {newLessons.courseId?.courseLevel}
+                    {newLessons?.courseId?.courseLevel}
                   </Badge>
                 </h4>
               </div>
@@ -113,15 +113,15 @@ const EntrolledCourse: React.FC = () => {
               <div className="row">
                 <div className="col-lg-4">
                   <h1>Instructor</h1>
-                  <h4>{newLessons.instructorId?.instrctorname}</h4>
+                  <h4>{newLessons?.instructorId?.instrctorname}</h4>
                 </div>
                 <div className="col-lg-4">
                   <h1>Duration</h1>
-                  <h4>{newLessons.courseId?.duration} week</h4>
+                  <h4>{newLessons?.courseId?.duration} week</h4>
                 </div>
                 <div className="col-lg-4">
                   <h1>Price</h1>
-                  <h4>₹{newLessons.courseId?.coursefee}</h4>
+                  <h4>₹{newLessons?.courseId?.coursefee}</h4>
                 </div>
               </div>
             </div>
@@ -135,7 +135,7 @@ const EntrolledCourse: React.FC = () => {
                     <Accordion.Body>{lesson.title}</Accordion.Body>
                     <Accordion.Body>
                       <video
-                        src={`${baseVideo}/${lesson.video}`}
+                        src={`${baseVideo}/${lesson?.video}`}
                         controls
                         style={{ width: "100%", height: "100px" }}
                       ></video>
@@ -148,10 +148,10 @@ const EntrolledCourse: React.FC = () => {
               <div className="about-box">
                 <h1>Review of Course</h1>
                 {showReview.map((review) => (
-                  <div key={review._id}>
+                  <div key={review?._id}>
                     <div className="container">
-                      <h4>{review.studentId?.studentname}</h4>
-                      <h6>{review.review}</h6>
+                      <h4>{review?.studentId?.studentname}</h4>
+                      <h6>{review?.review}</h6>
                     </div>
                   </div>
                 ))}

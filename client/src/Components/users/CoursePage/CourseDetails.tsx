@@ -155,7 +155,7 @@ const CourseDetails: React.FC = () => {
             </div>
             <div className="container course-image mt-5 me-5">
               <img
-                src={`${baseUrl}/${course.photo}`}
+                src={`${baseUrl}/${course?.photo}`}
                 className="img-fluid w-100"
                 alt="..."
               />
@@ -163,13 +163,13 @@ const CourseDetails: React.FC = () => {
 
             <div className="container">
               <h1 className="text-center mt-5 text-info">
-                {course.coursename}
+                {course?.coursename}
               </h1>
 
               <h4>
                 Difficuly:
                 <Badge bg="success" className="ms-3 ">
-                  {course.courseLevel}
+                  {course?.courseLevel}
                 </Badge>
               </h4>
             </div>
@@ -183,11 +183,11 @@ const CourseDetails: React.FC = () => {
               </div>
               <div className="col-lg-3">
                 <h1>Duration</h1>
-                <h6>{course.duration} week</h6>
+                <h6>{course?.duration} week</h6>
               </div>
               <div className="col-lg-3">
                 <h1>Price</h1>
-                <h6>₹{course.coursefee}</h6>
+                <h6>₹{course?.coursefee}</h6>
               </div>
               <div className="col-lg-3 ">
                 <h1>Buy Now</h1>
@@ -210,7 +210,7 @@ const CourseDetails: React.FC = () => {
 
           <div className="container">
             <h3 className="mt-5 ms-5">About this course</h3>
-            <div className="about-box">{course.coursedescription}</div>
+            <div className="about-box">{course?.coursedescription}</div>
           </div>
 
           <div className="container">

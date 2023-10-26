@@ -110,18 +110,18 @@ function Cards() {
                 <img
                   style={{ height: "300px", width: "100%" }}
                   className="product--image"
-                  src={`${baseUrl}/${course.photo}`}
+                  src={`${baseUrl}/${course?.photo}`}
                   alt="a"
                 />
-                <h2 className="text-center mt-5">{course.coursename}</h2>
+                <h2 className="text-center mt-5">{course?.coursename}</h2>
                 <p className="text-dark mt-3">
                   <b>{course.coursedescription}</b>
                 </p>
                 <small className="text-dark mt-5 ms-3">
-                  {course.instructor.instrctorname}
+                  {course.instructor?.instrctorname}
                 </small>
 
-                <h4 className="price text-center">₹ {course.coursefee}</h4>
+                <h4 className="price text-center">₹ {course?.coursefee}</h4>
               </Link>
             </div>
           ))}

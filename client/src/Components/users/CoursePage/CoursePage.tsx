@@ -29,7 +29,8 @@ interface Entroll {
 }
 
 const CoursePage: React.FC = () => {
-  const baseUrl = "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
+  const baseUrl =
+    "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
 
   const [course, setCourse] = useState<Course[]>([]);
   const [entrolled, setEntrolled] = useState<Entroll[]>([]);
@@ -123,32 +124,32 @@ const CoursePage: React.FC = () => {
             {searchQuery === "" // Check if search query is empty
               ? course.map((course) => (
                   // Display all courses if search query is empty
-                  <div key={course._id} className="col-lg-4 mt-5">
+                  <div key={course?._id} className="col-lg-4 mt-5">
                     <div
                       className="card-border card"
                       style={{ width: "18rem", height: "400px" }}
                     >
                       <Link
-                        to={`/course_details/${course._id}`}
+                        to={`/course_details/${course?._id}`}
                         className="text-decoration-none"
                       >
                         <img
                           className="card-img-top"
-                          src={`${baseUrl}/${course.photo}`}
+                          src={`${baseUrl}/${course?.photo}`}
                           style={{ height: "100px" }}
                           alt="Card image cap"
                         />
                         <div className="card-body">
                           <h5 className="card-title text-center">
-                            {course.coursename}
+                            {course?.coursename}
                           </h5>
                           <p className="text-dark mt-3">
-                            <b>{course.coursedescription}</b>
+                            <b>{course?.coursedescription}</b>
                           </p>
                           <p className="card-text text-center">
-                            {course.instructor?.instrctorname}
+                            {course?.instructor?.instrctorname}
                           </p>
-                          <h4 className="text-center">{course.coursefee}</h4>
+                          <h4 className="text-center">{course?.coursefee}</h4>
                         </div>
                       </Link>
                     </div>
@@ -156,29 +157,29 @@ const CoursePage: React.FC = () => {
                 ))
               : filteredCourses.map((course) => (
                   // Display filtered courses if search query is not empty
-                  <div key={course._id} className="col-lg-4 mt-5">
+                  <div key={course?._id} className="col-lg-4 mt-5">
                     <div
                       className="card-border card"
                       style={{ width: "18rem" }}
                     >
                       <Link
-                        to={`/course_details/${course._id}`}
+                        to={`/course_details/${course?._id}`}
                         className="text-decoration-none"
                       >
                         <img
                           className="card-img-top"
-                          src={`${baseUrl}/${course.photo}`}
+                          src={`${baseUrl}/${course?.photo}`}
                           style={{ height: "100px" }}
                           alt="Card image cap"
                         />
                         <div className="card-body">
                           <h5 className="card-title text-center">
-                            {course.coursename}
+                            {course?.coursename}
                           </h5>
                           <p className="card-text text-center">
-                            {course.instructor?.instrctorname}
+                            {course?.instructor?.instrctorname}
                           </p>
-                          <h4 className="text-center">{course.coursefee}</h4>
+                          <h4 className="text-center">{course?.coursefee}</h4>
                         </div>
                       </Link>
                     </div>
@@ -192,33 +193,33 @@ const CoursePage: React.FC = () => {
             <div className="row ms-5 mt-5">
               <h1>Enrolled Courses</h1>
               {entrolled
-                .filter((entroll) => entroll.status !== "Refund")
+                .filter((entroll) => entroll?.status !== "Refund")
                 .map((entroll) => (
-                  <div key={entroll._id} className="col-lg-4 mt-5">
+                  <div key={entroll?._id} className="col-lg-4 mt-5">
                     <div
                       className="card-border card"
                       style={{ width: "18rem" }}
                     >
                       <Link
                         className="text-decoration-none"
-                        to={`/entroll_course/${entroll._id}`}
+                        to={`/entroll_course/${entroll?._id}`}
                       >
-                        {entroll.courseId.photo && (
+                        {entroll?.courseId?.photo && (
                           <img
                             className="card-img-top"
-                            src={`${baseUrl}/${entroll.courseId.photo}`}
+                            src={`${baseUrl}/${entroll?.courseId?.photo}`}
                             style={{ height: "100px" }}
                             alt="Card image cap"
                           />
                         )}
                         <div className="card-body">
                           <h5 className="card-title text-center">
-                            {entroll.courseId.courseId}
+                            {entroll?.courseId?.courseId}
                           </h5>
                           <p className="card-text">
-                            {entroll.courseId.coursedescription}
+                            {entroll?.courseId?.coursedescription}
                           </p>
-                          <h3>{entroll.courseId.coursefee}</h3>
+                          <h3>{entroll?.courseId?.coursefee}</h3>
                         </div>
                       </Link>
                     </div>

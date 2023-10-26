@@ -15,7 +15,7 @@ interface ContactsProps {
 export default function Contacts({ contacts, changeChat }: ContactsProps) {
   const [currentUserName, setCurrentUserName] = useState<string | undefined>(undefined);
   const [currentSelected, setCurrentSelected] = useState<number | undefined>(undefined);
-  console.log(contacts,"iiii");
+  
   
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Contacts({ contacts, changeChat }: ContactsProps) {
               onClick={() => changeCurrentChat(index, contact)}
             >
               <div className="username">
-                <h3>{contact.studentname}</h3>
+                <h3>{contact?.studentname}</h3>
               </div>
             </div>
           ))}

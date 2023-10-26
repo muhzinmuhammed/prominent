@@ -32,12 +32,12 @@ const InstructorList: React.FC = () => {
         <Container className="mt-5">
           <Row className="ms-4">
             {instructors.slice(0, 3).map((instructor) => (
-              <Col xs={12} md={4} className="instructor-card" key={instructor._id}>
+              <Col xs={12} md={4} className="instructor-card" key={instructor?._id}>
                 <Card className="ms-5" style={{ width: '18rem' }}>
                   <Card.Img variant="top" src={image} />
                   <Card.Body>
-                    <Card.Title className="card-title text-center card-head">{instructor.instrctorname}</Card.Title>
-                    <Link to={`/tutor_details/${instructor._id}`}>
+                    <Card.Title className="card-title text-center card-head">{instructor?.instrctorname}</Card.Title>
+                    <Link to={`/tutor_details/${instructor?._id}`}>
                       <Button className="card-button ms-5">Go somewhere</Button>
                     </Link>
                   </Card.Body>
