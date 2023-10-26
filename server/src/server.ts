@@ -45,14 +45,13 @@ const io = new SocketIOServer(server, {
     credentials: true,
   },
 });
-if (process.env.PRODUCTION=="production") {
 
   app.use(express.static(path.join(__dirname,"..", "..","..","prominent","client", "dist")));
 
 app.all("/", function (req, res) {
   res.sendFile(path.join(__dirname,"..", "..","..","prominent","client", "dist", "index.html"));
 });
-}
+
 
 
 // Define global variables with proper types
