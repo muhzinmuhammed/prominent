@@ -29,9 +29,9 @@ function Cards() {
     axiosInstance
       .get("/student/allCourses")
       .then((response) => {
-        console.log(response.data);
+       
 
-        setCourse(response.data.allCourse);
+        setCourse(response.data?.allCourse);
       })
       .catch((error) => {
         toast.error("Something went wrong");
@@ -101,11 +101,11 @@ function Cards() {
                 borderRadius: "10px",
                 height: "580px",
               }}
-              key={course._id}
+              key={course?._id}
             >
               <Link
                 style={{ textDecoration: "none" }}
-                to={`/course_details/${course._id}`}
+                to={`/course_details/${course?._id}`}
               >
                 <img
                   style={{ height: "300px", width: "100%" }}
@@ -115,7 +115,7 @@ function Cards() {
                 />
                 <h2 className="text-center mt-5">{course?.coursename}</h2>
                 <p className="text-dark mt-3">
-                  <b>{course.coursedescription}</b>
+                  <b>{course?.coursedescription}</b>
                 </p>
                 <small className="text-dark mt-5 ms-3">
                   {course.instructor?.instrctorname}
