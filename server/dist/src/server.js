@@ -15,12 +15,14 @@ const nocache_1 = __importDefault(require("nocache"));
 require("dotenv/config");
 const adminRouter_1 = __importDefault(require("./routes/adminRouter/adminRouter"));
 const path_1 = __importDefault(require("path"));
+const morgan_1 = __importDefault(require("morgan"));
 const app = (0, express_1.default)();
 const port = Number(process.env.PORT);
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
 app.use((0, nocache_1.default)());
+app.use((0, morgan_1.default)('tiny'));
 (0, connection_1.default)();
 /*student route*/
 app.use("/student", studentRouter_1.default);
@@ -44,10 +46,9 @@ const io = new socket_io_1.Server(server, {
     },
 });
 if (process.env.PRODUCTION == "production") {
-    console.log(path_1.default.join(__dirname, "../../../client/dist"));
-    app.use(express_1.default.static(path_1.default.join(__dirname, "../../../client/dist")));
+    app.use(express_1.default.static(path_1.default.join(__dirname, "..", "..", "client", "dist")));
     app.all("/", function (req, res) {
-        res.sendFile(path_1.default.join(__dirname, "../../../client/dist/index.html"));
+        res.sendFile(path_1.default.join(__dirname, "..", "..", "client", "dist", "index.html"));
     });
 }
 // Define global variables with proper types

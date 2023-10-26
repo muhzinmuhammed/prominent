@@ -27,6 +27,9 @@ const globalData = {
 };
 const studentSignup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('====================================');
+        console.log(req.body);
+        console.log('====================================');
         const { studentname, studentemail, password, phone } = req.body;
         if (!studentname || !studentemail || !password || !phone) {
             return res.status(400).json({ message: "All fields are required" });
