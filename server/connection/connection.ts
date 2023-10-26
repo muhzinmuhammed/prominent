@@ -11,6 +11,9 @@ async function connectToDb() {
    
     try {
         await mongoose.connect(URI);
+        console.log('====================================');
+        console.log("conncted");
+        console.log('====================================');
         
     } catch (error) {
         console.error(error)

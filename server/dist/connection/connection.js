@@ -46,6 +46,9 @@ function connectToDb() {
         console.log(URI);
         try {
             yield mongoose_1.default.connect(URI);
+            console.log('====================================');
+            console.log("conncted");
+            console.log('====================================');
         }
         catch (error) {
             console.error(error);

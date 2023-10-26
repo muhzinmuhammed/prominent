@@ -2,8 +2,8 @@ import axios from "axios";
 
 // Create an Axios instance with a base URL
 const adminInstance = axios.create({
-  // baseURL: "http://localhost:4000",
-  baseURL:'https://prominentmuhzin.online'
+  baseURL: "http://localhost:4001",
+  // baseURL:'https://prominentmuhzin.online'
 });
 
 // Add a request interceptor

@@ -24,7 +24,7 @@ const InstructorList: React.FC = () => {
         toast.error(err);
       });
   }, []);
-
+ 
   return (
     <div>
       <section className="instructor">

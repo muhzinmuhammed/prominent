@@ -35,7 +35,7 @@ const CategoryTable: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
   );
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil(filteredCategories.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredCategories?.length / itemsPerPage);
 
   // Get the data to display on the current page
   const indexOfLastCategory = currentPage * itemsPerPage;
