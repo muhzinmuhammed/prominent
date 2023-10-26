@@ -45,12 +45,10 @@ const io = new socket_io_1.Server(server, {
         credentials: true,
     },
 });
-if (process.env.PRODUCTION == "production") {
-    app.use(express_1.default.static(path_1.default.join(__dirname, "..", "..", "..", "prominent", "client", "dist")));
-    app.all("/", function (req, res) {
-        res.sendFile(path_1.default.join(__dirname, "..", "..", "..", "prominent", "client", "dist", "index.html"));
-    });
-}
+app.use(express_1.default.static(path_1.default.join(__dirname, "..", "..", "..", "prominent", "client", "dist")));
+app.all("/", function (req, res) {
+    res.sendFile(path_1.default.join(__dirname, "..", "..", "..", "prominent", "client", "dist", "index.html"));
+});
 // Define global variables with proper types
 const onlineUsers = new Map(); // Assuming userId is a string
 let chatSocket;
