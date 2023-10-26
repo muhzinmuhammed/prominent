@@ -8,8 +8,8 @@ const Room: React.FC = () => {
 
   useEffect(() => {
     const myMeeting = async () => {
-      const appID = 26563277;
-      const serverSecret = "617e84c3e34c9056fdec8038414a1ee5";
+      const appID = 1690846173;
+      const serverSecret = "3ea3dbf098eb82ceed4c8fdf154ea4db";
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appID,
         serverSecret,
