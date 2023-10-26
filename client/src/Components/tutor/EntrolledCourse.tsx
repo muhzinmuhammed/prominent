@@ -41,13 +41,13 @@ const EntrolledCourse: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order, index) => (
-            <tr key={order._id}>
+          {orders?.map((order, index) => (
+            <tr key={order?._id}>
               <td>{index + 1}</td>
-              <td>{order._id}</td>
-              <td>{order.studentId?.studentname}</td>
-              <td>{order.courseId?.coursename}</td>
-              <td>{order.amount}</td>
+              <td>{order?._id}</td>
+              <td>{order?.studentId?.studentname}</td>
+              <td>{order?.courseId?.coursename}</td>
+              <td>{order?.amount}</td>
               <td>Success</td>
             </tr>
           ))}

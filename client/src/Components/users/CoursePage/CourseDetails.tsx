@@ -234,11 +234,11 @@ const CourseDetails: React.FC = () => {
               >
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Module {index + 1}</Accordion.Header>
-                  <Accordion.Body> {lesson.title}</Accordion.Body>
+                  <Accordion.Body> {lesson?.title}</Accordion.Body>
                   <Accordion.Body>
-                    {index === 0 && lesson.video && (
+                    {index === 0 && lesson?.video && (
                       <video
-                        src={`${baseVideo}/${lesson.video}`}
+                        src={`${baseVideo}/${lesson?.video}`}
                         controls
                         style={{ width: "100%", height: "100px" }}
                       ></video>
@@ -253,10 +253,10 @@ const CourseDetails: React.FC = () => {
             <div className="container">
               <div className="about-box">
                 <h1>Review of Course</h1>
-                {showReview.map((review) => (
-                  <div key={review._id} className="container">
-                    <h4>{review.studentId?.studentname}</h4>
-                    <h6>{review.review}</h6>
+                {showReview?.map((review) => (
+                  <div key={review?._id} className="container">
+                    <h4>{review?.studentId?.studentname}</h4>
+                    <h6>{review?.review}</h6>
                   </div>
                 ))}
               </div>

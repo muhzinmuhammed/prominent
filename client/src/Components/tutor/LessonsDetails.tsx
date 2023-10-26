@@ -42,10 +42,10 @@ const LessonsDetails: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
  {lessons.map((less,index)=>(
   <tr>
   <td>{index+1}</td>
-  <td>{less.title}</td>
-  <td>{less.duration}</td>
-  <td>{less.description}</td>
-  <td><video controls style={{width:'100px'}}  src={`${baseVideo}/${less.video}`}/></td>
+  <td>{less?.title}</td>
+  <td>{less?.duration}</td>
+  <td>{less?.description}</td>
+  <td><video controls style={{width:'100px'}}  src={`${baseVideo}/${less?.video}`}/></td>
 </tr>
 
  ))}

@@ -83,12 +83,12 @@ const InstructorTable: React.FC<InstructorTableProps> = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-          {instructoTable.map((user, index) => (
-            <tr key={user._id}>
+          {instructoTable?.map((user, index) => (
+            <tr key={user?._id}>
               <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-              <td>{user.instrctorname}</td>
-              <td>{user.instrctoremail}</td>
-              <td>{user.phone}</td>
+              <td>{user?.instrctorname}</td>
+              <td>{user?.instrctoremail}</td>
+              <td>{user?.phone}</td>
             </tr>
           ))}
         </tbody>

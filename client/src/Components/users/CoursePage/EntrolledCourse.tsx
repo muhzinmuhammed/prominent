@@ -128,7 +128,7 @@ const EntrolledCourse: React.FC = () => {
             <div className="container mt-5">
               <h1>Syllabus</h1>
              
-              {newLessons.courseId?.courseLessons?.map((lesson: any, index: number) => (
+              {newLessons?.courseId?.courseLessons?.map((lesson: any, index: number) => (
                 <Accordion key={index} defaultActiveKey="0" className="mt-5 bg-danger">
                   <Accordion.Item eventKey="0">
                     <Accordion.Header>Module {index + 1}</Accordion.Header>
@@ -147,7 +147,7 @@ const EntrolledCourse: React.FC = () => {
             <div className="container">
               <div className="about-box">
                 <h1>Review of Course</h1>
-                {showReview.map((review) => (
+                {showReview?.map((review) => (
                   <div key={review?._id}>
                     <div className="container">
                       <h4>{review?.studentId?.studentname}</h4>

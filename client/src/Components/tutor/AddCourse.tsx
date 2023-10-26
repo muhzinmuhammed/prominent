@@ -159,9 +159,9 @@ const AddCourse: React.FC<AddCourseProps> = ({ Toggle }) => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">Select Category</option>
-            {categoryOptions.map((category) => (
-              <option key={category._id} value={category._id}>
-                {category.title}
+            {categoryOptions?.map((category) => (
+              <option key={category?._id} value={category?._id}>
+                {category?.title}
               </option>
             ))}
           </select>

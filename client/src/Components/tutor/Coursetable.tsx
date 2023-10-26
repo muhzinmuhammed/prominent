@@ -45,22 +45,22 @@ const CourseTable: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((course, index) => (
-            <tr key={course._id}>
+          {courses?.map((course, index) => (
+            <tr key={course?._id}>
               <td>{index + 1}</td>
-              <td>{course.coursename}</td>
-              <td>{course.coursedescription}</td>
+              <td>{course?.coursename}</td>
+              <td>{course?.coursedescription}</td>
               <td>
-                <img style={{ width: "100px" }} src={`${baseUrl}/${course.photo}`} alt={course.coursename} />
+                <img style={{ width: "100px" }} src={`${baseUrl}/${course?.photo}`} alt={course?.coursename} />
               </td>
               <td>{course.coursefee}</td>
               <td>
-                <Link to={`/edit_course/${course._id}`}>
+                <Link to={`/edit_course/${course?._id}`}>
                   <i className="bi bi-pencil"></i>
                 </Link>
               </td>
               <td>
-                <Link to={`/course_lessons/${course._id}`}>
+                <Link to={`/course_lessons/${course?._id}`}>
                   <i className="bi bi-book"></i>
                 </Link>
               </td>

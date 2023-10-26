@@ -30,8 +30,8 @@ const CategoryTable: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
   }, []);
 
   // Filter categories based on the search query
-  const filteredCategories = category.filter((category) =>
-    category.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredCategories = category?.filter((category) =>
+    category?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase())
   );
 
   // Calculate the total number of pages
@@ -80,11 +80,11 @@ const CategoryTable: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-          {currentCategories.map((category, index) => (
-            <tr key={category._id}>
+          {currentCategories?.map((category, index) => (
+            <tr key={category?._id}>
               <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-              <td>{category.title}</td>
-              <td>{category.description}</td>
+              <td>{category?.title}</td>
+              <td>{category?.description}</td>
             </tr>
           ))}
         </tbody>
@@ -96,7 +96,7 @@ const CategoryTable: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           </button>
         )}
 
-        {Array.from({ length: totalPages }, (_, index) => (
+        {Array?.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
             onClick={() => setCurrentPage(index + 1)}

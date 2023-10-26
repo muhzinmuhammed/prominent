@@ -43,7 +43,7 @@ const Certificate = () => {
           <div className="certificate-header">
             <h1 className="text-center">Prominent</h1>
           </div>
-          {entrolled.map((enrolled, index) => (
+          {entrolled?.map((enrolled, index) => (
             <div key={index} className="certificate-body">
               <p className="certificate-title">
                 Certificate of Completion of

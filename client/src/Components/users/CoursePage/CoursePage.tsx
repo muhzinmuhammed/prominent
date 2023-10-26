@@ -155,7 +155,7 @@ const CoursePage: React.FC = () => {
                     </div>
                   </div>
                 ))
-              : filteredCourses.map((course) => (
+              : filteredCourses?.map((course) => (
                   // Display filtered courses if search query is not empty
                   <div key={course?._id} className="col-lg-4 mt-5">
                     <div
@@ -193,8 +193,8 @@ const CoursePage: React.FC = () => {
             <div className="row ms-5 mt-5">
               <h1>Enrolled Courses</h1>
               {entrolled
-                .filter((entroll) => entroll?.status !== "Refund")
-                .map((entroll) => (
+                ?.filter((entroll) => entroll?.status !== "Refund")
+                ?.map((entroll) => (
                   <div key={entroll?._id} className="col-lg-4 mt-5">
                     <div
                       className="card-border card"

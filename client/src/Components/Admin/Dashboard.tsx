@@ -87,7 +87,7 @@ const Dashboard: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Total Revenue</h5>
-              <p className="card-text">{counts.tot}</p>
+              <p className="card-text">{counts?.tot}</p>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const Dashboard: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Total Users</h5>
-              <p className="card-text">{counts.totalUsersCount}</p>
+              <p className="card-text">{counts?.totalUsersCount}</p>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@ const Dashboard: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Total Orders</h5>
-              <p className="card-text">{counts.totalOrderCount}</p>
+              <p className="card-text">{counts?.totalOrderCount}</p>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@ const Dashboard: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Total Insructor Count</h5>
-              <p className="card-text">{counts.InsructorCount}</p>
+              <p className="card-text">{counts?.InsructorCount}</p>
             </div>
           </div>
         </div>
@@ -119,7 +119,7 @@ const Dashboard: React.FC<{ Toggle: () => void }> = ({ Toggle }) => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Total Course Count</h5>
-              <p className="card-text">{counts.CourseCount}</p>
+              <p className="card-text">{counts?.CourseCount}</p>
             </div>
           </div>
         </div>

@@ -28,10 +28,10 @@ const Home: React.FC<HomeProps> = ({ Toggle }) => {
   }, []);
 
   // Filter student data based on the search query
-  const filteredStudents = studentDetails.filter((user) => {
-    const fullName = user.studentname.toLowerCase();
-    const query = searchQuery.toLowerCase();
-    return fullName.includes(query);
+  const filteredStudents = studentDetails?.filter((user) => {
+    const fullName = user?.studentname?.toLowerCase();
+    const query = searchQuery?.toLowerCase();
+    return fullName?.includes(query);
   });
 
   // Calculate the total number of page
@@ -39,7 +39,7 @@ const Home: React.FC<HomeProps> = ({ Toggle }) => {
 
   // Slice the data to display only the current page
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const displayedStudents: any[] = filteredStudents.slice(
+  const displayedStudents: any[] = filteredStudents?.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
@@ -83,12 +83,12 @@ const Home: React.FC<HomeProps> = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-          {displayedStudents.map((user, index) => (
-            <tr key={user._id}>
+          {displayedStudents?.map((user, index) => (
+            <tr key={user?._id}>
               <td>{index + 1}</td>
-              <td>{user.studentname}</td>
-              <td>{user.studentemail}</td>
-              <td>{user.phone}</td>
+              <td>{user?.studentname}</td>
+              <td>{user?.studentemail}</td>
+              <td>{user?.phone}</td>
               <td>
                 <button
                   onClick={() => toggleUserStatus(user)}
@@ -98,7 +98,7 @@ const Home: React.FC<HomeProps> = ({ Toggle }) => {
                       : "btn btn-danger"
                   }
                 >
-                  {user.isBlocked === false ? "Block" : "Unblock"}
+                  {user?.isBlocked === false ? "Block" : "Unblock"}
                 </button>
               </td>
             </tr>

@@ -83,14 +83,14 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-          {OrderTable.map((order, index) => (
-            <tr key={order._id}>
+          {OrderTable?.map((order, index) => (
+            <tr key={order?._id}>
               <td>{index + 1}</td>
-              <td>{order.studentId?.studentname}</td>
-              <td>{order.courseId.coursename}</td>
-              <td>{order.courseId.coursefee}</td>
-              <td>{order.instructorId.instrctorname}</td>
-              <td>{order.status}</td>
+              <td>{order?.studentId?.studentname}</td>
+              <td>{order?.courseId?.coursename}</td>
+              <td>{order?.courseId?.coursefee}</td>
+              <td>{order?.instructorId?.instrctorname}</td>
+              <td>{order?.status}</td>
             </tr>
           ))}
         </tbody>
@@ -104,7 +104,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ Toggle }) => {
             Prev
           </button>
         )}
-        {Array.from({ length: totalPages }, (_, index) => (
+        {Array?.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
             onClick={() => setCurrentPage(index + 1)}

@@ -54,13 +54,13 @@ const Wallet: React.FC = () => {
                     {index + 1}
                   </td>
                   <td>
-                    {walletItem.courseId?.coursename}
+                    {walletItem?.courseId?.coursename}
                   </td>
                   <td>
-                    {walletItem.courseId?.coursefee}
+                    {walletItem?.courseId?.coursefee}
                   </td>
                   <td>
-                    {new Date(walletItem.courseId.createdAt).toLocaleDateString()}
+                    {new Date(walletItem?.courseId?.createdAt).toLocaleDateString()}
                   </td>
                 </tr>
               ))}

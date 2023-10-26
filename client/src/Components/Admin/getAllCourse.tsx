@@ -124,16 +124,16 @@ const GetAllCourse: React.FC<GetAllCourseProps> = ({ Toggle }) => {
           </tr>
         </thead>
         <tbody>
-          {currentCourses.map((course, index) => (
-            <tr key={course._id}>
+          {currentCourses?.map((course, index) => (
+            <tr key={course?._id}>
               <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-              <td>{course.coursename}</td>
-              <td>{course.coursedescrption}</td>
-              <td>{course.instructor?.instrctorname}</td>
-              <td>{course.coursefee}</td>
+              <td>{course?.coursename}</td>
+              <td>{course?.coursedescrption}</td>
+              <td>{course?.instructor?.instrctorname}</td>
+              <td>{course?.coursefee}</td>
               <td>
                 <img
-                  src={`${baseUrl}/${course.photo}`}
+                  src={`${baseUrl}/${course?.photo}`}
                   alt="ll"
                   style={{ width: "40px" }}
                 />
@@ -163,7 +163,7 @@ const GetAllCourse: React.FC<GetAllCourseProps> = ({ Toggle }) => {
             Prev
           </button>
         )}
-        {Array.from({ length: totalPages }, (_, index) => (
+        {Array?.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
             onClick={() => setCurrentPage(index + 1)}
