@@ -63,7 +63,70 @@ function Cards() {
 
   return (
     <section>
-      
+      <h1 className="text-center mt-5 card-head">Trending Course</h1>
+      <Container>
+        <Form className="d-flex mx-auto">
+          <Form.Control
+            type="search"
+            placeholder="Search Courses"
+            className="search"
+            aria-label="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </Form>
+
+        <Carousel
+          swipeable={false}
+          draggable={false}
+          showDots={true}
+          responsive={responsive}
+          ssr={true}
+          infinite={true}
+          autoPlay={false}
+          autoPlaySpeed={1000}
+          keyBoardControl={true}
+          customTransition="all .5"
+          transitionDuration={500}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {filteredCourses.map((course) => (
+            <div
+              className="card mt-5 "
+              style={{
+                marginRight: "30px",
+                borderRadius: "10px",
+                height: "580px",
+              }}
+              key={course?._id}
+            >
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/course_details/${course?._id}`}
+              >
+                <img
+                  style={{ height: "300px", width: "100%" }}
+                  className="product--image"
+                  src={`${baseUrl}/${course?.photo}`}
+                  alt="a"
+                />
+                <h2 className="text-center mt-5">{course?.coursename}</h2>
+                <p className="text-dark mt-3">
+                  <b>{course?.coursedescription}</b>
+                </p>
+                <small className="text-dark mt-5 ms-3">
+                  {course?.instructor?.instrctorname}
+                </small>
+
+                <h4 className="price text-center">₹ {course?.coursefee}</h4>
+              </Link>
+            </div>
+          ))}
+        </Carousel>
+      </Container>
     </section>
   );
 }
