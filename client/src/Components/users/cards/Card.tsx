@@ -22,7 +22,7 @@ interface Course {
 function Cards() {
   const baseUrl =
     "http://res.cloudinary.com/dfnwvbiyy/image/upload/v1694269781";
-  const [course, setCourse] = useState<Course[]>([]); // Provide type annotation for course
+  const [courses, setCourse] = useState<Course[]>([]); // Provide type annotation for course
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function Cards() {
     },
   };
 
-  const filteredCourses = course?.filter((course) =>
+  const filteredCourses = courses?.filter((course) =>
     course?.coursename?.toLowerCase()?.includes(searchQuery?.toLowerCase())
   );
 
