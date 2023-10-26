@@ -93,7 +93,7 @@ function Cards() {
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
         >
-          {filteredCourses.map((course) => (
+          {filteredCourses?.map((course) => (
             <div
               className="card mt-5 "
               style={{
