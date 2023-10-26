@@ -31,7 +31,7 @@ const InstructorList: React.FC = () => {
         <h1 className="text-center mt-5 card-head">Main INSTRUCTOR</h1>
         <Container className="mt-5">
           <Row className="ms-4">
-            {instructors.slice(0, 3).map((instructor) => (
+            {instructors?.slice(0, 3)?.map((instructor) => (
               <Col xs={12} md={4} className="instructor-card" key={instructor?._id}>
                 <Card className="ms-5" style={{ width: '18rem' }}>
                   <Card.Img variant="top" src={image} />

@@ -17,7 +17,7 @@ const Room: React.FC = () => {
         Date.now().toString(),
         "muhzin sidhiq"
       );
-      const zp = ZegoUIKitPrebuilt.create(kitToken);
+      const zp = ZegoUIKitPrebuilt?.create(kitToken);
 
       if (elementRef.current) {
         zp.joinRoom({
