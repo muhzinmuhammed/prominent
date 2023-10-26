@@ -48,7 +48,7 @@ const io = new SocketIOServer(server, {
 
   app.use(express.static(path.join(__dirname,"..", "..","..","prominent","client", "dist")));
 
-app.all("/", function (req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname,"..", "..","..","prominent","client", "dist", "index.html"));
 });
 

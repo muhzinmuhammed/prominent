@@ -46,7 +46,7 @@ const io = new socket_io_1.Server(server, {
     },
 });
 app.use(express_1.default.static(path_1.default.join(__dirname, "..", "..", "..", "prominent", "client", "dist")));
-app.all("/", function (req, res) {
+app.get("*", function (req, res) {
     res.sendFile(path_1.default.join(__dirname, "..", "..", "..", "prominent", "client", "dist", "index.html"));
 });
 // Define global variables with proper types
