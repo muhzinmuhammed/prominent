@@ -58,7 +58,7 @@ function Cards() {
   };
 
   const filteredCourses = course?.filter((course) =>
-    course?.coursename.toLowerCase().includes(searchQuery?.toLowerCase())
+    course?.coursename?.toLowerCase()?.includes(searchQuery?.toLowerCase())
   );
 
   return (
