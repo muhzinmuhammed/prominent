@@ -5,6 +5,8 @@ import OrderModel from "../../models/orderModel";
 
 const getAllCourses = async (req: Request, res: Response) => {
   try {
+    console.log("llll");
+    
     const allCourse = await CourseModel.find().populate('instructor').where({ isApproved: true });
 
     if (allCourse) {

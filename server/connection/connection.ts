@@ -7,7 +7,7 @@ dotenv.config();
 
 async function connectToDb() {
     const URI:string = process.env.MONGO_URI??""
-    console.log(URI)
+    
    
     try {
         await mongoose.connect(URI);

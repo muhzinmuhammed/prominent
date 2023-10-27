@@ -15,6 +15,7 @@ const EntrolledCourse: React.FC = () => {
     "https://res.cloudinary.com/dfnwvbiyy/video/upload/v1694365110/";
   const { id } = useParams<{ id: string }>();
 
+
   const navigate = useNavigate();
 
   const [newLessons, setNewLessons] = useState<any>(null); // Replace 'any' with the actual type

@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 interface CourseDetailsProps {
   course: {
+    courseduration: string;
     _id: string;
     photo: string;
     coursename: string;
@@ -15,7 +16,7 @@ interface CourseDetailsProps {
     instructor?: {
       instrctorname: string;
     };
-    duration: string;
+    
     coursefee: string;
     courseLessons: Array<{
       title: string;
@@ -183,7 +184,8 @@ const CourseDetails: React.FC = () => {
               </div>
               <div className="col-lg-3">
                 <h1>Duration</h1>
-                <h6>{course?.duration} week</h6>
+                <h6>{course?.courseduration
+} week</h6>
               </div>
               <div className="col-lg-3">
                 <h1>Price</h1>

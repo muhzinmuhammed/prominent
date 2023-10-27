@@ -137,6 +137,8 @@ const allUsers = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const users = await StudentModel.find({ _id: { $ne: id } });
+    console.log(users,"lll");
+    
 
     return res.json(users).status(200);
   } catch (error) {

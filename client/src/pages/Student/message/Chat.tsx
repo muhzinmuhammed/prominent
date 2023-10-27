@@ -60,6 +60,8 @@ const Chat: React.FC = () => {
     async function fetchData() {
       try {
         const userData = localStorage.getItem("userData");
+        console.log(userData,"lll");
+        
         if (!userData) {
           navigate("/login");
         } else {
@@ -74,8 +76,13 @@ const Chat: React.FC = () => {
   }, [navigate]);
 
   useEffect(() => {
+   
+    
     if (currentUser) {
       socket.current = io(`${host}`);
+      console.log(socket.current,"lll");
+      
+
       socket.current.emit("add-user", currentUser._id);
     }
 
