@@ -15,7 +15,7 @@ const Room: React.FC = () => {
         serverSecret,
         roomId || "",
         Date.now().toString(),
-        "muhzin sidhiq"
+        "muhzin muhammed"
       );
       const zp = ZegoUIKitPrebuilt?.create(kitToken);
 
